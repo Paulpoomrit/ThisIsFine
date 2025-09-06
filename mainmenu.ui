@@ -10,8 +10,30 @@
     <height>600</height>
    </rect>
   </property>
+  <property name="font">
+   <font>
+    <family>VT323</family>
+    <pointsize>13</pointsize>
+    <italic>false</italic>
+    <bold>false</bold>
+   </font>
+  </property>
   <property name="windowTitle">
    <string>MainWindow</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">* {
+	font: 13pt &quot;VT323&quot;;
+}
+
+#centralWidget { background: rgba(32, 80, 96, 100); }
+
+QPushButton {
+	background: &quot;white&quot;;
+}
+
+
+</string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <widget class="QWidget" name="verticalLayoutWidget">
@@ -20,7 +42,7 @@
       <x>320</x>
       <y>210</y>
       <width>160</width>
-      <height>134</height>
+      <height>138</height>
      </rect>
     </property>
     <layout class="QVBoxLayout" name="verticalLayout">
@@ -42,13 +64,6 @@
       <widget class="QPushButton" name="exitButton">
        <property name="text">
         <string>EXIT</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QPushButton" name="pushButton_4">
-       <property name="text">
-        <string>-</string>
        </property>
       </widget>
      </item>
