@@ -18,7 +18,7 @@ RetroButton::RetroButton(QWidget *parent) :
     shadow(new QGraphicsDropShadowEffect)
 {
     shadow->setBlurRadius(6);
-    shadow->setOffset(4, 4);
+    shadow->setOffset(-2, -2);
     shadow->setColor(QColor("#1a1a1a"));
     setGraphicsEffect(shadow);
 }
@@ -34,5 +34,16 @@ void RetroButton::playButtonClickedSound(const double& volume = 0.25)
 void RetroButton::enterEvent(QEnterEvent *event)
 {
     playButtonClickedSound();
+    shadow->setBlurRadius(20);
+    shadow->setOffset(2, 2);
+    shadow->setColor(QColor("#ffffff"));
+    Q_UNUSED(event);
+}
+
+void RetroButton::leaveEvent(QEvent *event)
+{
+    shadow->setBlurRadius(6);
+    shadow->setOffset(-2, -2);
+    shadow->setColor(QColor("#1a1a1a"));
     Q_UNUSED(event);
 }

@@ -19,11 +19,9 @@ private:
     void playButtonClickedSound(const double& volume);
 
     QGraphicsDropShadowEffect *shadow;
-
 protected:
     void enterEvent(QEnterEvent *event);
-
-signals:
+    void leaveEvent(QEvent *event);
 };
 
 #endif // RETROBUTTON_H
