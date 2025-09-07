@@ -1,26 +1,26 @@
 #include "tile.h"
 #include "tilestates.h"
 
-tile::tile(QObject *parent)
+Tile::Tile(QObject *parent)
     : QObject{parent}
 {}
 
-TileState tile::GetState() const
+TileState Tile::GetState() const
 {
     return state;
 }
 
-void tile::ChangeHealth(int c)
+void Tile::ChangeHealth(int c)
 {
     emit HealthChanged(c);
 }
 
-void tile::ChangeFire(int c)
+void Tile::ChangeFire(int c)
 {
     emit FireChanged(c);
 }
 
-void tile::ChangeState(TileState newState)
+void Tile::ChangeState(TileState newState)
 {
     // Emit a signal with both the new and old state
     emit StateChanged(newState, state);

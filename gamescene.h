@@ -10,7 +10,7 @@ class GameScene : public QGraphicsScene
 public:
     GameScene(QObject *parent);
 private:
-    void initTileBoard(std::vector<tile>*);
+    void initTileBoard(std::vector<Tile>*);
 };
 
 #endif // GAMESCENE_H

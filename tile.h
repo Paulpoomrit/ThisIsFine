@@ -4,11 +4,11 @@
 #include <QObject>
 #include "tilestates.h"
 
-class tile : public QObject
+class Tile : public QObject
 {
     Q_OBJECT
 public:
-    explicit tile(QObject *parent = nullptr);
+    explicit Tile(QObject *parent = nullptr);
     TileState GetState() const;
     void ChangeHealth(int);
     void ChangeFire(int);
