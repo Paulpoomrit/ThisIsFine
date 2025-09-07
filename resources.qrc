@@ -1,0 +1,13 @@
+<RCC>
+    <qresource prefix="/mainMenu">
+        <file>Content/ThisIsUiBG.png</file>
+    </qresource>
+    <qresource prefix="/SFX">
+        <file>Content/SFX/airpods case closed 1.wav</file>
+        <file>Content/SFX/airpods case closed 2.wav</file>
+        <file>Content/SFX/airpods case closed 3.wav</file>
+        <file>Content/SFX/airpods case closed 5.wav</file>
+        <file>Content/SFX/airpods case closed 6.wav</file>
+        <file>Content/SFX/airpods case closed 4.wav</file>
+    </qresource>
+</RCC>
