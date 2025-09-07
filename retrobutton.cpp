@@ -2,6 +2,7 @@
 #include <QRandomGenerator>
 #include <QDebug>
 #include <QEnterEvent>
+#include <QGraphicsDropShadowEffect>
 
 RetroButton::RetroButton(QWidget *parent) :
     QPushButton(parent),
@@ -13,8 +14,14 @@ RetroButton::RetroButton(QWidget *parent) :
         "qrc:/SFX/Content/SFX/airpods case closed 5.wav",
         "qrc:/SFX/Content/SFX/airpods case closed 6.wav"
     }),
-    sfx(new QSoundEffect)
-{}
+    sfx(new QSoundEffect),
+    shadow(new QGraphicsDropShadowEffect)
+{
+    shadow->setBlurRadius(6);
+    shadow->setOffset(4, 4);
+    shadow->setColor(QColor("#1a1a1a"));
+    setGraphicsEffect(shadow);
+}
 
 void RetroButton::playButtonClickedSound(const double& volume = 0.25)
 {

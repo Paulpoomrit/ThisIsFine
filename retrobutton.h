@@ -1,9 +1,11 @@
 #ifndef RETROBUTTON_H
 #define RETROBUTTON_H
 
+#include <QGraphicsDropShadowEffect>
 #include <QPushButton>
 #include <QSoundEffect>
 #include <QWidget>
+#include <QGraphicsEffect>
 
 class RetroButton : public QPushButton
 {
@@ -15,6 +17,8 @@ private:
     std::vector <QString> buttonClickedSFXArray;
     QSoundEffect *sfx;
     void playButtonClickedSound(const double& volume);
+
+    QGraphicsDropShadowEffect *shadow;
 
 protected:
     void enterEvent(QEnterEvent *event);

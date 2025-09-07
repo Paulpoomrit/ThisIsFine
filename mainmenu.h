@@ -1,6 +1,7 @@
 #ifndef MAINMENU_H
 #define MAINMENU_H
 
+#include <QGraphicsDropShadowEffect>
 #include <QMainWindow>
 #include "gamemode.h"
 
