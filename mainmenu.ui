@@ -6,9 +6,15 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>800</width>
-    <height>600</height>
+    <width>1920</width>
+    <height>1080</height>
    </rect>
+  </property>
+  <property name="sizePolicy">
+   <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+    <horstretch>0</horstretch>
+    <verstretch>0</verstretch>
+   </sizepolicy>
   </property>
   <property name="font">
    <font>
@@ -26,62 +32,220 @@
 	font: 13pt &quot;VT323&quot;;
 }
 
-#centralWidget { background: rgba(32, 80, 96, 100); }
-
-QPushButton {
-	background: &quot;white&quot;;
+#centralwidget {
+     background: &quot;black&quot;;
+	border-image: url(:/mainMenuResources/Content/MainMenu/ThisIsUiBG.png);
 }
+
+QPushButton#exitButton {
+	border-image: url(:/mainMenuResources/Content/MainMenu/exitButton_normal.png);
+}
+
+QPushButton#exitButton:hover {
+	border-image: url(:/mainMenuResources/Content/MainMenu/exitButtonHover.png);
+}
+
+QPushButton#infiniteModeButton { 
+	border-image: url(:/mainMenuResources/Content/MainMenu/infiniteModeButton_normal.png);
+}
+
+QPushButton#infiniteModeButton:hover { 
+	border-image: url(:/mainMenuResources/Content/MainMenu/infiniteModeButton_hover.png);
+}
+
+QPushButton#storyModeButton { 
+	border-image: url(:/mainMenuResources/Content/MainMenu/storyModeButton_normal.png);
+}
+
+QPushButton#storyModeButton:hover { 
+	border-image: url(:/mainMenuResources/Content/MainMenu/storyModeButton_hover.png);
+}
+
 
 
 </string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <widget class="QWidget" name="verticalLayoutWidget">
-    <property name="geometry">
-     <rect>
-      <x>320</x>
-      <y>210</y>
-      <width>160</width>
-      <height>138</height>
-     </rect>
-    </property>
-    <layout class="QVBoxLayout" name="verticalLayout">
-     <item>
-      <widget class="QPushButton" name="storyModeButton">
-       <property name="text">
-        <string>STORY MODE</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QPushButton" name="hamburgerMenuButton">
-       <property name="text">
-        <string>INFINITE MODE</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QPushButton" name="exitButton">
-       <property name="text">
-        <string>EXIT</string>
-       </property>
-      </widget>
-     </item>
-    </layout>
-   </widget>
+   <layout class="QVBoxLayout" name="verticalLayout">
+    <item>
+     <spacer name="horizontalSpacer_2">
+      <property name="orientation">
+       <enum>Qt::Orientation::Horizontal</enum>
+      </property>
+      <property name="sizeHint" stdset="0">
+       <size>
+        <width>40</width>
+        <height>450</height>
+       </size>
+      </property>
+     </spacer>
+    </item>
+    <item>
+     <layout class="QHBoxLayout" name="horizontalLayout_3">
+      <property name="sizeConstraint">
+       <enum>QLayout::SizeConstraint::SetMaximumSize</enum>
+      </property>
+      <property name="leftMargin">
+       <number>100</number>
+      </property>
+      <property name="topMargin">
+       <number>100</number>
+      </property>
+      <property name="rightMargin">
+       <number>100</number>
+      </property>
+      <item>
+       <spacer name="horizontalSpacer_4">
+        <property name="orientation">
+         <enum>Qt::Orientation::Horizontal</enum>
+        </property>
+        <property name="sizeType">
+         <enum>QSizePolicy::Policy::Preferred</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>50</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item>
+       <spacer name="verticalSpacer">
+        <property name="orientation">
+         <enum>Qt::Orientation::Vertical</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>20</width>
+          <height>40</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item>
+       <widget class="RetroButtonBase" name="storyModeButton">
+        <property name="enabled">
+         <bool>true</bool>
+        </property>
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="RetroButtonBase" name="infiniteModeButton">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="RetroButtonBase" name="exitButton">
+        <property name="enabled">
+         <bool>true</bool>
+        </property>
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
+          <horstretch>0</horstretch>
+          <verstretch>10</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <spacer name="verticalSpacer_2">
+        <property name="orientation">
+         <enum>Qt::Orientation::Vertical</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>20</width>
+          <height>40</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item>
+       <spacer name="verticalSpacer_3">
+        <property name="orientation">
+         <enum>Qt::Orientation::Vertical</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>20</width>
+          <height>40</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item>
+       <spacer name="horizontalSpacer">
+        <property name="orientation">
+         <enum>Qt::Orientation::Horizontal</enum>
+        </property>
+        <property name="sizeType">
+         <enum>QSizePolicy::Policy::Preferred</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>40</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+     </layout>
+    </item>
+    <item>
+     <spacer name="horizontalSpacer_3">
+      <property name="orientation">
+       <enum>Qt::Orientation::Horizontal</enum>
+      </property>
+      <property name="sizeHint" stdset="0">
+       <size>
+        <width>40</width>
+        <height>250</height>
+       </size>
+      </property>
+     </spacer>
+    </item>
+   </layout>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>800</width>
+     <width>1920</width>
      <height>24</height>
     </rect>
    </property>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>RetroButtonBase</class>
+   <extends>QPushButton</extends>
+   <header>retrobuttonbase.h</header>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections/>
 </ui>

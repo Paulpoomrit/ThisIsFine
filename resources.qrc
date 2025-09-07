@@ -1,1 +1,21 @@
-<RCC/>
+<RCC>
+    <qresource prefix="/mainMenuResources">
+        <file>Content/MainMenu/exitButton_normal.png</file>
+        <file>Content/MainMenu/exitButtonHover.png</file>
+        <file>Content/MainMenu/hamburgerButton_hover.png</file>
+        <file>Content/MainMenu/hamburgerButton_normal.png</file>
+        <file>Content/MainMenu/infiniteModeButton_hover.png</file>
+        <file>Content/MainMenu/infiniteModeButton_normal.png</file>
+        <file>Content/MainMenu/storyModeButton_hover.png</file>
+        <file>Content/MainMenu/storyModeButton_normal.png</file>
+        <file>Content/MainMenu/ThisIsUiBG.png</file>
+    </qresource>
+    <qresource prefix="/SFX">
+        <file>Content/SFX/airpods case closed 1.wav</file>
+        <file>Content/SFX/airpods case closed 2.wav</file>
+        <file>Content/SFX/airpods case closed 3.wav</file>
+        <file>Content/SFX/airpods case closed 4.wav</file>
+        <file>Content/SFX/airpods case closed 5.wav</file>
+        <file>Content/SFX/airpods case closed 6.wav</file>
+    </qresource>
+</RCC>

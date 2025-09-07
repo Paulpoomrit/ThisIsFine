@@ -1,4 +1,5 @@
-QT       += core gui
+QT       += core gui \
+    multimedia
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -11,11 +12,13 @@ CONFIG += c++17
 SOURCES += \
     main.cpp \
     mainmenu.cpp \
-    mainwindow.cpp
+    mainwindow.cpp \
+    retrobuttonbase.cpp
 
 HEADERS += \
     mainmenu.h \
-    mainwindow.h
+    mainwindow.h \
+    retrobuttonbase.h
 
 FORMS += \
     mainmenu.ui \
