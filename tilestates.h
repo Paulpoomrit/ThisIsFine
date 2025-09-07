@@ -1,7 +1,7 @@
 #ifndef TILESTATES_H
 #define TILESTATES_H
 
-enum TileStates {
+enum TileState {
     IDLE,
     BURNING,
     DEAD
