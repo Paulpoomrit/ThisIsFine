@@ -10,20 +10,24 @@ CONFIG += c++17
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    gamescene.cpp \
     gamewindow.cpp \
     main.cpp \
     mainmenu.cpp \
     mainwindow.cpp \
     retrobutton.cpp \
-    tile.cpp
+    tile.cpp \
+    tilegraphicsitem.cpp
 
 HEADERS += \
     gamemode.h \
+    gamescene.h \
     gamewindow.h \
     mainmenu.h \
     mainwindow.h \
     retrobutton.h \
     tile.h \
+    tilegraphicsitem.h \
     tilestates.h
 
 FORMS += \
