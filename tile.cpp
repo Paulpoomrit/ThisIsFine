@@ -5,6 +5,11 @@ tile::tile(QObject *parent)
     : QObject{parent}
 {}
 
+TileState tile::GetState() const
+{
+    return state;
+}
+
 void tile::ChangeHealth(int c)
 {
     emit HealthChanged(c);

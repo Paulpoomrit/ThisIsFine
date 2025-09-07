@@ -9,6 +9,7 @@ class tile : public QObject
     Q_OBJECT
 public:
     explicit tile(QObject *parent = nullptr);
+    TileState GetState() const;
     void ChangeHealth(int);
     void ChangeFire(int);
     void ChangeState(TileState);
