@@ -16,6 +16,7 @@ SOURCES += \
     retrobuttonbase.cpp
 
 HEADERS += \
+    gamemode.h \
     mainmenu.h \
     mainwindow.h \
     retrobuttonbase.h

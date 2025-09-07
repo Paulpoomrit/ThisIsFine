@@ -2,6 +2,7 @@
 #define MAINMENU_H
 
 #include <QMainWindow>
+#include "gamemode.h"
 
 namespace Ui {
 class MainMenu;
@@ -15,8 +16,13 @@ public:
     explicit MainMenu(QWidget *parent = nullptr);
     ~MainMenu();
 
+signals:
+    void gameStarted(GameMode);
+
 private:
     Ui::MainMenu *ui;
+    void startGame(GameMode);
+    void exitGame();
 };
 
 #endif // MAINMENU_H
