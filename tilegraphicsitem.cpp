@@ -88,9 +88,9 @@ void TileGraphicsItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *
 void TileGraphicsItem::mousePressEvent(QGraphicsSceneMouseEvent *event)
 {
     Q_UNUSED(event);
-    // if (soundCue) {
-    //     soundCue->playSFX(SFX::PRESSED, 1);
-    // }
+    if (soundCue) {
+        soundCue->playSFX(SFX::PRESSED, 1);
+    }
     setCurrentTileGraphicalState(TileGraphicalState::TILE_PRESSED);
     emit pressed();
 }
@@ -98,7 +98,7 @@ void TileGraphicsItem::mousePressEvent(QGraphicsSceneMouseEvent *event)
 void TileGraphicsItem::hoverEnterEvent(QGraphicsSceneHoverEvent *event)
 {
     // if (soundCue) {
-    //     soundCue->playSFX(SFX::HOVERED, 1);
+    //     soundCue->playSFX(SFX::HOVERED, 0.5);
     // }
     setCurrentTileGraphicalState(TileGraphicalState::TILE_HOVERED);
     update();
