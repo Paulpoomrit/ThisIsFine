@@ -16,7 +16,7 @@ class GameWindow : public QMainWindow
 public:
     explicit GameWindow(QWidget *parent = nullptr);
     ~GameWindow();
-    GameScene getScene();
+    GameScene *getScene();
     QSize calculateTileSize(int numRow, int numCol) const;
 
 private:

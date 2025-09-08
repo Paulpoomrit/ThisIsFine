@@ -15,7 +15,7 @@ GameWindow::~GameWindow()
     delete ui;
 }
 
-GameScene GameWindow::getScene()
+GameScene *GameWindow::getScene()
 {
     return scene;
 }
@@ -49,13 +49,5 @@ void GameWindow::showEvent(QShowEvent *event)
     scene = new GameScene(this);
     ui->graphicsView->setScene(scene);
     ui->graphicsView->setAlignment(Qt::AlignTop|Qt::AlignLeft);
-
-    // test vector (will be removed!)
-    std::vector<Tile*> test;
-    for (int i = 0; i < 64; ++i) {
-        test.push_back(new Tile());
-    }
-
-    scene->initTileBoard(test, calculateTileSize(8,8), 8);
     ui->graphicsView->show();
 }
