@@ -32,7 +32,6 @@ void GameWindow::resizeEvent(QResizeEvent *event)
     if(ui->graphicsView->scene()) {
         ui->graphicsView->fitInView(ui->graphicsView->scene()->sceneRect());
     }
-
 }
 
 // we delay the initialization of the tileBoard untill
