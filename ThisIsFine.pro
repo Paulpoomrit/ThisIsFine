@@ -17,7 +17,8 @@ SOURCES += \
     mainwindow.cpp \
     retrobutton.cpp \
     tile.cpp \
-    tilegraphicsitem.cpp
+    tilegraphicsitem.cpp \
+    tilelogic.cpp
 
 HEADERS += \
     gamemode.h \
@@ -28,6 +29,7 @@ HEADERS += \
     retrobutton.h \
     tile.h \
     tilegraphicsitem.h \
+    tilelogic.h \
     tilestates.h
 
 FORMS += \
