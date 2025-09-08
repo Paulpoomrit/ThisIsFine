@@ -9,7 +9,6 @@ GameScene::GameScene(QObject *parent) :
 
 void GameScene::initTileBoard(const std::vector<Tile*> &startingTileBoard,
                               const QSize &tileSize,
-                              const int &row,
                               const int &column)
 {
     currentTileItemBoard.clear();
@@ -33,10 +32,4 @@ void GameScene::initTileBoard(const std::vector<Tile*> &startingTileBoard,
             currentPos.rx() += xOffSet;
         }
     }
-}
-
-void GameScene::updateEntireTileBoard(std::vector<Tile *> NewTileBoard)
-{
-
-
 }

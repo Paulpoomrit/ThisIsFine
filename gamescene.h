@@ -13,11 +13,9 @@ public:
     GameScene(QObject *parent);
     void initTileBoard(const std::vector<Tile*> &startingTileBoard,
                        const QSize &tileSize,
-                       const int &row,
                        const int &column);
 private:
     std::vector<TileGraphicsItem*> currentTileItemBoard;
-    void updateEntireTileBoard(std::vector<Tile*> NewTileBoard);
 };
 
 #endif // GAMESCENE_H
