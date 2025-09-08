@@ -3,6 +3,8 @@
 
 #include <QMainWindow>
 
+#include <gamescene.h>
+
 namespace Ui {
 class GameWindow;
 }
@@ -14,9 +16,11 @@ class GameWindow : public QMainWindow
 public:
     explicit GameWindow(QWidget *parent = nullptr);
     ~GameWindow();
+    GameScene getScene();
 
 private:
     Ui::GameWindow *ui;
+    GameScene *scene;
     QSize calculateTileSize(int numRow, int numCol) const;
 
     // QWidget interface

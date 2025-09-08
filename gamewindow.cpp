@@ -15,6 +15,11 @@ GameWindow::~GameWindow()
     delete ui;
 }
 
+GameScene GameWindow::getScene()
+{
+    return scene;
+}
+
 QSize GameWindow::calculateTileSize(int numRow, int numCol) const
 {
     QSize tileSize;
@@ -41,7 +46,7 @@ void GameWindow::showEvent(QShowEvent *event)
 {
     Q_UNUSED(event);
     qDebug() << ui->graphicsView->size();
-    GameScene *scene = new GameScene(this);
+    scene = new GameScene(this);
     ui->graphicsView->setScene(scene);
     ui->graphicsView->setAlignment(Qt::AlignTop|Qt::AlignLeft);
 
