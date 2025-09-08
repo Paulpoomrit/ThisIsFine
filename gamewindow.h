@@ -17,11 +17,11 @@ public:
     explicit GameWindow(QWidget *parent = nullptr);
     ~GameWindow();
     GameScene getScene();
+    QSize calculateTileSize(int numRow, int numCol) const;
 
 private:
     Ui::GameWindow *ui;
     GameScene *scene;
-    QSize calculateTileSize(int numRow, int numCol) const;
 
     // QWidget interface
 protected:
