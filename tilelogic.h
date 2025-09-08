@@ -10,7 +10,7 @@ class TileLogic : public QObject
 {
     Q_OBJECT
 public:
-    TileLogic(Tile*, int, int, int, double, double);
+    TileLogic(Tile*, int = 3, int = 1, int = 10, double = 0.01, double = 0.04);
     void AddTarget(Tile*);
     void StartTimer(int);
 
