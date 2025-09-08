@@ -17,6 +17,15 @@ public:
 
 private:
     Ui::GameWindow *ui;
+    QSize calculateTileSize(int numRow, int numCol) const;
+
+    // QWidget interface
+protected:
+    void resizeEvent(QResizeEvent *event);
+
+    // QWidget interface
+protected:
+    void showEvent(QShowEvent *event);
 };
 
 #endif // GAMEWINDOW_H

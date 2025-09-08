@@ -7,7 +7,7 @@
 class TileGraphicsItem : public QGraphicsPixmapItem
 {
 public:
-    explicit TileGraphicsItem(QGraphicsItem *parent = nullptr);
+    explicit TileGraphicsItem(QGraphicsItem *parent = nullptr, const TileState tileState = TileState::IDLE, const QSize &tileSize = QSize(50,50));
     TileState getCurrentTileState() const;
     void setCurrentTileState(TileState newCurrentTileState);
 

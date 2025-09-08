@@ -1,6 +1,8 @@
 #ifndef GAMESCENE_H
 #define GAMESCENE_H
 
+#include "tilegraphicsitem.h"
+
 #include <QGraphicsScene>
 #include <tile.h>
 
@@ -9,10 +11,13 @@ class GameScene : public QGraphicsScene
     Q_OBJECT
 public:
     GameScene(QObject *parent);
+    void initTileBoard(const std::vector<Tile*> &startingTileBoard,
+                       const QSize &tileSize,
+                       const int &row,
+                       const int &column);
 private:
-    std::vector<Tile*> currentTileBoard;
-    void initTileBoard(std::vector<Tile*> startingTileBoard);
-    void updateTileBoard(std::vector<Tile*> NewTileBoard);
+    std::vector<TileGraphicsItem*> currentTileItemBoard;
+    void updateEntireTileBoard(std::vector<Tile*> NewTileBoard);
 };
 
 #endif // GAMESCENE_H
