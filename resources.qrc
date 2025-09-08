@@ -9,6 +9,21 @@
         <file>Content/SFX/airpods case closed 5.wav</file>
         <file>Content/SFX/airpods case closed 6.wav</file>
         <file>Content/SFX/airpods case closed 4.wav</file>
+        <file>Content/SFX/button pressed 1.wav</file>
+        <file>Content/SFX/button pressed 2.wav</file>
+        <file>Content/SFX/button pressed 3.wav</file>
+        <file>Content/SFX/button pressed 4.wav</file>
+        <file>Content/SFX/button pressed 5.wav</file>
+        <file>Content/SFX/button pressed 6.wav</file>
+        <file>Content/SFX/button pressed 7.wav</file>
+        <file>Content/SFX/button pressed 8.wav</file>
+        <file>Content/SFX/button pressed 9.wav</file>
+        <file>Content/SFX/button pressed 10.wav</file>
+        <file>Content/SFX/button pressed 11.wav</file>
+        <file>Content/SFX/button pressed 12.wav</file>
+        <file>Content/SFX/button pressed 13.wav</file>
+        <file>Content/SFX/button pressed 14.wav</file>
+        <file>Content/SFX/button pressed 15.wav</file>
     </qresource>
     <qresource prefix="/tiles">
         <file>Content/Tiles/tile_0000.png</file>
@@ -182,5 +197,6 @@
         <file>Content/Tiles/tile_0195.png</file>
         <file>Content/Tiles/tile_0196.png</file>
         <file>Content/Tiles/tile_0197.png</file>
+        <file>tile_hovered.png</file>
     </qresource>
 </RCC>

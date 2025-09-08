@@ -16,6 +16,7 @@ SOURCES += \
     mainmenu.cpp \
     mainwindow.cpp \
     retrobutton.cpp \
+    soundcue.cpp \
     tile.cpp \
     tilegraphicsitem.cpp \
     tilelogic.cpp
@@ -27,6 +28,7 @@ HEADERS += \
     mainmenu.h \
     mainwindow.h \
     retrobutton.h \
+    soundcue.h \
     tile.h \
     tilegraphicsitem.h \
     tilelogic.h \
