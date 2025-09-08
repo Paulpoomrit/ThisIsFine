@@ -16,6 +16,7 @@ public:
                        const int &column);
 private:
     std::vector<TileGraphicsItem*> currentTileItemBoard;
+    void handleTileClicked(TileGraphicsItem *, const int &tileIndex);
 };
 
 #endif // GAMESCENE_H

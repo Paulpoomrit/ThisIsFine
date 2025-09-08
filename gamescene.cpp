@@ -1,5 +1,6 @@
 #include "gamescene.h"
 #include "tilegraphicsitem.h"
+#include <qpushbutton.h>
 
 GameScene::GameScene(QObject *parent) :
     QGraphicsScene(parent),
@@ -19,7 +20,12 @@ void GameScene::initTileBoard(const std::vector<Tile*> &startingTileBoard,
 
     for (Tile* tile : startingTileBoard) {
         TileGraphicsItem *tileItem = new TileGraphicsItem(nullptr, tile->GetState(), tileSize);
+
         currentTileItemBoard.push_back(tileItem);
+        // connect(tileItem, , this, [=]() {
+        //     qDebug() << currentTileItemBoard.size()-1;
+        // });
+
         addItem(tileItem);
         tileItem->setPos(currentPos);
 

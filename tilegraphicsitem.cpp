@@ -1,26 +1,32 @@
 #include "tilegraphicsitem.h"
 
+#include <QPainter>
+#include <QPixmap>
 #include <qrandom.h>
 
-TileGraphicsItem::TileGraphicsItem(QGraphicsItem *parent, const TileState tileState, const QSize &tileSize) :
-    QGraphicsPixmapItem(parent),
-    currentTileState(tileState)
+TileGraphicsItem::TileGraphicsItem(QGraphicsObject *parent, const TileState tileState, const QSize &tileSize) :
+    QGraphicsObject(parent),
+    currentTileState(tileState),
+    tileSize(tileSize),
+    tileSprite(new QPixmap)
 {
     std::vector<QString> tileSprites = {":/tiles/Content/Tiles/tile_0000.png",
                                         ":/tiles/Content/Tiles/tile_0001.png",
                                         ":/tiles/Content/Tiles/tile_0002.png"};
     int randomIndex = QRandomGenerator::global()->bounded(static_cast<int>(tileSprites.size()));
     QPixmap pixmap(tileSprites.at(randomIndex));
-    pixmap = pixmap.scaled(tileSize.width(), tileSize.height());
-    setPixmap(pixmap);
+    *tileSprite = pixmap.scaled(tileSize.width(), tileSize.height());
 }
 
-TileState TileGraphicsItem::getCurrentTileState() const
+QRectF TileGraphicsItem::boundingRect() const
 {
-    return currentTileState;
+    return QRectF(0,0,tileSize.width(), tileSize.height());
 }
 
-void TileGraphicsItem::setCurrentTileState(TileState newCurrentTileState)
+void TileGraphicsItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
 {
-    currentTileState = newCurrentTileState;
+    Q_UNUSED(option);
+    Q_UNUSED(widget);
+
+    painter->drawPixmap(QPoint(0,0), *tileSprite);
 }
