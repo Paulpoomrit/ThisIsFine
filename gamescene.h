@@ -16,7 +16,12 @@ public:
                        const int &column);
 private:
     std::vector<TileGraphicsItem*> currentTileItemBoard;
-    void handleTileClicked(TileGraphicsItem *, const int &tileIndex);
+public slots:
+    void handleTileStateChanged(const int &tileIndex, TileState newState);
+private slots:
+    void handleTilePressed(const int &tileIndex);
+signals:
+    void tilePressed(const int &tileIndex);
 };
 
 #endif // GAMESCENE_H

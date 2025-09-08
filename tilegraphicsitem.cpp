@@ -18,6 +18,22 @@ TileGraphicsItem::TileGraphicsItem(QGraphicsObject *parent, const TileState tile
     *tileSprite = pixmap.scaled(tileSize.width(), tileSize.height());
 }
 
+TileState TileGraphicsItem::getCurrentTileState() const
+{
+    return currentTileState;
+}
+
+void TileGraphicsItem::setCurrentTileState(TileState newCurrentTileState)
+{
+    if (currentTileState == newCurrentTileState) {
+        return;
+    }
+    currentTileState = newCurrentTileState;
+    // todo: set graphics
+    // todo: play sound
+}
+
+
 QRectF TileGraphicsItem::boundingRect() const
 {
     return QRectF(0,0,tileSize.width(), tileSize.height());
@@ -29,4 +45,10 @@ void TileGraphicsItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *
     Q_UNUSED(widget);
 
     painter->drawPixmap(QPoint(0,0), *tileSprite);
+}
+
+void TileGraphicsItem::mousePressEvent(QGraphicsSceneMouseEvent *event)
+{
+    Q_UNUSED(event);
+    emit pressed();
 }

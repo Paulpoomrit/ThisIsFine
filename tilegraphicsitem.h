@@ -2,6 +2,7 @@
 #define TILEGRAPHICSITEM_H
 
 #include <QGraphicsPixmapItem>
+#include <QSoundEffect>
 #include "tilestates.h"
 
 class TileGraphicsItem : public QGraphicsObject
@@ -16,7 +17,6 @@ signals:
     void pressed();
     void hoveredEntered();
     void hoveredLeft();
-    void tileStateChanged(TileState newState);
 
 private:
     TileState currentTileState;
@@ -26,6 +26,10 @@ private:
 public:
     QRectF boundingRect() const;
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
+
+    // QGraphicsItem interface
+protected:
+    void mousePressEvent(QGraphicsSceneMouseEvent *event);
 };
 
 #endif // TILEGRAPHICSITEM_H
