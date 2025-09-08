@@ -83,8 +83,6 @@ void TileGraphicsItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *
         painter->drawPixmap(QPoint(0,0), *idleSprite);
         break;
     }
-
-
 }
 
 void TileGraphicsItem::mousePressEvent(QGraphicsSceneMouseEvent *event)
@@ -93,9 +91,6 @@ void TileGraphicsItem::mousePressEvent(QGraphicsSceneMouseEvent *event)
     // if (soundCue) {
     //     soundCue->playSFX(SFX::PRESSED, 1);
     // }
-    // QPainter *painter = new QPainter(tileSprite);
-    // painter->drawPixmap(QPoint(0,0), *clickedEffectSprite);
-    // painter->drawPixmap(QPoint(0,0), *highlightSprite);
     setCurrentTileGraphicalState(TileGraphicalState::TILE_PRESSED);
     emit pressed();
 }
@@ -105,9 +100,6 @@ void TileGraphicsItem::hoverEnterEvent(QGraphicsSceneHoverEvent *event)
     // if (soundCue) {
     //     soundCue->playSFX(SFX::HOVERED, 1);
     // }
-    // QPainter *painter = new QPainter(tileSprite);
-    // painter->drawPixmap(QPoint(0,0), *highlightSprite);
-    // painter->end();
     setCurrentTileGraphicalState(TileGraphicalState::TILE_HOVERED);
     update();
 }

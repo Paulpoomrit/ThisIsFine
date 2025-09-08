@@ -29,7 +29,9 @@ SoundCue::SoundCue(QObject *parent)
         "qrc:/SFX/Content/SFX/airpods case closed 5.wav",
         "qrc:/SFX/Content/SFX/airpods case closed 6.wav"
     })
-{}
+{
+
+}
 
 void SoundCue::playSFX(SFX type, const float &volume)
 {

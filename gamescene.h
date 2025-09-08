@@ -5,7 +5,7 @@
 #include "tilegraphicsitem.h"
 
 #include <QGraphicsScene>
-#include <tile.h>
+#include "tile.h"
 
 class GameScene : public QGraphicsScene
 {
