@@ -1,6 +1,7 @@
 #ifndef GAMESCENE_H
 #define GAMESCENE_H
 
+#include "soundcue.h"
 #include "tilegraphicsitem.h"
 
 #include <QGraphicsScene>
@@ -16,6 +17,7 @@ public:
                        const int &column);
 private:
     std::vector<TileGraphicsItem*> currentTileItemBoard;
+    SoundCue* sfx;
 public slots:
     void handleTileStateChanged(const int &tileIndex, TileState newState);
 private slots:

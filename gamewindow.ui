@@ -17,6 +17,9 @@
    <layout class="QHBoxLayout" name="horizontalLayout_2">
     <item>
      <widget class="QGraphicsView" name="graphicsView">
+      <property name="cursor" stdset="0">
+       <cursorShape>OpenHandCursor</cursorShape>
+      </property>
       <property name="verticalScrollBarPolicy">
        <enum>Qt::ScrollBarPolicy::ScrollBarAlwaysOff</enum>
       </property>

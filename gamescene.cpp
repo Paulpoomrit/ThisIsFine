@@ -5,7 +5,8 @@
 
 GameScene::GameScene(QObject *parent) :
     QGraphicsScene(parent),
-    currentTileItemBoard()
+    currentTileItemBoard(),
+    sfx(new SoundCue)
 {
 }
 
@@ -21,7 +22,7 @@ void GameScene::initTileBoard(const std::vector<Tile*> &startingTileBoard,
     QSignalMapper *mapper = new QSignalMapper(this);
 
     for (Tile* tile : startingTileBoard) {
-        TileGraphicsItem *tileItem = new TileGraphicsItem(nullptr, tile->GetState(), tileSize);
+        TileGraphicsItem *tileItem = new TileGraphicsItem(nullptr, tile->GetState(), tileSize, sfx);
 
         currentTileItemBoard.push_back(tileItem);
         mapper->setMapping(tileItem, currentTileItemBoard.size()-1);
@@ -53,6 +54,5 @@ void GameScene::handleTileStateChanged(const int &tileIndex, TileState newState)
 void GameScene::handleTilePressed(const int &tileIndex)
 {
     qDebug() << tileIndex;
-    currentTileItemBoard.at(tileIndex);
     emit tilePressed(tileIndex);
 }
