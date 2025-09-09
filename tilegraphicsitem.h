@@ -15,7 +15,8 @@ public:
     explicit TileGraphicsItem(QGraphicsObject *parent = nullptr,
                               const TileState tileState = TileState::IDLE,
                               const QSize &tileSize = QSize(50,50),
-                              SoundCue* parentSoundCue = nullptr);
+                              SoundCue* parentSoundCue = nullptr,
+                              const int& numTree = 15);
     TileState getCurrentTileState() const;
     void setCurrentTileState(TileState newCurrentTileState);
 
@@ -36,8 +37,7 @@ private:
     SoundCue *soundCue;
 
     TileGraphicalState currentTileGraphicalState;
-
-    TreeGraphicsItem* treeItem;
+    std::vector<TreeGraphicsItem*> treeItems;
 public:
     QRectF boundingRect() const;
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);

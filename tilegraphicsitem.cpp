@@ -3,11 +3,13 @@
 #include <QPainter>
 #include <QPixmap>
 #include <qrandom.h>
+#include <QRandomGenerator>
 
 TileGraphicsItem::TileGraphicsItem(QGraphicsObject *parent,
                                    const TileState tileState,
                                    const QSize &tileSize,
-                                   SoundCue *parentSoundCue) :
+                                   SoundCue *parentSoundCue,
+                                   const int& numTree) :
     QGraphicsObject(parent),
     currentTileState(tileState),
     tileSize(tileSize),
@@ -16,11 +18,12 @@ TileGraphicsItem::TileGraphicsItem(QGraphicsObject *parent,
     highlightSprite(new QPixmap(":/tiles/Content/Tiles/tile_0061.png")),
     clickedEffectSprite(new QPixmap(":/tiles/Content/Tiles/tile_0079.png")),
     soundCue(parentSoundCue),
-    currentTileGraphicalState(TileGraphicalState::TILE_DEFAULT)
+    currentTileGraphicalState(TileGraphicalState::TILE_DEFAULT),
+    treeItems()
 {
     std::vector<QString> tileSprites = {":/tiles/Content/Tiles/tile_0000.png",
-                                        ":/tiles/Content/Tiles/tile_0001.png",
-                                        ":/tiles/Content/Tiles/tile_0002.png"};
+                                        ":/tiles/Content/Tiles/tile_0000.png",
+                                        ":/tiles/Content/Tiles/tile_0001.png"};
     int randomIndex = QRandomGenerator::global()->bounded(static_cast<int>(tileSprites.size()));
     QPixmap pixmap(tileSprites.at(randomIndex));
     spriteLocation = tileSprites.at(randomIndex);
@@ -33,7 +36,15 @@ TileGraphicsItem::TileGraphicsItem(QGraphicsObject *parent,
              QGraphicsItem::ItemSendsGeometryChanges);
     setAcceptHoverEvents(true);
 
-    treeItem = new TreeGraphicsItem(this);
+    for (int i = 0; i < numTree; i++) {
+        TreeGraphicsItem *treeItem = new TreeGraphicsItem(this);
+        treeItem->setScale(1);
+        int randomX = QRandomGenerator::global()->bounded(tileSize.width());
+        int randomY = QRandomGenerator::global()->bounded(tileSize.height());
+        treeItem->setPos(randomX, randomY);
+        treeItems.push_back(treeItem);
+    }
+
 }
 
 TileState TileGraphicsItem::getCurrentTileState() const
