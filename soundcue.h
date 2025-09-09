@@ -5,7 +5,8 @@
 
 enum SFX {
     PRESSED,
-    HOVERED
+    HOVERED,
+    DIRT
 };
 
 class SoundCue : public QObject
@@ -16,8 +17,10 @@ public:
 private:
     const std::vector<QString> pressedSFXLocation;
     const std::vector<QString> hoveredSFXLocation;
+    const std::vector<QString> dirtSFXLocation;
     std::vector<QSoundEffect *>pressedSFX;
     std::vector<QSoundEffect *>hoveredSFX;
+    std::vector<QSoundEffect *>dirtSFX;
 };
 
 #endif // SOUNDCUE_H

@@ -97,9 +97,9 @@ void TileGraphicsItem::mousePressEvent(QGraphicsSceneMouseEvent *event)
 
 void TileGraphicsItem::hoverEnterEvent(QGraphicsSceneHoverEvent *event)
 {
-    // if (soundCue) {
-    //     soundCue->playSFX(SFX::HOVERED, 0.5);
-    // }
+    if (soundCue) {
+        soundCue->playSFX(SFX::DIRT, 0.1);
+    }
     setCurrentTileGraphicalState(TileGraphicalState::TILE_HOVERED);
     update();
 }
