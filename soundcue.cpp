@@ -4,7 +4,7 @@
 #include <qrandom.h>
 
 SoundCue::SoundCue(QObject *parent)
-    : QSoundEffect{parent},
+    : QObject{parent},
     pressedSFXLocation({
         QStringLiteral("qrc:/SFX/Content/SFX/button pressed 1.wav"),
         QStringLiteral("qrc:/SFX/Content/SFX/button pressed 2.wav"),
@@ -55,6 +55,7 @@ void SoundCue::playSFX(SFX type, const float &volume)
         break;
     }
     int randomSoundIndex = QRandomGenerator::global()->bounded(static_cast<int>(sfxSource.size()));
-    setVolume(volume);
+    QSoundEffect *effect = sfxSource.at(randomSoundIndex);
+    effect->setVolume(volume);
     sfxSource.at(randomSoundIndex)->play();
 }

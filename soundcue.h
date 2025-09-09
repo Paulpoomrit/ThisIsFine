@@ -8,7 +8,7 @@ enum SFX {
     HOVERED
 };
 
-class SoundCue : public QSoundEffect
+class SoundCue : public QObject
 {
 public:
     explicit SoundCue(QObject *parent = nullptr);
