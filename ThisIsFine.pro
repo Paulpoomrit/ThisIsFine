@@ -19,7 +19,8 @@ SOURCES += \
     soundcue.cpp \
     tile.cpp \
     tilegraphicsitem.cpp \
-    tilelogic.cpp
+    tilelogic.cpp \
+    treegraphicsitem.cpp
 
 HEADERS += \
     gamemode.h \
@@ -32,7 +33,8 @@ HEADERS += \
     tile.h \
     tilegraphicsitem.h \
     tilelogic.h \
-    tilestates.h
+    tilestates.h \
+    treegraphicsitem.h
 
 FORMS += \
     gamewindow.ui \
@@ -46,3 +48,6 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 
 RESOURCES += \
     resources.qrc
+
+DISTFILES += \
+    treeSprites.json
