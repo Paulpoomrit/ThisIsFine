@@ -6,6 +6,7 @@
 #include <QJsonArray>
 #include <QDir>
 #include <QElapsedTimer>
+#include <QRandomGenerator>
 
 TreeGraphicsItem::TreeGraphicsItem(QGraphicsItem *parent) :
     QGraphicsPixmapItem(parent),
@@ -17,7 +18,8 @@ TreeGraphicsItem::TreeGraphicsItem(QGraphicsItem *parent) :
 
     SpriteMap allSprites = loadTreeSpritePaths(":/data/treeSprites.json");
 
-    const auto &paths = allSprites[TreeType::BubblePineTree][TreeColour::GREEN];
+    const auto &[randomType, randomColour] = getRandomTreeCombo();
+    const auto &paths = allSprites[randomType][randomColour];
     loadTreeSprites(paths);
     setPixmap(treeSprites[0]);
     animate(20);
@@ -86,6 +88,20 @@ void TreeGraphicsItem::loadTreeSprites(std::vector<QString> pathArray)
         QPixmap sprite(path);
         treeSprites.push_back(sprite);
     }
+}
+
+std::pair<TreeType, TreeColour> TreeGraphicsItem::getRandomTreeCombo() const
+{
+    constexpr int treeTypeCount = 10;
+    constexpr int treeColourCount = 6;
+
+    int typeIndex = QRandomGenerator::global()->bounded(treeTypeCount);
+    int colourIndex = QRandomGenerator::global()->bounded(treeColourCount);
+
+    TreeType type = static_cast<TreeType>(typeIndex);
+    TreeColour colour = static_cast<TreeColour>(colourIndex);
+
+    return {type, colour};
 }
 
 QString TreeGraphicsItem::treeTypeToString(TreeType type)

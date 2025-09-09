@@ -46,6 +46,7 @@ private:
     std::vector<QPixmap> treeSprites;
     SpriteMap loadTreeSpritePaths(const QString &jsonPath);
     void loadTreeSprites(std::vector<QString>);
+    std::pair<TreeType, TreeColour> getRandomTreeCombo() const;
 
     QString treeTypeToString(TreeType type);
     TreeType stringToTreeType(const QString &str);
