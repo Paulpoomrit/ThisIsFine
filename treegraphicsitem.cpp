@@ -9,7 +9,9 @@
 
 TreeGraphicsItem::TreeGraphicsItem(QGraphicsItem *parent) :
     QGraphicsPixmapItem(parent),
-    treeSprites()
+    treeSprites(),
+    animTimer(new QTimer),
+    currentSpriteIndex(0)
 {
     qDebug() << "hi im tree!";
 
@@ -18,6 +20,19 @@ TreeGraphicsItem::TreeGraphicsItem(QGraphicsItem *parent) :
     const auto &paths = allSprites[TreeType::BubblePineTree][TreeColour::GREEN];
     loadTreeSprites(paths);
     setPixmap(treeSprites[0]);
+    animate(20);
+}
+
+void TreeGraphicsItem::animate(const int &fps)
+{
+    connect(animTimer, &QTimer::timeout, this, &TreeGraphicsItem::updateToNextSprite);
+    float updateTimeInMs = 1000 / fps;
+    animTimer->start(updateTimeInMs);
+}
+
+void TreeGraphicsItem::stopAnimation()
+{
+    disconnect(animTimer, &QTimer::timeout, this, &TreeGraphicsItem::updateToNextSprite);
 }
 
 SpriteMap TreeGraphicsItem::loadTreeSpritePaths(const QString &jsonPath)
@@ -128,4 +143,13 @@ TreeColour TreeGraphicsItem::stringToTreeColor(const QString &str)
     if (str == "NIGHT")      return TreeColour::NIGHT;
     qWarning() << "Unknown TreeColour:" << str;
     return TreeColour::GREEN; // fallback
+}
+
+void TreeGraphicsItem::updateToNextSprite()
+{
+    if (treeSprites.empty()) {
+        return;
+    }
+    setPixmap(treeSprites[currentSpriteIndex]);
+    currentSpriteIndex = (currentSpriteIndex + 1) % treeSprites.size();
 }

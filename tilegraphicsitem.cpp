@@ -34,7 +34,6 @@ TileGraphicsItem::TileGraphicsItem(QGraphicsObject *parent,
     setAcceptHoverEvents(true);
 
     treeItem = new TreeGraphicsItem(this);
-
 }
 
 TileState TileGraphicsItem::getCurrentTileState() const

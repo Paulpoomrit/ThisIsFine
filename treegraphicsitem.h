@@ -2,6 +2,7 @@
 #define TREEGRAPHICSITEM_H
 
 #include <QGraphicsPixmapItem>
+#include <QTimer>
 
 enum class TreeType {
     TriangleSpruceTree,
@@ -33,11 +34,14 @@ enum class TreeColour {
 // - the std::vector<QString> is the file path to the sprites
 using SpriteMap = QMap<TreeType, QMap<TreeColour, std::vector<QString>>>;
 
-class TreeGraphicsItem : public QGraphicsPixmapItem
+class TreeGraphicsItem : public QObject, public QGraphicsPixmapItem
 {
+    Q_OBJECT
 public:
     explicit TreeGraphicsItem(QGraphicsItem *parent = nullptr);
     std::vector<QString> getTreeFlipbookPath(TreeType, TreeColour);
+    void animate(const int &fps);
+    void stopAnimation();
 private:
     std::vector<QPixmap> treeSprites;
     SpriteMap loadTreeSpritePaths(const QString &jsonPath);
@@ -48,6 +52,10 @@ private:
 
     QString treeColorToString(TreeColour color);
     TreeColour stringToTreeColor(const QString &str);
+
+    QTimer *animTimer;
+    void updateToNextSprite();
+    int currentSpriteIndex;
 };
 
 #endif // TREEGRAPHICSITEM_H
