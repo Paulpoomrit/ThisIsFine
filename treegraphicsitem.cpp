@@ -3,6 +3,7 @@
 #include <QJsonDocument>
 #include <QJsonParseError>
 #include <QJsonObject>
+#include <QJsonArray>
 
 TreeGraphicsItem::TreeGraphicsItem(QGraphicsItem *parent) :
     QGraphicsPixmapItem(parent)
@@ -28,7 +29,26 @@ SpriteMap TreeGraphicsItem::loadTreeSprites(const QString &jsonPath)
 
     QJsonObject root = doc.object();
     for (auto treeIt = root.begin(); treeIt != root.end(); ++treeIt) {
+        TreeType type = stringToTreeType(treeIt.key());
+        QJsonObject colourObj = treeIt.value().toObject();
 
+        QMap<TreeColour, std::vector<QString>> colourMap;
+
+        for (auto colourIt = colourObj.begin(); colourIt != colourObj.end(); ++colourIt) {
+            TreeColour colour = stringToTreeColor(colourIt.key());
+            QJsonArray pathsArray = colourIt.value().toArray();
+
+            std::vector<QString> paths;
+            paths.reserve(pathsArray.size());
+
+            for (const auto &val :  std::as_const(pathsArray)) {
+                paths.push_back(val.toString());
+            }
+
+            colourMap[colour] = std::move(paths);
+        }
+
+        spriteMap[type] = std::move(colourMap);
     }
     return spriteMap;
 }
