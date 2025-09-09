@@ -5,6 +5,7 @@
 #include <QSoundEffect>
 #include "soundcue.h"
 #include "tilestates.h"
+#include "treegraphicsitem.h"
 
 class TileGraphicsItem : public QGraphicsObject
 
@@ -35,6 +36,8 @@ private:
     SoundCue *soundCue;
 
     TileGraphicalState currentTileGraphicalState;
+
+    TreeGraphicsItem* treeItem;
 public:
     QRectF boundingRect() const;
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);

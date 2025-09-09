@@ -32,6 +32,9 @@ TileGraphicsItem::TileGraphicsItem(QGraphicsObject *parent,
     setFlags(QGraphicsItem::ItemIsSelectable |
              QGraphicsItem::ItemSendsGeometryChanges);
     setAcceptHoverEvents(true);
+
+    treeItem = new TreeGraphicsItem(this);
+
 }
 
 TileState TileGraphicsItem::getCurrentTileState() const

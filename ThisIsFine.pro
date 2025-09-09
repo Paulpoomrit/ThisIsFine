@@ -20,7 +20,7 @@ SOURCES += \
     tile.cpp \
     tilegraphicsitem.cpp \
     tilelogic.cpp \
-    treegraphicsitem.cpp
+    treegraphicsitem.cpp \
 
 HEADERS += \
     gamemode.h \

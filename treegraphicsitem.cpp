@@ -4,19 +4,30 @@
 #include <QJsonParseError>
 #include <QJsonObject>
 #include <QJsonArray>
+#include <QDir>
+#include <QElapsedTimer>
 
 TreeGraphicsItem::TreeGraphicsItem(QGraphicsItem *parent) :
-    QGraphicsPixmapItem(parent)
+    QGraphicsPixmapItem(parent),
+    treeSprites()
 {
+    qDebug() << "hi im tree!";
+
+    SpriteMap allSprites = loadTreeSpritePaths(":/data/treeSprites.json");
+
+    const auto &paths = allSprites[TreeType::BubblePineTree][TreeColour::GREEN];
+    loadTreeSprites(paths);
+    setPixmap(treeSprites[0]);
 }
 
-SpriteMap TreeGraphicsItem::loadTreeSprites(const QString &jsonPath)
+SpriteMap TreeGraphicsItem::loadTreeSpritePaths(const QString &jsonPath)
 {
     SpriteMap spriteMap;
     QFile file(jsonPath);
 
     if (!file.open(QIODevice::ReadOnly)) {
         qWarning() << "Could not open JSON file:" << jsonPath;
+        qDebug() << "Working directory:" << QDir::currentPath();
         return spriteMap;
     }
 
@@ -51,6 +62,15 @@ SpriteMap TreeGraphicsItem::loadTreeSprites(const QString &jsonPath)
         spriteMap[type] = std::move(colourMap);
     }
     return spriteMap;
+}
+
+void TreeGraphicsItem::loadTreeSprites(std::vector<QString> pathArray)
+{
+    treeSprites.clear();
+    for (const QString &path : pathArray) {
+        QPixmap sprite(path);
+        treeSprites.push_back(sprite);
+    }
 }
 
 QString TreeGraphicsItem::treeTypeToString(TreeType type)

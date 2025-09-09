@@ -39,7 +39,9 @@ public:
     explicit TreeGraphicsItem(QGraphicsItem *parent = nullptr);
     std::vector<QString> getTreeFlipbookPath(TreeType, TreeColour);
 private:
-    SpriteMap loadTreeSprites(const QString &jsonPath);
+    std::vector<QPixmap> treeSprites;
+    SpriteMap loadTreeSpritePaths(const QString &jsonPath);
+    void loadTreeSprites(std::vector<QString>);
 
     QString treeTypeToString(TreeType type);
     TreeType stringToTreeType(const QString &str);
