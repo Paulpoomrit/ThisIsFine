@@ -1,41 +1,85 @@
 #include "soundcue.h"
 
+#include <QtCore/qstringliteral.h>
 #include <qrandom.h>
 
 SoundCue::SoundCue(QObject *parent)
-    : QSoundEffect{parent},
-    pressedSFX({
-        "qrc:/SFX/Content/SFX/button pressed 1.wav",
-        "qrc:/SFX/Content/SFX/button pressed 2.wav",
-        "qrc:/SFX/Content/SFX/button pressed 3.wav",
-        "qrc:/SFX/Content/SFX/button pressed 4.wav",
-        "qrc:/SFX/Content/SFX/button pressed 5.wav",
-        "qrc:/SFX/Content/SFX/button pressed 6.wav",
-        "qrc:/SFX/Content/SFX/button pressed 7.wav",
-        "qrc:/SFX/Content/SFX/button pressed 8.wav",
-        "qrc:/SFX/Content/SFX/button pressed 9.wav",
-        "qrc:/SFX/Content/SFX/button pressed 10.wav",
-        "qrc:/SFX/Content/SFX/button pressed 11.wav",
-        "qrc:/SFX/Content/SFX/button pressed 12.wav",
-        "qrc:/SFX/Content/SFX/button pressed 13.wav",
-        "qrc:/SFX/Content/SFX/button pressed 14.wav",
-        "qrc:/SFX/Content/SFX/button pressed 15.wav",
+    : QObject{parent},
+    pressedSFXLocation({
+        QStringLiteral("qrc:/SFX/Content/SFX/button pressed 1.wav"),
+        QStringLiteral("qrc:/SFX/Content/SFX/button pressed 2.wav"),
+        QStringLiteral("qrc:/SFX/Content/SFX/button pressed 3.wav"),
+        QStringLiteral("qrc:/SFX/Content/SFX/button pressed 4.wav"),
+        QStringLiteral("qrc:/SFX/Content/SFX/button pressed 5.wav"),
+        QStringLiteral("qrc:/SFX/Content/SFX/button pressed 6.wav"),
+        QStringLiteral("qrc:/SFX/Content/SFX/button pressed 7.wav"),
+        QStringLiteral("qrc:/SFX/Content/SFX/button pressed 8.wav"),
+        QStringLiteral("qrc:/SFX/Content/SFX/button pressed 9.wav"),
+        QStringLiteral("qrc:/SFX/Content/SFX/button pressed 10.wav"),
+        QStringLiteral("qrc:/SFX/Content/SFX/button pressed 11.wav"),
+        QStringLiteral("qrc:/SFX/Content/SFX/button pressed 12.wav"),
+        QStringLiteral("qrc:/SFX/Content/SFX/button pressed 13.wav"),
+        QStringLiteral("qrc:/SFX/Content/SFX/button pressed 14.wav"),
+        QStringLiteral("qrc:/SFX/Content/SFX/button pressed 15.wav"),
     }),
-    hoveredSFX({
-       "qrc:/SFX/Content/SFX/airpods case closed 1.wav",
-       "qrc:/SFX/Content/SFX/airpods case closed 2.wav",
-       "qrc:/SFX/Content/SFX/airpods case closed 3.wav",
-        "qrc:/SFX/Content/SFX/airpods case closed 4.wav",
-        "qrc:/SFX/Content/SFX/airpods case closed 5.wav",
-        "qrc:/SFX/Content/SFX/airpods case closed 6.wav"
+    hoveredSFXLocation({
+       QStringLiteral("qrc:/SFX/Content/SFX/airpods case closed 1.wav"),
+       QStringLiteral("qrc:/SFX/Content/SFX/airpods case closed 2.wav"),
+       QStringLiteral("qrc:/SFX/Content/SFX/airpods case closed 3.wav"),
+       QStringLiteral("qrc:/SFX/Content/SFX/airpods case closed 4.wav"),
+       QStringLiteral("qrc:/SFX/Content/SFX/airpods case closed 5.wav"),
+       QStringLiteral("qrc:/SFX/Content/SFX/airpods case closed 6.wav"),
+    }),
+    dirtSFXLocation({
+        QStringLiteral("qrc:/SFX/Content/SFX/footstep dirt 1.wav"),
+        QStringLiteral("qrc:/SFX/Content/SFX/footstep dirt 2.wav"),
+        QStringLiteral("qrc:/SFX/Content/SFX/footstep dirt 3.wav"),
+        QStringLiteral("qrc:/SFX/Content/SFX/footstep dirt 4.wav"),
+        QStringLiteral("qrc:/SFX/Content/SFX/footstep dirt 5.wav"),
+        QStringLiteral("qrc:/SFX/Content/SFX/footstep dirt 6.wav"),
+        QStringLiteral("qrc:/SFX/Content/SFX/footstep dirt 7.wav"),
+        QStringLiteral("qrc:/SFX/Content/SFX/footstep dirt 8.wav"),
+        QStringLiteral("qrc:/SFX/Content/SFX/footstep dirt 9.wav"),
+        QStringLiteral("qrc:/SFX/Content/SFX/footstep dirt 11.wav"),
+        QStringLiteral("qrc:/SFX/Content/SFX/footstep dirt 12.wav"),
+        QStringLiteral("qrc:/SFX/Content/SFX/footstep dirt 13.wav"),
+        QStringLiteral("qrc:/SFX/Content/SFX/footstep dirt 14.wav"),
+        QStringLiteral("qrc:/SFX/Content/SFX/footstep dirt 15.wav"),
+        QStringLiteral("qrc:/SFX/Content/SFX/footstep dirt 16.wav"),
+        QStringLiteral("qrc:/SFX/Content/SFX/footstep dirt 17.wav"),
+        QStringLiteral("qrc:/SFX/Content/SFX/footstep dirt 18.wav"),
+        QStringLiteral("qrc:/SFX/Content/SFX/footstep dirt 19.wav"),
+        QStringLiteral("qrc:/SFX/Content/SFX/footstep dirt 20.wav"),
+        QStringLiteral("qrc:/SFX/Content/SFX/footstep dirt 21.wav"),
+        QStringLiteral("qrc:/SFX/Content/SFX/footstep dirt 22.wav"),
+        QStringLiteral("qrc:/SFX/Content/SFX/footstep dirt 23.wav"),
+        QStringLiteral("qrc:/SFX/Content/SFX/footstep dirt 24.wav"),
+        QStringLiteral("qrc:/SFX/Content/SFX/footstep dirt 25.wav"),
+        QStringLiteral("qrc:/SFX/Content/SFX/footstep dirt 26.wav"),
+        QStringLiteral("qrc:/SFX/Content/SFX/footstep dirt 27.wav"),
+        QStringLiteral("qrc:/SFX/Content/SFX/footstep dirt 28.wav"),
     })
 {
-
+    for (const auto &path : pressedSFXLocation) {
+        QSoundEffect *sfx = new QSoundEffect();
+        sfx->setSource(path);
+        pressedSFX.push_back(sfx);
+    }
+    for (const auto &path : hoveredSFXLocation) {
+        QSoundEffect *sfx = new QSoundEffect();
+        sfx->setSource(path);
+        hoveredSFX.push_back(sfx);
+    }
+    for (const auto &path : dirtSFXLocation) {
+        QSoundEffect *sfx = new QSoundEffect();
+        sfx->setSource(path);
+        dirtSFX.push_back(sfx);
+    }
 }
 
 void SoundCue::playSFX(SFX type, const float &volume)
 {
-    std::vector<QString> sfxSource;
+    std::vector<QSoundEffect *> sfxSource;
     switch(type) {
     case SFX::HOVERED:
         sfxSource = hoveredSFX;
@@ -43,10 +87,11 @@ void SoundCue::playSFX(SFX type, const float &volume)
     case SFX::PRESSED:
         sfxSource = pressedSFX;
         break;
+    case SFX::DIRT:
+        sfxSource = dirtSFX;
     }
     int randomSoundIndex = QRandomGenerator::global()->bounded(static_cast<int>(sfxSource.size()));
-    setSource(QUrl(sfxSource.at(randomSoundIndex)));
-    setVolume(volume);
-    play();
-
+    QSoundEffect *effect = sfxSource.at(randomSoundIndex);
+    effect->setVolume(volume);
+    sfxSource.at(randomSoundIndex)->play();
 }

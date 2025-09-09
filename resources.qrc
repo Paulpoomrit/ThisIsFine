@@ -24,6 +24,34 @@
         <file>Content/SFX/button pressed 13.wav</file>
         <file>Content/SFX/button pressed 14.wav</file>
         <file>Content/SFX/button pressed 15.wav</file>
+        <file>Content/SFX/footstep dirt 1.wav</file>
+        <file>Content/SFX/footstep dirt 2.wav</file>
+        <file>Content/SFX/footstep dirt 3.wav</file>
+        <file>Content/SFX/footstep dirt 4.wav</file>
+        <file>Content/SFX/footstep dirt 5.wav</file>
+        <file>Content/SFX/footstep dirt 6.wav</file>
+        <file>Content/SFX/footstep dirt 7.wav</file>
+        <file>Content/SFX/footstep dirt 8.wav</file>
+        <file>Content/SFX/footstep dirt 9.wav</file>
+        <file>Content/SFX/footstep dirt 10.wav</file>
+        <file>Content/SFX/footstep dirt 11.wav</file>
+        <file>Content/SFX/footstep dirt 12.wav</file>
+        <file>Content/SFX/footstep dirt 13.wav</file>
+        <file>Content/SFX/footstep dirt 14.wav</file>
+        <file>Content/SFX/footstep dirt 15.wav</file>
+        <file>Content/SFX/footstep dirt 16.wav</file>
+        <file>Content/SFX/footstep dirt 17.wav</file>
+        <file>Content/SFX/footstep dirt 18.wav</file>
+        <file>Content/SFX/footstep dirt 19.wav</file>
+        <file>Content/SFX/footstep dirt 20.wav</file>
+        <file>Content/SFX/footstep dirt 21.wav</file>
+        <file>Content/SFX/footstep dirt 22.wav</file>
+        <file>Content/SFX/footstep dirt 23.wav</file>
+        <file>Content/SFX/footstep dirt 24.wav</file>
+        <file>Content/SFX/footstep dirt 25.wav</file>
+        <file>Content/SFX/footstep dirt 26.wav</file>
+        <file>Content/SFX/footstep dirt 27.wav</file>
+        <file>Content/SFX/footstep dirt 28.wav</file>
     </qresource>
     <qresource prefix="/tiles">
         <file>Content/Tiles/tile_0000.png</file>
