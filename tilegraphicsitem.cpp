@@ -2,6 +2,7 @@
 
 #include <QPainter>
 #include <QPixmap>
+#include <QtWidgets/qgraphicsscene.h>
 #include <qrandom.h>
 #include <QRandomGenerator>
 
@@ -17,6 +18,7 @@ TileGraphicsItem::TileGraphicsItem(QGraphicsObject *parent,
     idleSprite(new QPixmap),
     highlightSprite(new QPixmap(":/tiles/Content/Tiles/tile_0061.png")),
     clickedEffectSprite(new QPixmap(":/tiles/Content/Tiles/tile_0079.png")),
+    overlayItem(new QGraphicsPixmapItem(*idleSprite)),
     soundCue(parentSoundCue),
     currentTileGraphicalState(TileGraphicalState::TILE_DEFAULT),
     treeItems(),
@@ -51,6 +53,32 @@ void TileGraphicsItem::setCurrentTileState(TileState newCurrentTileState)
     }
     currentTileState = newCurrentTileState;
     // todo: set graphics
+}
+
+void TileGraphicsItem::setOverlayMode(TileGraphicalState tileState)
+{
+    switch(tileState) {
+    case TileGraphicalState::TILE_DEFAULT:
+        overlayItem->setOpacity(0);
+        this->scene()->addItem(overlayItem);
+        overlayItem->setPos(this->pos());
+        overlayItem->setZValue(100);
+        break;
+    case TileGraphicalState::TILE_HOVERED:
+        overlayItem->setOpacity(1);
+        overlayItem->setPixmap(*highlightSprite);
+        overlayItem->setPos(this->pos());
+        overlayItem->setZValue(100);
+        this->scene()->addItem(overlayItem);
+        break;
+    case TileGraphicalState::TILE_PRESSED:
+        overlayItem->setOpacity(1);
+        overlayItem->setPixmap(*clickedEffectSprite);
+        overlayItem->setPos(this->pos());
+        overlayItem->setZValue(100);
+        this->scene()->addItem(overlayItem);
+        break;
+    }
 }
 
 std::vector<TreeGraphicsItem *> TileGraphicsItem::getTreeItems() const
@@ -100,20 +128,20 @@ void TileGraphicsItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *
     // painter->drawRect(boundingRect());
 
     painter->drawPixmap(QPoint(0,0), *tileSprite);
+    // QGraphicsPixmapItem* overlayItem = new QGraphicsPixmapItem(*highlightSprite);
 
-    switch(currentTileGraphicalState) {
-    case TileGraphicalState::TILE_PRESSED:
-        painter->drawPixmap(QPoint(0,0), *clickedEffectSprite);
-        painter->drawPixmap(QPoint(0,0), *highlightSprite);
-        break;
-    case TileGraphicalState::TILE_HOVERED:
-        painter->drawPixmap(QPoint(0,0), *highlightSprite);
-        break;
-
-    case TileGraphicalState::TILE_DEFAULT:
-        painter->drawPixmap(QPoint(0,0), *idleSprite);
-        break;
-    }
+    // switch(currentTileGraphicalState) {
+    // case TileGraphicalState::TILE_PRESSED:
+    //     painter->drawPixmap(QPoint(0,0), *clickedEffectSprite);
+    //     painter->drawPixmap(QPoint(0,0), *highlightSprite);
+    //     break;
+    // case TileGraphicalState::TILE_HOVERED:
+    //     // painter->drawPixmap(QPoint(0,0), *highlightSprite);
+    //     break;
+    // case TileGraphicalState::TILE_DEFAULT:
+    //     painter->drawPixmap(QPoint(0,0), *idleSprite);
+    //     break;
+    // }
 }
 
 void TileGraphicsItem::mousePressEvent(QGraphicsSceneMouseEvent *event)
@@ -123,6 +151,7 @@ void TileGraphicsItem::mousePressEvent(QGraphicsSceneMouseEvent *event)
         soundCue->playSFX(SFX::PRESSED, 1);
     }
     setCurrentTileGraphicalState(TileGraphicalState::TILE_PRESSED);
+    setOverlayMode(TileGraphicalState::TILE_PRESSED);
     emit pressed();
 }
 
@@ -133,6 +162,7 @@ void TileGraphicsItem::hoverEnterEvent(QGraphicsSceneHoverEvent *event)
         soundCue->playSFX(SFX::DIRT, 0.1);
     }
     setCurrentTileGraphicalState(TileGraphicalState::TILE_HOVERED);
+    setOverlayMode(TileGraphicalState::TILE_HOVERED);
     update();
 }
 
@@ -141,5 +171,6 @@ void TileGraphicsItem::hoverLeaveEvent(QGraphicsSceneHoverEvent *event)
     Q_UNUSED(event);
     // *tileSprite = *idleSprite;
     setCurrentTileGraphicalState(TileGraphicalState::TILE_DEFAULT);
+    setOverlayMode(TileGraphicalState::TILE_DEFAULT);
     update();
 }

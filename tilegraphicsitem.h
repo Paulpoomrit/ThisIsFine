@@ -34,11 +34,15 @@ private:
     QPixmap *idleSprite;
     QPixmap *highlightSprite;
     QPixmap *clickedEffectSprite;
+    QGraphicsPixmapItem *overlayItem;
+
     SoundCue *soundCue;
 
     TileGraphicalState currentTileGraphicalState;
     std::vector<TreeGraphicsItem*> treeItems;
     const int numTree;
+
+    void setOverlayMode(TileGraphicalState);
 public:
     QRectF boundingRect() const;
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
