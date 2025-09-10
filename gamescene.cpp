@@ -1,7 +1,10 @@
 #include "gamescene.h"
 #include "tilegraphicsitem.h"
+#include "treegraphicsitem.h"
 #include <QtCore/qsignalmapper.h>
+#include <QRandomGenerator>
 #include <qpushbutton.h>
+#include <random>
 
 GameScene::GameScene(QObject *parent) :
     QGraphicsScene(parent),
@@ -12,7 +15,8 @@ GameScene::GameScene(QObject *parent) :
 
 void GameScene::initTileBoard(const std::vector<Tile*> &startingTileBoard,
                               const QSize &tileSize,
-                              const int &column)
+                              const int &column,
+                              const int & numAvgTreePerTile)
 {
     currentTileItemBoard.clear();
     QPoint currentPos(0,0);
@@ -41,6 +45,34 @@ void GameScene::initTileBoard(const std::vector<Tile*> &startingTileBoard,
         }
     }
     connect (mapper, SIGNAL(mappedInt(int)), this, SLOT(handleTilePressed(int)));
+
+    // populate tree only after all tiles are drawn
+    this->numAvgTreePerTile = numAvgTreePerTile;
+
+    for (TileGraphicsItem *tile: currentTileItemBoard){
+        std::vector<TreeGraphicsItem*> treeArray;
+        std::default_random_engine generator;
+        std::normal_distribution<double> distribution(numAvgTreePerTile, stdTreeDeviation);
+        // int numTree = distribution(generator);
+        // qDebug () << numTree;
+
+        int numTree = 5;
+
+        for (int i = 0; i < numTree; i++) {
+            TreeGraphicsItem* treeItem = new TreeGraphicsItem;
+
+            // todo: adjust tree pos to be in the bounding rect
+            treeItem->setScale(1);
+            int randomX = tile->pos().x() + QRandomGenerator::global()->bounded(tileSize.width());
+            int randomY = tile->pos().y() + QRandomGenerator::global()->bounded(tileSize.height());
+            treeItem->setPos(randomX, randomY);
+            treeItem->setZValue(50);
+            treeArray.push_back(treeItem);
+            addItem(treeItem);
+        }
+        tile->setTreeItems(treeArray);
+    }
+
 }
 
 void GameScene::handleTileStateChanged(const int &tileIndex, TileState newState)

@@ -12,11 +12,16 @@ class GameScene : public QGraphicsScene
     Q_OBJECT
 public:
     GameScene(QObject *parent);
-    void initTileBoard(const std::vector<Tile*> &startingTileBoard,
-                       const QSize &tileSize,
-                       const int &column);
+    void initTileBoard(const std::vector<Tile*> &startingTileBoard = std::vector<Tile*>(),
+                       const QSize &tileSize = QSize(100,100),
+                       const int &column = 5,
+                       const int & numAvgTreePerTile = 5);
 private:
     std::vector<TileGraphicsItem*> currentTileItemBoard;
+
+    int numAvgTreePerTile;
+    int stdTreeDeviation = 5;
+
     SoundCue* sfx;
 public slots:
     void handleTileStateChanged(const int &tileIndex, TileState newState);

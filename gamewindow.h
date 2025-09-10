@@ -18,6 +18,7 @@ public:
 private:
     Ui::GameWindow *ui;
     QSize calculateTileSize(int numRow, int numCol) const;
+    QRectF sceneRectHint;
 
     // QWidget interface
 protected:

@@ -19,8 +19,10 @@ TileGraphicsItem::TileGraphicsItem(QGraphicsObject *parent,
     clickedEffectSprite(new QPixmap(":/tiles/Content/Tiles/tile_0079.png")),
     soundCue(parentSoundCue),
     currentTileGraphicalState(TileGraphicalState::TILE_DEFAULT),
-    treeItems()
+    treeItems(),
+    numTree(numTree)
 {
+    setFlag(QGraphicsItem::ItemClipsChildrenToShape, false);
     std::vector<QString> tileSprites = {":/tiles/Content/Tiles/tile_0000.png",
                                         ":/tiles/Content/Tiles/tile_0000.png",
                                         ":/tiles/Content/Tiles/tile_0001.png"};
@@ -35,16 +37,6 @@ TileGraphicsItem::TileGraphicsItem(QGraphicsObject *parent,
     setFlags(QGraphicsItem::ItemIsSelectable |
              QGraphicsItem::ItemSendsGeometryChanges);
     setAcceptHoverEvents(true);
-
-    for (int i = 0; i < numTree; i++) {
-        TreeGraphicsItem *treeItem = new TreeGraphicsItem(this);
-        treeItem->setScale(1);
-        int randomX = QRandomGenerator::global()->bounded(tileSize.width());
-        int randomY = QRandomGenerator::global()->bounded(tileSize.height());
-        treeItem->setPos(randomX, randomY);
-        treeItems.push_back(treeItem);
-    }
-
 }
 
 TileState TileGraphicsItem::getCurrentTileState() const
@@ -61,6 +53,16 @@ void TileGraphicsItem::setCurrentTileState(TileState newCurrentTileState)
     // todo: set graphics
 }
 
+std::vector<TreeGraphicsItem *> TileGraphicsItem::getTreeItems() const
+{
+    return treeItems;
+}
+
+void TileGraphicsItem::setTreeItems(const std::vector<TreeGraphicsItem *> &newTreeItems)
+{
+    treeItems = newTreeItems;
+}
+
 TileGraphicalState TileGraphicsItem::getCurrentTileGraphicalState() const
 {
     return currentTileGraphicalState;
@@ -69,6 +71,19 @@ TileGraphicalState TileGraphicsItem::getCurrentTileGraphicalState() const
 void TileGraphicsItem::setCurrentTileGraphicalState(TileGraphicalState newCurrentTileGraphicalState)
 {
     currentTileGraphicalState = newCurrentTileGraphicalState;
+}
+
+void TileGraphicsItem::populateTrees()
+{
+    for (int i = 0; i < numTree; i++) {
+        TreeGraphicsItem *treeItem = new TreeGraphicsItem(this);
+        treeItem->setScale(1);
+        int randomX = QRandomGenerator::global()->bounded(tileSize.width());
+        int randomY = QRandomGenerator::global()->bounded(tileSize.height());
+        treeItem->setPos(randomX, randomY);
+        treeItem->setZValue(50);
+        treeItems.push_back(treeItem);
+    }
 }
 
 QRectF TileGraphicsItem::boundingRect() const
@@ -80,6 +95,9 @@ void TileGraphicsItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *
 {
     Q_UNUSED(option);
     Q_UNUSED(widget);
+
+    // painter->setPen(Qt::red);
+    // painter->drawRect(boundingRect());
 
     painter->drawPixmap(QPoint(0,0), *tileSprite);
 

@@ -16,7 +16,7 @@ public:
                               const TileState tileState = TileState::IDLE,
                               const QSize &tileSize = QSize(50,50),
                               SoundCue* parentSoundCue = nullptr,
-                              const int& numTree = 15);
+                              const int& numTree = 5);
     TileState getCurrentTileState() const;
     void setCurrentTileState(TileState newCurrentTileState);
 
@@ -38,12 +38,17 @@ private:
 
     TileGraphicalState currentTileGraphicalState;
     std::vector<TreeGraphicsItem*> treeItems;
+    const int numTree;
 public:
     QRectF boundingRect() const;
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
 
     TileGraphicalState getCurrentTileGraphicalState() const;
     void setCurrentTileGraphicalState(TileGraphicalState newCurrentTileGraphicalState);
+    void populateTrees();
+
+    std::vector<TreeGraphicsItem *> getTreeItems() const;
+    void setTreeItems(const std::vector<TreeGraphicsItem *> &newTreeItems);
 
 protected:
     void mousePressEvent(QGraphicsSceneMouseEvent *event);
