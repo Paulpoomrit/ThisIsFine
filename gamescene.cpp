@@ -55,15 +55,12 @@ void GameScene::initTileBoard(const std::vector<Tile*> &startingTileBoard,
         std::vector<TreeGraphicsItem*> treeArray;
         std::default_random_engine generator;
         std::normal_distribution<double> distribution(numAvgTreePerTile, stdTreeDeviation);
-        // int numTree = distribution(generator);
-        // qDebug () << numTree;
 
         int numTree = 5;
 
         for (int i = 0; i < numTree; i++) {
             TreeGraphicsItem* treeItem = new TreeGraphicsItem;
 
-            // todo: adjust tree pos to be in the bounding rect
             treeItem->setScale(1);
             int randomX = tile->pos().x() + QRandomGenerator::global()->bounded(tileSize.width());
             int randomY = tile->pos().y() + QRandomGenerator::global()->bounded(tileSize.height());

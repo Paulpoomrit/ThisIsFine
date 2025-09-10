@@ -154,9 +154,7 @@ void TileGraphicsItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *
         brush.setStyle(Qt::Dense1Pattern);
         painter->fillRect(overlayRect, brush);
         break;
-
     }
-
 }
 
 void TileGraphicsItem::mousePressEvent(QGraphicsSceneMouseEvent *event)
