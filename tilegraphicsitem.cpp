@@ -39,6 +39,8 @@ TileGraphicsItem::TileGraphicsItem(QGraphicsObject *parent,
     setFlags(QGraphicsItem::ItemIsSelectable |
              QGraphicsItem::ItemSendsGeometryChanges);
     setAcceptHoverEvents(true);
+
+    // setCurrentTileState(TileState::DEAD);
 }
 
 TileState TileGraphicsItem::getCurrentTileState() const
@@ -60,9 +62,9 @@ void TileGraphicsItem::setOverlayMode(TileGraphicalState tileState)
     switch(tileState) {
     case TileGraphicalState::TILE_DEFAULT:
         overlayItem->setOpacity(0);
-        this->scene()->addItem(overlayItem);
         overlayItem->setPos(this->pos());
         overlayItem->setZValue(100);
+        this->scene()->addItem(overlayItem);
         break;
     case TileGraphicalState::TILE_HOVERED:
         overlayItem->setOpacity(1);
@@ -124,24 +126,37 @@ void TileGraphicsItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *
     Q_UNUSED(option);
     Q_UNUSED(widget);
 
-    // painter->setPen(Qt::red);
-    // painter->drawRect(boundingRect());
+    QRectF overlayRect(this->boundingRect());
+    QBrush brush;
+    QColor tileColorOverlay = Qt::red;
 
-    painter->drawPixmap(QPoint(0,0), *tileSprite);
-    // QGraphicsPixmapItem* overlayItem = new QGraphicsPixmapItem(*highlightSprite);
+    switch(currentTileState) {
+    case TileState::IDLE:
+        painter->drawPixmap(QPoint(0,0), *tileSprite);
+        tileColorOverlay = Qt::darkGreen;
+        tileColorOverlay.setAlphaF(0.25);
+        brush.setColor(tileColorOverlay);
+        brush.setStyle(Qt::Dense3Pattern);
+        painter->fillRect(overlayRect, brush);
+        break;
+    case TileState::BURNING:
+        painter->drawPixmap(QPoint(0,0), *tileSprite);
+        tileColorOverlay.setAlphaF(0.8);
+        brush.setColor(tileColorOverlay);
+        brush.setStyle(Qt::Dense3Pattern);
+        painter->fillRect(overlayRect, brush);
+        break;
+    case TileState::DEAD:
+        painter->drawPixmap(QPoint(0,0), *tileSprite);
+        tileColorOverlay = Qt::black;
+        tileColorOverlay.setAlphaF(0.8);
+        brush.setColor(tileColorOverlay);
+        brush.setStyle(Qt::Dense1Pattern);
+        painter->fillRect(overlayRect, brush);
+        break;
 
-    // switch(currentTileGraphicalState) {
-    // case TileGraphicalState::TILE_PRESSED:
-    //     painter->drawPixmap(QPoint(0,0), *clickedEffectSprite);
-    //     painter->drawPixmap(QPoint(0,0), *highlightSprite);
-    //     break;
-    // case TileGraphicalState::TILE_HOVERED:
-    //     // painter->drawPixmap(QPoint(0,0), *highlightSprite);
-    //     break;
-    // case TileGraphicalState::TILE_DEFAULT:
-    //     painter->drawPixmap(QPoint(0,0), *idleSprite);
-    //     break;
-    // }
+    }
+
 }
 
 void TileGraphicsItem::mousePressEvent(QGraphicsSceneMouseEvent *event)
