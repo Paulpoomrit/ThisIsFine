@@ -11,6 +11,8 @@ GameScene::GameScene(QObject *parent) :
     currentTileItemBoard(),
     sfx(new SoundCue)
 {
+    QBrush backgroundBrush("#84c669");
+    setBackgroundBrush(backgroundBrush);
 }
 
 void GameScene::initTileBoard(const std::vector<Tile*> &startingTileBoard,
