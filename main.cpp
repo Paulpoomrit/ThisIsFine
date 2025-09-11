@@ -34,8 +34,13 @@ int main(int argc, char *argv[])
             }
     w.getScene()->initTileBoard(tileBoard, w.calculateTileSize(8,8), boardWidth);
 
+    // testing
+    int index = 0;
     for (Tile* tile : tileBoard) {
         tile->ChangeFire(1);
+        tileLogicBoard[index]->StartTimer(500);
+        index++;
     }
+
     return a.exec();
 }
