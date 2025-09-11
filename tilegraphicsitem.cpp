@@ -39,8 +39,6 @@ TileGraphicsItem::TileGraphicsItem(QGraphicsObject *parent,
     setFlags(QGraphicsItem::ItemIsSelectable |
              QGraphicsItem::ItemSendsGeometryChanges);
     setAcceptHoverEvents(true);
-
-    // setCurrentTileState(TileState::DEAD);
 }
 
 TileState TileGraphicsItem::getCurrentTileState() const
@@ -54,7 +52,36 @@ void TileGraphicsItem::setCurrentTileState(TileState newCurrentTileState)
         return;
     }
     currentTileState = newCurrentTileState;
-    // todo: set graphics
+
+    switch (newCurrentTileState) {
+    case TileState::BURNING :
+        setVisibleFlameItems(true);
+        break;
+    case TileState::DEAD:
+        setVisibleFlameItems(false);
+        setVisibleTreeItems(false);
+        break;
+    case TileState::IDLE:
+        setVisibleFlameItems(false);
+        break;
+    }
+}
+
+std::vector<Flame *> TileGraphicsItem::getFlameItems() const
+{
+    return flameItems;
+}
+
+void TileGraphicsItem::setFlameItems(const std::vector<Flame *> &newFlameItems)
+{
+    flameItems = newFlameItems;
+}
+
+void TileGraphicsItem::setVisibleFlameItems(const bool &isVisible)
+{
+    for (Flame *flame : flameItems) {
+        flame->setVisible(isVisible);
+    }
 }
 
 void TileGraphicsItem::setOverlayMode(TileGraphicalState tileState)
@@ -91,6 +118,13 @@ std::vector<TreeGraphicsItem *> TileGraphicsItem::getTreeItems() const
 void TileGraphicsItem::setTreeItems(const std::vector<TreeGraphicsItem *> &newTreeItems)
 {
     treeItems = newTreeItems;
+}
+
+void TileGraphicsItem::setVisibleTreeItems(const bool &isVisible)
+{
+    for (TreeGraphicsItem *tree : treeItems) {
+        tree->setVisible(isVisible);
+    }
 }
 
 TileGraphicalState TileGraphicsItem::getCurrentTileGraphicalState() const

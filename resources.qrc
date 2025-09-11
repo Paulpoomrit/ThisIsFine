@@ -1935,5 +1935,54 @@
     </qresource>
     <qresource prefix="/data">
         <file>treeSprites.json</file>
+        <file>flameSprites.json</file>
+    </qresource>
+    <qresource prefix="/flameSprites">
+        <file>Content/flames/flame_01_01.png</file>
+        <file>Content/flames/flame_01_02.png</file>
+        <file>Content/flames/flame_01_03.png</file>
+        <file>Content/flames/flame_01_04.png</file>
+        <file>Content/flames/flame_01_05.png</file>
+        <file>Content/flames/flame_01_06.png</file>
+        <file>Content/flames/flame_01_07.png</file>
+        <file>Content/flames/flame_02_01.png</file>
+        <file>Content/flames/flame_02_02.png</file>
+        <file>Content/flames/flame_02_03.png</file>
+        <file>Content/flames/flame_02_04.png</file>
+        <file>Content/flames/flame_02_05.png</file>
+        <file>Content/flames/flame_02_06.png</file>
+        <file>Content/flames/flame_02_07.png</file>
+        <file>Content/flames/flame_02_08.png</file>
+        <file>Content/flames/flame_02_09.png</file>
+        <file>Content/flames/flame_09_01.png</file>
+        <file>Content/flames/flame_09_02.png</file>
+        <file>Content/flames/flame_09_03.png</file>
+        <file>Content/flames/flame_09_04.png</file>
+        <file>Content/flames/flame_09_05.png</file>
+        <file>Content/flames/flame_09_06.png</file>
+        <file>Content/flames/flame_09_07.png</file>
+        <file>Content/flames/flame_09_08.png</file>
+        <file>Content/flames/flame_09_09.png</file>
+        <file>Content/flames/flame_09_10.png</file>
+        <file>Content/flames/flame_11_01.png</file>
+        <file>Content/flames/flame_11_02.png</file>
+        <file>Content/flames/flame_11_03.png</file>
+        <file>Content/flames/flame_11_04.png</file>
+        <file>Content/flames/flame_11_05.png</file>
+        <file>Content/flames/flame_11_06.png</file>
+        <file>Content/flames/flame_11_07.png</file>
+        <file>Content/flames/flame_11_08.png</file>
+        <file>Content/flames/flame_11_09.png</file>
+        <file>Content/flames/flame_11_10.png</file>
+        <file>Content/flames/flame_11_11.png</file>
+        <file>Content/flames/flame_11_12.png</file>
+        <file>Content/flames/flame_12_01.png</file>
+        <file>Content/flames/flame_12_02.png</file>
+        <file>Content/flames/flame_12_03.png</file>
+        <file>Content/flames/flame_12_04.png</file>
+        <file>Content/flames/flame_12_05.png</file>
+        <file>Content/flames/flame_12_06.png</file>
+        <file>Content/flames/flame_12_07.png</file>
+        <file>Content/flames/flame_12_08.png</file>
     </qresource>
 </RCC>

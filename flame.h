@@ -11,7 +11,7 @@ enum class FlameType {
     FLAME_12
 };
 
-using SpriteMap = QMap<FlameType, std::vector<QString>>;
+using FlameSpriteMap = QMap<FlameType, std::vector<QString>>;
 
 class Flame : public QObject, public QGraphicsPixmapItem
 {
@@ -20,7 +20,7 @@ public:
     explicit Flame(QGraphicsItem *parent = nullptr);
     void animate(const int &fps);
 private:
-    SpriteMap loadFlameSpritePaths(const QString& jsonPath);
+    FlameSpriteMap loadFlameSpritePaths(const QString& jsonPath);
     std::vector<QPixmap> flameSprites;
 
     QString flameTypeToString(FlameType type);

@@ -1,4 +1,5 @@
 #include "gamescene.h"
+#include "flame.h"
 #include "tilegraphicsitem.h"
 #include "treegraphicsitem.h"
 #include <QtCore/qsignalmapper.h>
@@ -48,11 +49,16 @@ void GameScene::initTileBoard(const std::vector<Tile*> &startingTileBoard,
     }
     connect (mapper, SIGNAL(mappedInt(int)), this, SLOT(handleTilePressed(int)));
 
-    // populate tree only after all tiles are drawn
+    // -> Populate tree/flame only after all tiles are drawn
+    // the Tree and Flame vectors are being spawned here
+    // and pass to the TileGraphicsItem
+    // this simply fixes the clipping problem we'd
+    // otherwise encounter if we simply made them children of tile
     this->numAvgTreePerTile = numAvgTreePerTile;
 
     for (TileGraphicsItem *tile: currentTileItemBoard){
         std::vector<TreeGraphicsItem*> treeArray;
+        std::vector<Flame*> flameArray;
         std::default_random_engine generator;
         std::normal_distribution<double> distribution(numAvgTreePerTile, stdTreeDeviation);
 
@@ -68,8 +74,23 @@ void GameScene::initTileBoard(const std::vector<Tile*> &startingTileBoard,
             treeItem->setZValue(50);
             treeArray.push_back(treeItem);
             addItem(treeItem);
+
+            // we're populating it here for
+            // (a) performance and
+            // (b) simple positioning
+            Flame* flameItem = new Flame;
+            flameItem->setScale(2);
+            flameItem->setPos(randomX, randomY);
+            flameItem->setZValue(60);
+            flameItem->setVisible(false);
+            flameArray.push_back(flameItem);
+            addItem(flameItem);
         }
         tile->setTreeItems(treeArray);
+        tile->setFlameItems(flameArray);
+
+        //test
+        tile->setCurrentTileState(TileState::IDLE);
     }
 
 }

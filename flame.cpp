@@ -14,12 +14,13 @@ Flame::Flame(QGraphicsItem *parent) :
     animTimer(new QTimer),
     currentSpriteIndex(0)
 {
-    SpriteMap allSprites = loadFlameSpritePaths("");
+    FlameSpriteMap allSprites = loadFlameSpritePaths(":/data/flameSprites.json");
 
     const auto &randomFlameType = getRandomFlameType();
     const auto &paths = allSprites[randomFlameType];
     loadFlameSprites(paths);
     setPixmap(flameSprites[0]);
+    animate(10);
 }
 
 void Flame::animate(const int &fps)
@@ -29,9 +30,9 @@ void Flame::animate(const int &fps)
     animTimer->start(updateTimeInMs);
 }
 
-SpriteMap Flame::loadFlameSpritePaths(const QString &jsonPath)
+FlameSpriteMap Flame::loadFlameSpritePaths(const QString &jsonPath)
 {
-    SpriteMap spriteMap;
+    FlameSpriteMap spriteMap;
     QFile file(jsonPath);
 
     if (!file.open(QIODevice::ReadOnly)) {
