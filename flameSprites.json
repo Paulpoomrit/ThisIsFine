@@ -1,0 +1,58 @@
+{
+    "flame_01": [
+        ":/flameSprites/Content/flames/flame_01_01.png",
+        ":/flameSprites/Content/flames/flame_01_02.png",
+        ":/flameSprites/Content/flames/flame_01_03.png",
+        ":/flameSprites/Content/flames/flame_01_04.png",
+        ":/flameSprites/Content/flames/flame_01_05.png",
+        ":/flameSprites/Content/flames/flame_01_06.png",
+        ":/flameSprites/Content/flames/flame_01_07.png"
+    ],
+    "flame_02": [
+        ":/flameSprites/Content/flames/flame_02_01.png",
+        ":/flameSprites/Content/flames/flame_02_02.png",
+        ":/flameSprites/Content/flames/flame_02_03.png",
+        ":/flameSprites/Content/flames/flame_02_04.png",
+        ":/flameSprites/Content/flames/flame_02_05.png",
+        ":/flameSprites/Content/flames/flame_02_06.png",
+        ":/flameSprites/Content/flames/flame_02_07.png",
+        ":/flameSprites/Content/flames/flame_02_08.png",
+        ":/flameSprites/Content/flames/flame_02_09.png"
+    ],
+    "flame_09": [
+        ":/flameSprites/Content/flames/flame_09_01.png",
+        ":/flameSprites/Content/flames/flame_09_02.png",
+        ":/flameSprites/Content/flames/flame_09_03.png",
+        ":/flameSprites/Content/flames/flame_09_04.png",
+        ":/flameSprites/Content/flames/flame_09_05.png",
+        ":/flameSprites/Content/flames/flame_09_06.png",
+        ":/flameSprites/Content/flames/flame_09_07.png",
+        ":/flameSprites/Content/flames/flame_09_08.png",
+        ":/flameSprites/Content/flames/flame_09_09.png",
+        ":/flameSprites/Content/flames/flame_09_10.png"
+    ],
+    "flame_11": [
+        ":/flameSprites/Content/flames/flame_11_01.png",
+        ":/flameSprites/Content/flames/flame_11_02.png",
+        ":/flameSprites/Content/flames/flame_11_03.png",
+        ":/flameSprites/Content/flames/flame_11_04.png",
+        ":/flameSprites/Content/flames/flame_11_05.png",
+        ":/flameSprites/Content/flames/flame_11_06.png",
+        ":/flameSprites/Content/flames/flame_11_07.png",
+        ":/flameSprites/Content/flames/flame_11_08.png",
+        ":/flameSprites/Content/flames/flame_11_09.png",
+        ":/flameSprites/Content/flames/flame_11_10.png",
+        ":/flameSprites/Content/flames/flame_11_11.png",
+        ":/flameSprites/Content/flames/flame_11_12.png"
+    ],
+    "flame_12": [
+        ":/flameSprites/Content/flames/flame_12_01.png",
+        ":/flameSprites/Content/flames/flame_12_02.png",
+        ":/flameSprites/Content/flames/flame_12_03.png",
+        ":/flameSprites/Content/flames/flame_12_04.png",
+        ":/flameSprites/Content/flames/flame_12_05.png",
+        ":/flameSprites/Content/flames/flame_12_06.png",
+        ":/flameSprites/Content/flames/flame_12_07.png",
+        ":/flameSprites/Content/flames/flame_12_08.png"
+    ]
+}

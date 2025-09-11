@@ -35,6 +35,9 @@ void GameWindow::resizeEvent(QResizeEvent *event)
     Q_UNUSED(event);
     QMainWindow::resizeEvent(event);
     if(ui->graphicsView->scene()) {
+
+        ui->graphicsView->scene()->setSceneRect(sceneRectHint);
+        qDebug() <<  ui->graphicsView->scene()->sceneRect();
         ui->graphicsView->fitInView(ui->graphicsView->scene()->sceneRect());
     }
 }
@@ -46,6 +49,7 @@ void GameWindow::showEvent(QShowEvent *event)
 {
     Q_UNUSED(event);
     qDebug() << ui->graphicsView->size();
+    sceneRectHint = QRect(0,0, ui->graphicsView->size().width(), ui->graphicsView->size().height());
     scene = new GameScene(this);
     ui->graphicsView->setScene(scene);
     ui->graphicsView->setAlignment(Qt::AlignTop|Qt::AlignLeft);

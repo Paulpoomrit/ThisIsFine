@@ -21,6 +21,7 @@ public:
 
 private:
     Ui::GameWindow *ui;
+    QRectF sceneRectHint;
     GameScene *scene;
 
     // QWidget interface
