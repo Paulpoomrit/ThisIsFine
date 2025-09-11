@@ -1,4 +1,5 @@
 #include "tilegraphicsitem.h"
+#include "SpawnMode.h"
 
 #include <QPainter>
 #include <QPixmap>
@@ -84,29 +85,54 @@ void TileGraphicsItem::setVisibleFlameItems(const bool &isVisible)
     }
 }
 
-void TileGraphicsItem::setOverlayMode(TileGraphicalState tileState)
+void TileGraphicsItem::setOverlayMode(TileGraphicalState tileState, SpawnMode spawnMode)
 {
-    switch(tileState) {
-    case TileGraphicalState::TILE_DEFAULT:
-        overlayItem->setOpacity(0);
-        overlayItem->setPos(this->pos());
-        overlayItem->setZValue(100);
-        this->scene()->addItem(overlayItem);
-        break;
-    case TileGraphicalState::TILE_HOVERED:
-        overlayItem->setOpacity(1);
-        overlayItem->setPixmap(*highlightSprite);
-        overlayItem->setPos(this->pos());
-        overlayItem->setZValue(100);
-        this->scene()->addItem(overlayItem);
-        break;
-    case TileGraphicalState::TILE_PRESSED:
-        overlayItem->setOpacity(1);
-        overlayItem->setPixmap(*clickedEffectSprite);
-        overlayItem->setPos(this->pos());
-        overlayItem->setZValue(100);
-        this->scene()->addItem(overlayItem);
-        break;
+    if (spawnMode == SpawnMode::NONE) {
+        switch(tileState) {
+        case TileGraphicalState::TILE_DEFAULT:
+            overlayItem->setOpacity(0);
+            overlayItem->setPos(this->pos());
+            overlayItem->setZValue(100);
+            this->scene()->addItem(overlayItem);
+            break;
+        case TileGraphicalState::TILE_HOVERED:
+            overlayItem->setOpacity(1);
+            overlayItem->setPixmap(*highlightSprite);
+            overlayItem->setPos(this->pos());
+            overlayItem->setZValue(100);
+            this->scene()->addItem(overlayItem);
+            break;
+        case TileGraphicalState::TILE_PRESSED:
+            overlayItem->setOpacity(1);
+            overlayItem->setPixmap(*clickedEffectSprite);
+            overlayItem->setPos(this->pos());
+            overlayItem->setZValue(100);
+            this->scene()->addItem(overlayItem);
+            break;
+        }
+    } else if (spawnMode == SpawnMode::FIRE_TRUCK) {
+        switch(tileState) {
+        case TileGraphicalState::TILE_DEFAULT:
+            overlayItem->setOpacity(0);
+            overlayItem->setPos(this->pos());
+            overlayItem->setZValue(100);
+            this->scene()->addItem(overlayItem);
+            break;
+        case TileGraphicalState::TILE_HOVERED:
+            overlayItem->setOpacity(1);
+            overlayItem->setPixmap(*highlightSprite);
+            overlayItem->setPos(this->pos());
+            overlayItem->setZValue(100);
+            this->scene()->addItem(overlayItem);
+            break;
+        case TileGraphicalState::TILE_PRESSED:
+            overlayItem->setOpacity(1);
+            overlayItem->setPixmap(*clickedEffectSprite);
+            overlayItem->setPos(this->pos());
+            overlayItem->setZValue(100);
+            this->scene()->addItem(overlayItem);
+            break;
+        }
     }
 }
 

@@ -3,6 +3,7 @@
 
 #include <QGraphicsPixmapItem>
 #include <QSoundEffect>
+#include "SpawnMode.h"
 #include "flame.h"
 #include "soundcue.h"
 #include "tilestates.h"
@@ -43,8 +44,6 @@ private:
     std::vector<TreeGraphicsItem*> treeItems;
     std::vector<Flame*> flameItems;
     const int numTree;
-
-    void setOverlayMode(TileGraphicalState);
 public:
     QRectF boundingRect() const;
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
@@ -61,6 +60,7 @@ public:
     void setFlameItems(const std::vector<Flame *> &newFlameItems);
     void setVisibleFlameItems(const bool &isVisible);
 
+    void setOverlayMode(TileGraphicalState tileState = TileGraphicalState::TILE_DEFAULT, SpawnMode spawnMode = SpawnMode::NONE);
 protected:
     void mousePressEvent(QGraphicsSceneMouseEvent *event);
     void hoverEnterEvent(QGraphicsSceneHoverEvent *event);

@@ -1,4 +1,5 @@
 #include "gamescene.h"
+#include "SpawnMode.h"
 #include "flame.h"
 #include "tilegraphicsitem.h"
 #include "treegraphicsitem.h"
@@ -10,6 +11,7 @@
 GameScene::GameScene(QObject *parent) :
     QGraphicsScene(parent),
     currentTileItemBoard(),
+    currentSpawnMode(SpawnMode::NONE),
     sfx(new SoundCue)
 {
     QBrush backgroundBrush("#84c669");
@@ -89,10 +91,26 @@ void GameScene::initTileBoard(const std::vector<Tile*> &startingTileBoard,
         tile->setTreeItems(treeArray);
         tile->setFlameItems(flameArray);
 
-        //test
-        tile->setCurrentTileState(TileState::IDLE);
+        // //test
+        // tile->setCurrentTileState(TileState::DEAD);
     }
 
+}
+
+SpawnMode GameScene::getCurrentSpawnMode() const
+{
+    return currentSpawnMode;
+}
+
+void GameScene::setCurrentSpawnMode(SpawnMode newCurrentSpawnMode)
+{
+    if (newCurrentSpawnMode == currentSpawnMode) {
+        return;
+    }
+    currentSpawnMode = newCurrentSpawnMode;
+    for (TileGraphicsItem* tile : currentTileItemBoard) {
+
+    }
 }
 
 void GameScene::handleTileStateChanged(const int &tileIndex, TileState newState)

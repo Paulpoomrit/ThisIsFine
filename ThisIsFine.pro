@@ -25,6 +25,7 @@ SOURCES += \
     truckgraphicsitem.cpp
 
 HEADERS += \
+    SpawnMode.h \
     flame.h \
     gamemode.h \
     gamescene.h \

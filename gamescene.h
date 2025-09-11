@@ -1,11 +1,13 @@
 #ifndef GAMESCENE_H
 #define GAMESCENE_H
 
+#include "SpawnMode.h"
 #include "soundcue.h"
 #include "tilegraphicsitem.h"
 
 #include <QGraphicsScene>
 #include "tile.h"
+
 
 class GameScene : public QGraphicsScene
 {
@@ -16,11 +18,16 @@ public:
                        const QSize &tileSize = QSize(100,100),
                        const int &column = 5,
                        const int & numAvgTreePerTile = 5);
+    SpawnMode getCurrentSpawnMode() const;
+    void setCurrentSpawnMode(SpawnMode newCurrentSpawnMode);
+
 private:
     std::vector<TileGraphicsItem*> currentTileItemBoard;
 
     int numAvgTreePerTile;
     int stdTreeDeviation = 5;
+
+    SpawnMode currentSpawnMode;
 
     SoundCue* sfx;
 public slots:
