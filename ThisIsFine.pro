@@ -10,6 +10,7 @@ CONFIG += c++17
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    firetruck.cpp \
     gamescene.cpp \
     gamewindow.cpp \
     main.cpp \
@@ -22,6 +23,7 @@ SOURCES += \
     tilelogic.cpp
 
 HEADERS += \
+    firetruck.h \
     gamemode.h \
     gamescene.h \
     gamewindow.h \
