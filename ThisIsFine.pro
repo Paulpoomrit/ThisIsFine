@@ -22,6 +22,7 @@ SOURCES += \
     tilegraphicsitem.cpp \
     tilelogic.cpp \
     treegraphicsitem.cpp \
+    truckgraphicsitem.cpp
 
 HEADERS += \
     flame.h \
@@ -36,7 +37,8 @@ HEADERS += \
     tilegraphicsitem.h \
     tilelogic.h \
     tilestates.h \
-    treegraphicsitem.h
+    treegraphicsitem.h \
+    truckgraphicsitem.h
 
 FORMS += \
     gamewindow.ui \
