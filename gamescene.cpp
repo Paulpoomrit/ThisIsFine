@@ -31,7 +31,7 @@ void GameScene::initTileBoard(const std::vector<Tile*> &startingTileBoard,
     QSignalMapper *mapper = new QSignalMapper(this);
 
     for (Tile* tile : startingTileBoard) {
-        TileGraphicsItem *tileItem = new TileGraphicsItem(nullptr, tile->GetState(), tileSize, sfx);
+        TileGraphicsItem *tileItem = new TileGraphicsItem(nullptr, tile->GetState(), tileSize, sfx, 5, tile);
 
         currentTileItemBoard.push_back(tileItem);
         mapper->setMapping(tileItem, currentTileItemBoard.size()-1);
@@ -67,7 +67,7 @@ void GameScene::initTileBoard(const std::vector<Tile*> &startingTileBoard,
         int numTree = 5;
 
         for (int i = 0; i < numTree; i++) {
-            TreeGraphicsItem* treeItem = new TreeGraphicsItem;
+            TreeGraphicsItem* treeItem = new TreeGraphicsItem();
 
             treeItem->setScale(1);
             int randomX = tile->pos().x() + QRandomGenerator::global()->bounded(tileSize.width());

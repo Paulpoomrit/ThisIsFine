@@ -11,8 +11,10 @@ TileGraphicsItem::TileGraphicsItem(QGraphicsObject *parent,
                                    const TileState tileState,
                                    const QSize &tileSize,
                                    SoundCue *parentSoundCue,
-                                   const int& numTree) :
+                                   const int& numTree,
+                                   Tile* mainTile) :
     QGraphicsObject(parent),
+    mainTile(mainTile),
     currentTileState(tileState),
     tileSize(tileSize),
     tileSprite(new QPixmap),
@@ -40,6 +42,8 @@ TileGraphicsItem::TileGraphicsItem(QGraphicsObject *parent,
     setFlags(QGraphicsItem::ItemIsSelectable |
              QGraphicsItem::ItemSendsGeometryChanges);
     setAcceptHoverEvents(true);
+
+    connect(mainTile, &Tile::StateChanged, this, &TileGraphicsItem::handleStateChanged);
 }
 
 TileState TileGraphicsItem::getCurrentTileState() const
@@ -66,6 +70,12 @@ void TileGraphicsItem::setCurrentTileState(TileState newCurrentTileState)
         setVisibleFlameItems(false);
         break;
     }
+}
+
+void TileGraphicsItem::handleStateChanged(TileState newState, TileState oldState)
+{
+    Q_UNUSED(oldState);
+    setCurrentTileState(newState);
 }
 
 std::vector<Flame *> TileGraphicsItem::getFlameItems() const
@@ -225,6 +235,9 @@ void TileGraphicsItem::mousePressEvent(QGraphicsSceneMouseEvent *event)
     }
     setCurrentTileGraphicalState(TileGraphicalState::TILE_PRESSED);
     setOverlayMode(TileGraphicalState::TILE_PRESSED);
+
+    mainTile->ChangeFire(-1);
+
     emit pressed();
 }
 
