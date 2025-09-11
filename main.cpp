@@ -34,5 +34,8 @@ int main(int argc, char *argv[])
             }
     w.getScene()->initTileBoard(tileBoard, w.calculateTileSize(8,8), boardWidth);
 
+    for (Tile* tile : tileBoard) {
+        tile->ChangeFire(1);
+    }
     return a.exec();
 }
