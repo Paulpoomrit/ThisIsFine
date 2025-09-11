@@ -6,6 +6,7 @@
 #include "SpawnMode.h"
 #include "flame.h"
 #include "soundcue.h"
+#include "tile.h"
 #include "tilestates.h"
 #include "treegraphicsitem.h"
 
@@ -18,7 +19,8 @@ public:
                               const TileState tileState = TileState::IDLE,
                               const QSize &tileSize = QSize(50,50),
                               SoundCue* parentSoundCue = nullptr,
-                              const int& numTree = 5);
+                              const int& numTree = 5,
+                              Tile* mainTile = nullptr);
     TileState getCurrentTileState() const;
     void setCurrentTileState(TileState newCurrentTileState);
 
@@ -27,7 +29,13 @@ signals:
     void hoveredEntered();
     void hoveredLeft();
 
+public slots:
+    void handleStateChanged(TileState newState, TileState oldState);
+    // void handleFireChanged(); // for later smoke effect
+
 private:
+    Tile* mainTile;
+
     QString spriteLocation;
     TileState currentTileState;
     QSize tileSize;
