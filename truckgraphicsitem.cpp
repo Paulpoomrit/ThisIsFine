@@ -19,8 +19,6 @@ TruckGraphicsItem::TruckGraphicsItem(QGraphicsItem *parent,
     carEffect->play();
 
     // connect with the truck logic
-
-
 }
 
 QPoint TruckGraphicsItem::getTruckPos() const
@@ -38,6 +36,7 @@ void TruckGraphicsItem::setTruckPos(QPoint newTruckPos)
 
 void TruckGraphicsItem::moveTo(int startIndex, int stopIndex, int travelTime)
 {
+    qDebug() << "move TO" << stopIndex << " From: " << startIndex;
     // Get pos for the starting tile
     QPointF startPos = parentTileBoard[startIndex]->pos();
     QPointF endPos = parentTileBoard[stopIndex]->pos();
@@ -47,7 +46,7 @@ void TruckGraphicsItem::moveTo(int startIndex, int stopIndex, int travelTime)
     moveAnimation->setStartValue(startPos);
     moveAnimation->setEndValue(endPos);
     moveAnimation->setDuration(travelTime);
-    moveAnimation->setEasingCurve(QEasingCurve::InOutQuad);
+    // moveAnimation->setEasingCurve(QEasingCurve::InOutQuad);
 
     connect(moveAnimation, &QPropertyAnimation::finished, this, [=]() {
         qDebug() << "arrived";
@@ -74,7 +73,7 @@ void TruckGraphicsItem::readyToConnectToScene()
             emit truckSpawned(baseTileBoard, tileIndex, tileSize.width(), tileSize.height(), speed);
 
             qDebug() << "spawn at tile no:" << tileIndex;
-            moveTo(tileIndex,60,1600); // test -> will have to be called from the logic side
+            // moveTo(tileIndex,60,1600); // test -> will have to be called from the logic side
         });
     } else {
         qDebug() << "game scene not valid:";

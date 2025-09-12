@@ -75,7 +75,7 @@ void GameScene::initTileBoard(const std::vector<Tile*> &startingTileBoard,
         std::default_random_engine generator;
         std::normal_distribution<double> distribution(numAvgTreePerTile, stdTreeDeviation);
 
-        int numTree = 5;
+        int numTree = 4;
 
         for (int i = 0; i < numTree; i++) {
             TreeGraphicsItem* treeItem = new TreeGraphicsItem();

@@ -22,6 +22,18 @@ signals:
 
 private:
     Ui::MainMenu *ui;
+
+    // QWidget interface
+public:
+    QSize sizeHint() const;
+
+    // QWidget interface
+public:
+    int heightForWidth(int) const;
+
+    // QWidget interface
+protected:
+    void resizeEvent(QResizeEvent *event);
 };
 
 #endif // MAINMENU_H

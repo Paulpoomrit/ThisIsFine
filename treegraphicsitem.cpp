@@ -20,6 +20,7 @@ TreeGraphicsItem::TreeGraphicsItem(QGraphicsItem *parent) :
     const auto &paths = allSprites[randomType][randomColour];
     loadTreeSprites(paths);
     setPixmap(treeSprites[0]);
+    setOffset(0, -treeSprites[0].height() / 2);
     animate(20);
 }
 

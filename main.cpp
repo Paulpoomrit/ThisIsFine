@@ -41,8 +41,6 @@ int main(int argc, char *argv[])
     stackedWidget->setCurrentWidget(menu);
     stackedWidget->show();
 
-    // menu->show();
-
     QObject::connect(menu, &MainMenu::gameStarted, [stackedWidget, game](GameMode gameMode) {
         switch(gameMode) {
         case INFINITE_MODE: {
@@ -55,7 +53,7 @@ int main(int argc, char *argv[])
             std::vector<Tile*> tileBoard;
             std::vector<TileLogic*> tileLogicBoard;
 
-            int boardWidth = 8, boardHeight = 8;
+            int boardWidth = 14, boardHeight = 9;
             for (int i=0; i < boardWidth*boardHeight; ++i) {
                 tileBoard.push_back(new Tile());
                 tileLogicBoard.push_back(new TileLogic(tileBoard.back()));
@@ -71,7 +69,7 @@ int main(int argc, char *argv[])
                         if (loc != i && loc <= 0 && loc > boardWidth*boardHeight)
                             tileLogicBoard[i]->AddTarget(tileBoard[loc]);
                     }
-            game->getScene()->initTileBoard(tileBoard, game->calculateTileSize(8,8), boardWidth);
+            game->getScene()->initTileBoard(tileBoard, game->calculateTileSize(boardHeight,boardWidth), boardWidth);
 
             // testing
             int index = 0;

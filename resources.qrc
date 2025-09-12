@@ -1,6 +1,7 @@
 <RCC>
     <qresource prefix="/mainMenu">
         <file>Content/ThisIsUiBG.png</file>
+        <file>ThisIsUi_BG_Game.png</file>
     </qresource>
     <qresource prefix="/SFX">
         <file>Content/SFX/airpods case closed 1.wav</file>
