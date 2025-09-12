@@ -9,7 +9,8 @@ class TruckGraphicsItem : public QObject, public QGraphicsPixmapItem
 {
     Q_OBJECT
 public:
-    explicit TruckGraphicsItem(QGraphicsItem *parent = nullptr);
+    explicit TruckGraphicsItem(QGraphicsItem *parent = nullptr,
+                               const QPixmap &pixmap = QPixmap(":/tiles/Content/Tiles/tile_0097.png"));
 public slots:
     // void moveTo(int startIndex, int stopIndex, int travelTime);
 signals:

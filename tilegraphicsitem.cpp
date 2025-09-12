@@ -165,8 +165,8 @@ void TileGraphicsItem::setOverlayMode(TileGraphicalState tileState)
             overlayItem->setZValue(100);
             overlayItem->scene() ? void(0) : this->scene()->addItem(overlayItem);
 
-            TruckGraphicsItem* fireTruck = new TruckGraphicsItem();
-            fireTruck->setPixmap(fireTruck->pixmap().scaled(tileSize.width(), tileSize.height()));
+            TruckGraphicsItem* fireTruck = new TruckGraphicsItem(nullptr, *fireTruckSprite);
+            fireTruck->setPixmap(*fireTruckSprite);
             this->scene()->addItem(fireTruck);
             fireTruck->setPos(this->pos());
             fireTruck->setZValue(90);

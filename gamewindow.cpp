@@ -1,7 +1,6 @@
 #include "gamewindow.h"
 #include "gamescene.h"
 #include "ui_gamewindow.h"
-#include "tilegraphicsitem.h"
 #include <QtGui/qevent.h>
 
 GameWindow::GameWindow(QWidget *parent)
