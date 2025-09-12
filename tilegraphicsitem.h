@@ -20,12 +20,13 @@ public:
                               const QSize &tileSize = QSize(50,50),
                               SoundCue* parentSoundCue = nullptr,
                               const int& numTree = 5,
-                              Tile* mainTile = nullptr);
+                              Tile* mainTile = nullptr,
+                              const std::vector<TileGraphicsItem*> &parentTileBoard = {});
     TileState getCurrentTileState() const;
     void setCurrentTileState(TileState newCurrentTileState);
 
 signals:
-    void pressed();
+    void pressed(SpawnMode);
     void hoveredEntered();
     void hoveredLeft();
 
@@ -34,6 +35,7 @@ public slots:
     // void handleFireChanged(); // for later smoke effect
 
 private:
+    const std::vector<TileGraphicsItem*> &parentTileBoard;
     Tile* mainTile;
 
     QString spriteLocation;
@@ -44,11 +46,16 @@ private:
     QPixmap *idleSprite;
     QPixmap *highlightSprite;
     QPixmap *clickedEffectSprite;
+    QPixmap *fireTruckSprite;
+    QPixmap *planeSprite;
+    QPixmap *helicopterSprite;
     QGraphicsPixmapItem *overlayItem;
 
     SoundCue *soundCue;
 
     TileGraphicalState currentTileGraphicalState;
+    SpawnMode currentSpawnMode;
+
     std::vector<TreeGraphicsItem*> treeItems;
     std::vector<Flame*> flameItems;
     const int numTree;
@@ -68,7 +75,13 @@ public:
     void setFlameItems(const std::vector<Flame *> &newFlameItems);
     void setVisibleFlameItems(const bool &isVisible);
 
-    void setOverlayMode(TileGraphicalState tileState = TileGraphicalState::TILE_DEFAULT, SpawnMode spawnMode = SpawnMode::NONE);
+    void setOverlayMode(TileGraphicalState tileState = TileGraphicalState::TILE_DEFAULT);
+    SpawnMode getCurrentSpawnMode() const;
+    void setCurrentSpawnMode(SpawnMode newCurrentSpawnMode);
+
+    QSize getTileSize() const;
+    void setTileSize(const QSize &newTileSize);
+
 protected:
     void mousePressEvent(QGraphicsSceneMouseEvent *event);
     void hoverEnterEvent(QGraphicsSceneHoverEvent *event);

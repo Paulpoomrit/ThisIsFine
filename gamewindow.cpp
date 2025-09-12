@@ -1,13 +1,29 @@
 #include "gamewindow.h"
 #include "gamescene.h"
 #include "ui_gamewindow.h"
-#include "tilegraphicsitem.h"
+#include <QtGui/qevent.h>
 
 GameWindow::GameWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::GameWindow)
 {
+    qDebug() << QPalette();
     ui->setupUi(this);
+
+    ui->graphicsView->setDragMode(QGraphicsView::NoDrag);
+
+    connect(ui->fireTruckPushButton, &QPushButton::clicked, this, [this](){
+        handleGameModeChagned(SpawnMode::FIRE_TRUCK);
+    });
+    connect(ui->helicopterPushButton, &QPushButton::clicked, this, [this](){
+        handleGameModeChagned(SpawnMode::HELICOPTER);
+    });
+    connect(ui->planePushButton, &QPushButton::clicked, this, [this](){
+        handleGameModeChagned(SpawnMode::PLANE);
+    });
+    connect(ui->canclePushButton, &QPushButton::clicked, this, [this](){
+        handleGameModeChagned(SpawnMode::NONE);
+    });
 }
 
 GameWindow::~GameWindow()
@@ -28,6 +44,12 @@ QSize GameWindow::calculateTileSize(int numRow, int numCol) const
     tileSize.setWidth(viewSize.width()/numCol);
     tileSize.setHeight(viewSize.height()/numRow);
     return tileSize;
+}
+
+void GameWindow::handleGameModeChagned(const SpawnMode &spawnMode)
+{
+    qDebug() << "Spawn Mode: " << &spawnMode;
+    this->scene->setCurrentSpawnMode(spawnMode);
 }
 
 void GameWindow::resizeEvent(QResizeEvent *event)

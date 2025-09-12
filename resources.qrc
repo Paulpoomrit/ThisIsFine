@@ -1,6 +1,7 @@
 <RCC>
     <qresource prefix="/mainMenu">
         <file>Content/ThisIsUiBG.png</file>
+        <file>ThisIsUi_BG_Game.png</file>
     </qresource>
     <qresource prefix="/SFX">
         <file>Content/SFX/airpods case closed 1.wav</file>
@@ -52,6 +53,7 @@
         <file>Content/SFX/footstep dirt 26.wav</file>
         <file>Content/SFX/footstep dirt 27.wav</file>
         <file>Content/SFX/footstep dirt 28.wav</file>
+        <file>Content/SFX/MAD ROBOT Sound Lab - Vintage Motorcycle - Idling Engine Up Close.wav</file>
     </qresource>
     <qresource prefix="/tiles">
         <file>Content/Tiles/tile_0000.png</file>
@@ -226,6 +228,9 @@
         <file>Content/Tiles/tile_0196.png</file>
         <file>Content/Tiles/tile_0197.png</file>
         <file>tile_hovered.png</file>
+        <file>Content/Tiles/tile_0133.png</file>
+        <file>Content/Tiles/tile_0172.png</file>
+        <file>Content/Tiles/tile_0173.png</file>
     </qresource>
     <qresource prefix="/trees">
         <file>Content/Pixel Art Spruce Tree Pack/Bubble Pine Tree/COLD/Sprites/Bubble Pine Tree - COLD - 0000.png</file>
@@ -1984,5 +1989,10 @@
         <file>Content/flames/flame_12_06.png</file>
         <file>Content/flames/flame_12_07.png</file>
         <file>Content/flames/flame_12_08.png</file>
+    </qresource>
+    <qresource prefix="/music">
+        <file>Content/BGMusic/Kashido - Minuet in G Major.wav</file>
+        <file>Content/BGMusic/Kashido - Prelude Op 28 No 4.wav</file>
+        <file>Content/BGMusic/Kashido - Swan Lake Theme.wav</file>
     </qresource>
 </RCC>

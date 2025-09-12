@@ -1,5 +1,6 @@
 #include "tilegraphicsitem.h"
 #include "SpawnMode.h"
+#include "truckgraphicsitem.h"
 
 #include <QPainter>
 #include <QPixmap>
@@ -12,8 +13,10 @@ TileGraphicsItem::TileGraphicsItem(QGraphicsObject *parent,
                                    const QSize &tileSize,
                                    SoundCue *parentSoundCue,
                                    const int& numTree,
-                                   Tile* mainTile) :
+                                   Tile* mainTile,
+                                   const std::vector<TileGraphicsItem *> &parentTileBoard) :
     QGraphicsObject(parent),
+    parentTileBoard(parentTileBoard),
     mainTile(mainTile),
     currentTileState(tileState),
     tileSize(tileSize),
@@ -21,9 +24,13 @@ TileGraphicsItem::TileGraphicsItem(QGraphicsObject *parent,
     idleSprite(new QPixmap),
     highlightSprite(new QPixmap(":/tiles/Content/Tiles/tile_0061.png")),
     clickedEffectSprite(new QPixmap(":/tiles/Content/Tiles/tile_0079.png")),
+    fireTruckSprite(new QPixmap(":/tiles/Content/Tiles/tile_0097.png")),
+    planeSprite(new QPixmap(":/tiles/Content/Tiles/tile_0097.png")),
+    helicopterSprite(new QPixmap(":/tiles/Content/Tiles/tile_0097.png")),
     overlayItem(new QGraphicsPixmapItem(*idleSprite)),
     soundCue(parentSoundCue),
     currentTileGraphicalState(TileGraphicalState::TILE_DEFAULT),
+    currentSpawnMode(SpawnMode::NONE),
     treeItems(),
     numTree(numTree)
 {
@@ -38,6 +45,31 @@ TileGraphicsItem::TileGraphicsItem(QGraphicsObject *parent,
     *idleSprite = *tileSprite;
     *highlightSprite = highlightSprite->scaled(tileSize.width(), tileSize.height());
     *clickedEffectSprite = clickedEffectSprite->scaled(tileSize.width(), tileSize.height());
+
+    std::vector<QString> truckSprites = {":/tiles/Content/Tiles/tile_0097.png",
+                                         ":/tiles/Content/Tiles/tile_0115.png",
+                                         ":/tiles/Content/Tiles/tile_0133.png",
+                                         ":/tiles/Content/Tiles/tile_0151.png",
+                                         ":/tiles/Content/Tiles/tile_0169.png"};
+    int vehicleRandomIndex = QRandomGenerator::global()->bounded(static_cast<int>(truckSprites.size()));
+    QPixmap truckPixmap(truckSprites.at(vehicleRandomIndex));
+    *fireTruckSprite  = truckPixmap.scaled(tileSize.width(), tileSize.height());
+
+    std::vector<QString> planeSprites = {":/tiles/Content/Tiles/tile_0136.png",
+                                         ":/tiles/Content/Tiles/tile_0154.png",
+                                         ":/tiles/Content/Tiles/tile_0172.png",
+                                         ":/tiles/Content/Tiles/tile_0100.png",
+                                         ":/tiles/Content/Tiles/tile_0118.png"};
+    QPixmap planePixmap(planeSprites.at(vehicleRandomIndex));
+    *planeSprite  = planePixmap.scaled(tileSize.width(), tileSize.height());
+
+    std::vector<QString> helicopterSprites = {":/tiles/Content/Tiles/tile_0101.png",
+                                             ":/tiles/Content/Tiles/tile_0119.png",
+                                             ":/tiles/Content/Tiles/tile_0137.png",
+                                             ":/tiles/Content/Tiles/tile_0155.png",
+                                             ":/tiles/Content/Tiles/tile_0173.png"};
+    QPixmap helicopterPixmap(helicopterSprites.at(vehicleRandomIndex));
+    *helicopterSprite  = helicopterPixmap.scaled(tileSize.width(), tileSize.height());
 
     setFlags(QGraphicsItem::ItemIsSelectable |
              QGraphicsItem::ItemSendsGeometryChanges);
@@ -57,6 +89,7 @@ void TileGraphicsItem::setCurrentTileState(TileState newCurrentTileState)
         return;
     }
     currentTileState = newCurrentTileState;
+    update();
 
     switch (newCurrentTileState) {
     case TileState::BURNING :
@@ -78,6 +111,26 @@ void TileGraphicsItem::handleStateChanged(TileState newState, TileState oldState
     setCurrentTileState(newState);
 }
 
+QSize TileGraphicsItem::getTileSize() const
+{
+    return tileSize;
+}
+
+void TileGraphicsItem::setTileSize(const QSize &newTileSize)
+{
+    tileSize = newTileSize;
+}
+
+SpawnMode TileGraphicsItem::getCurrentSpawnMode() const
+{
+    return currentSpawnMode;
+}
+
+void TileGraphicsItem::setCurrentSpawnMode(SpawnMode newCurrentSpawnMode)
+{
+    currentSpawnMode = newCurrentSpawnMode;
+}
+
 std::vector<Flame *> TileGraphicsItem::getFlameItems() const
 {
     return flameItems;
@@ -95,52 +148,128 @@ void TileGraphicsItem::setVisibleFlameItems(const bool &isVisible)
     }
 }
 
-void TileGraphicsItem::setOverlayMode(TileGraphicalState tileState, SpawnMode spawnMode)
+void TileGraphicsItem::setOverlayMode(TileGraphicalState tileState)
 {
-    if (spawnMode == SpawnMode::NONE) {
+    if (this->getCurrentSpawnMode() == SpawnMode::NONE) {
         switch(tileState) {
         case TileGraphicalState::TILE_DEFAULT:
             overlayItem->setOpacity(0);
             overlayItem->setPos(this->pos());
             overlayItem->setZValue(100);
-            this->scene()->addItem(overlayItem);
+            overlayItem->scene() ? void(0) : this->scene()->addItem(overlayItem);
             break;
         case TileGraphicalState::TILE_HOVERED:
             overlayItem->setOpacity(1);
             overlayItem->setPixmap(*highlightSprite);
             overlayItem->setPos(this->pos());
             overlayItem->setZValue(100);
-            this->scene()->addItem(overlayItem);
+            overlayItem->scene() ? void(0) : this->scene()->addItem(overlayItem);
             break;
         case TileGraphicalState::TILE_PRESSED:
             overlayItem->setOpacity(1);
             overlayItem->setPixmap(*clickedEffectSprite);
             overlayItem->setPos(this->pos());
             overlayItem->setZValue(100);
-            this->scene()->addItem(overlayItem);
+            overlayItem->scene() ? void(0) : this->scene()->addItem(overlayItem);
             break;
         }
-    } else if (spawnMode == SpawnMode::FIRE_TRUCK) {
+    } else if (this->getCurrentSpawnMode()  == SpawnMode::FIRE_TRUCK) {
         switch(tileState) {
         case TileGraphicalState::TILE_DEFAULT:
             overlayItem->setOpacity(0);
             overlayItem->setPos(this->pos());
             overlayItem->setZValue(100);
-            this->scene()->addItem(overlayItem);
+            overlayItem->scene() ? void(0) : this->scene()->addItem(overlayItem);
             break;
         case TileGraphicalState::TILE_HOVERED:
             overlayItem->setOpacity(1);
-            overlayItem->setPixmap(*highlightSprite);
+            overlayItem->setPixmap(*fireTruckSprite);
             overlayItem->setPos(this->pos());
             overlayItem->setZValue(100);
-            this->scene()->addItem(overlayItem);
+            overlayItem->scene() ? void(0) : this->scene()->addItem(overlayItem);
             break;
         case TileGraphicalState::TILE_PRESSED:
             overlayItem->setOpacity(1);
             overlayItem->setPixmap(*clickedEffectSprite);
             overlayItem->setPos(this->pos());
             overlayItem->setZValue(100);
-            this->scene()->addItem(overlayItem);
+            overlayItem->scene() ? void(0) : this->scene()->addItem(overlayItem);
+
+            TruckGraphicsItem* fireTruck = new TruckGraphicsItem(nullptr, *fireTruckSprite, parentTileBoard);
+            fireTruck->setPixmap(*fireTruckSprite);
+            this->scene()->addItem(fireTruck);
+            fireTruck->setPos(this->pos());
+            fireTruck->setZValue(90);
+            fireTruck->readyToConnectToScene();
+
+            this->setCurrentSpawnMode(SpawnMode::NONE);
+
+            break;
+        }
+    }   else if (this->getCurrentSpawnMode()  == SpawnMode::PLANE) {
+        switch(tileState) {
+        case TileGraphicalState::TILE_DEFAULT:
+            overlayItem->setOpacity(0);
+            overlayItem->setPos(this->pos());
+            overlayItem->setZValue(100);
+            overlayItem->scene() ? void(0) : this->scene()->addItem(overlayItem);
+            break;
+        case TileGraphicalState::TILE_HOVERED:
+            overlayItem->setOpacity(1);
+            overlayItem->setPixmap(*planeSprite);
+            overlayItem->setPos(this->pos());
+            overlayItem->setZValue(100);
+            overlayItem->scene() ? void(0) : this->scene()->addItem(overlayItem);
+            break;
+        case TileGraphicalState::TILE_PRESSED:
+            overlayItem->setOpacity(1);
+            overlayItem->setPixmap(*clickedEffectSprite);
+            overlayItem->setPos(this->pos());
+            overlayItem->setZValue(100);
+            overlayItem->scene() ? void(0) : this->scene()->addItem(overlayItem);
+
+            TruckGraphicsItem* fireTruck = new TruckGraphicsItem(nullptr, *planeSprite, parentTileBoard);
+            fireTruck->setPixmap(*planeSprite);
+            this->scene()->addItem(fireTruck);
+            fireTruck->setPos(this->pos());
+            fireTruck->setZValue(90);
+            fireTruck->readyToConnectToScene();
+
+            this->setCurrentSpawnMode(SpawnMode::NONE);
+
+            break;
+        }
+    }   else if (this->getCurrentSpawnMode()  == SpawnMode::HELICOPTER) {
+        switch(tileState) {
+        case TileGraphicalState::TILE_DEFAULT:
+            overlayItem->setOpacity(0);
+            overlayItem->setPos(this->pos());
+            overlayItem->setZValue(100);
+            overlayItem->scene() ? void(0) : this->scene()->addItem(overlayItem);
+            break;
+        case TileGraphicalState::TILE_HOVERED:
+            overlayItem->setOpacity(1);
+            overlayItem->setPixmap(*helicopterSprite);
+            overlayItem->setPos(this->pos());
+            overlayItem->setZValue(100);
+            overlayItem->scene() ? void(0) : this->scene()->addItem(overlayItem);
+            break;
+        case TileGraphicalState::TILE_PRESSED:
+            overlayItem->setOpacity(1);
+            overlayItem->setPixmap(*clickedEffectSprite);
+            overlayItem->setPos(this->pos());
+            overlayItem->setZValue(100);
+            overlayItem->scene() ? void(0) : this->scene()->addItem(overlayItem);
+
+            TruckGraphicsItem* fireTruck = new TruckGraphicsItem(nullptr, *helicopterSprite, parentTileBoard);
+            fireTruck->setPixmap(*helicopterSprite);
+            this->scene()->addItem(fireTruck);
+            fireTruck->setPos(this->pos());
+            fireTruck->setZValue(90);
+            fireTruck->readyToConnectToScene();
+
+            this->setCurrentSpawnMode(SpawnMode::NONE);
+
             break;
         }
     }
@@ -238,7 +367,7 @@ void TileGraphicsItem::mousePressEvent(QGraphicsSceneMouseEvent *event)
 
     mainTile->ChangeFire(-1);
 
-    emit pressed();
+    emit pressed(this->getCurrentSpawnMode());
 }
 
 void TileGraphicsItem::hoverEnterEvent(QGraphicsSceneHoverEvent *event)

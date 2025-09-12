@@ -4,6 +4,7 @@
 #include "tilegraphicsitem.h"
 #include "treegraphicsitem.h"
 #include <QtCore/qsignalmapper.h>
+#include <QGraphicsSceneWheelEvent>
 #include <QRandomGenerator>
 #include <qpushbutton.h>
 #include <random>
@@ -23,19 +24,29 @@ void GameScene::initTileBoard(const std::vector<Tile*> &startingTileBoard,
                               const int &column,
                               const int & numAvgTreePerTile)
 {
+    baseTileBoard = startingTileBoard;
     currentTileItemBoard.clear();
     QPoint currentPos(0,0);
     int xOffSet = tileSize.width();
     int yOffSet = tileSize.height();
     int columnCounter = 0;
-    QSignalMapper *mapper = new QSignalMapper(this);
+    // QSignalMapper *mapper = new QSignalMapper(this);
 
     for (Tile* tile : startingTileBoard) {
-        TileGraphicsItem *tileItem = new TileGraphicsItem(nullptr, tile->GetState(), tileSize, sfx, 5, tile);
+        TileGraphicsItem *tileItem = new TileGraphicsItem(nullptr,
+                                                          tile->GetState(),
+                                                          tileSize,
+                                                          sfx,
+                                                          5,
+                                                          tile,
+                                                          currentTileItemBoard);
 
         currentTileItemBoard.push_back(tileItem);
-        mapper->setMapping(tileItem, currentTileItemBoard.size()-1);
-        connect(tileItem, SIGNAL(pressed()), mapper, SLOT(map()));
+        // mapper->setMapping(tileItem, currentTileItemBoard.size()-1);
+        int tileIndex = currentTileItemBoard.size()-1;
+        connect(tileItem, &TileGraphicsItem::pressed, this,[=](SpawnMode mode) {
+            handleTilePressed(tileIndex, mode);
+        });
 
         addItem(tileItem);
         tileItem->setPos(currentPos);
@@ -49,7 +60,7 @@ void GameScene::initTileBoard(const std::vector<Tile*> &startingTileBoard,
             currentPos.rx() += xOffSet;
         }
     }
-    connect (mapper, SIGNAL(mappedInt(int)), this, SLOT(handleTilePressed(int)));
+    // connect (mapper, SIGNAL(mappedInt(int)), this, SLOT(handleTilePressed(int)));
 
     // -> Populate tree/flame only after all tiles are drawn
     // the Tree and Flame vectors are being spawned here
@@ -64,7 +75,7 @@ void GameScene::initTileBoard(const std::vector<Tile*> &startingTileBoard,
         std::default_random_engine generator;
         std::normal_distribution<double> distribution(numAvgTreePerTile, stdTreeDeviation);
 
-        int numTree = 5;
+        int numTree = 4;
 
         for (int i = 0; i < numTree; i++) {
             TreeGraphicsItem* treeItem = new TreeGraphicsItem();
@@ -109,8 +120,18 @@ void GameScene::setCurrentSpawnMode(SpawnMode newCurrentSpawnMode)
     }
     currentSpawnMode = newCurrentSpawnMode;
     for (TileGraphicsItem* tile : currentTileItemBoard) {
-
+        tile->setCurrentSpawnMode(newCurrentSpawnMode);
     }
+}
+
+std::vector<Tile *> GameScene::getBaseTileBoard() const
+{
+    return baseTileBoard;
+}
+
+void GameScene::setBaseTileBoard(const std::vector<Tile *> &newBaseTileBoard)
+{
+    baseTileBoard = newBaseTileBoard;
 }
 
 void GameScene::handleTileStateChanged(const int &tileIndex, TileState newState)
@@ -121,8 +142,14 @@ void GameScene::handleTileStateChanged(const int &tileIndex, TileState newState)
     }
 }
 
-void GameScene::handleTilePressed(const int &tileIndex)
+void GameScene::handleTilePressed(const int &tileIndex, SpawnMode mode)
 {
     qDebug() << tileIndex;
+    setCurrentSpawnMode(mode);
     emit tilePressed(tileIndex);
+}
+
+void GameScene::wheelEvent(QGraphicsSceneWheelEvent *event)
+{
+    event->accept();
 }

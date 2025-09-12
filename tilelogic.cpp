@@ -2,6 +2,7 @@
 
 #include <QTimer>
 #include <QRandomGenerator>
+#include <QtCore/qdebug.h>
 
 #include "tile.h"
 #include "tilestates.h"

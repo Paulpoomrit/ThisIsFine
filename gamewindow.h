@@ -23,6 +23,7 @@ private:
     Ui::GameWindow *ui;
     QRectF sceneRectHint;
     GameScene *scene;
+    void handleGameModeChagned(const SpawnMode &gameMode);
 
     // QWidget interface
 protected:

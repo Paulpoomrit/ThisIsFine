@@ -21,8 +21,12 @@ public:
     SpawnMode getCurrentSpawnMode() const;
     void setCurrentSpawnMode(SpawnMode newCurrentSpawnMode);
 
+    std::vector<Tile *> getBaseTileBoard() const;
+    void setBaseTileBoard(const std::vector<Tile *> &newBaseTileBoard);
+
 private:
     std::vector<TileGraphicsItem*> currentTileItemBoard;
+    std::vector<Tile*> baseTileBoard;
 
     int numAvgTreePerTile;
     int stdTreeDeviation = 5;
@@ -33,9 +37,13 @@ private:
 public slots:
     void handleTileStateChanged(const int &tileIndex, TileState newState);
 private slots:
-    void handleTilePressed(const int &tileIndex);
+    void handleTilePressed(const int &tileIndex, SpawnMode);
 signals:
     void tilePressed(const int &tileIndex);
+
+    // QGraphicsScene interface
+protected:
+    void wheelEvent(QGraphicsSceneWheelEvent *event);
 };
 
 #endif // GAMESCENE_H
