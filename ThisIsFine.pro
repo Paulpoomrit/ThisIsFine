@@ -11,6 +11,7 @@ CONFIG += c++17
 
 SOURCES += \
     firetruck.cpp \
+    flame.cpp \
     gamescene.cpp \
     gamewindow.cpp \
     main.cpp \
@@ -20,10 +21,14 @@ SOURCES += \
     soundcue.cpp \
     tile.cpp \
     tilegraphicsitem.cpp \
-    tilelogic.cpp
+    tilelogic.cpp \
+    treegraphicsitem.cpp \
+    truckgraphicsitem.cpp
 
 HEADERS += \
     firetruck.h \
+    SpawnMode.h \
+    flame.h \
     gamemode.h \
     gamescene.h \
     gamewindow.h \
@@ -34,7 +39,9 @@ HEADERS += \
     tile.h \
     tilegraphicsitem.h \
     tilelogic.h \
-    tilestates.h
+    tilestates.h \
+    treegraphicsitem.h \
+    truckgraphicsitem.h
 
 FORMS += \
     gamewindow.ui \
@@ -48,3 +55,7 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 
 RESOURCES += \
     resources.qrc
+
+DISTFILES += \
+    flameSprites.json \
+    treeSprites.json

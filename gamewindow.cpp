@@ -15,6 +15,11 @@ GameWindow::~GameWindow()
     delete ui;
 }
 
+GameScene *GameWindow::getScene()
+{
+    return scene;
+}
+
 QSize GameWindow::calculateTileSize(int numRow, int numCol) const
 {
     QSize tileSize;
@@ -30,6 +35,9 @@ void GameWindow::resizeEvent(QResizeEvent *event)
     Q_UNUSED(event);
     QMainWindow::resizeEvent(event);
     if(ui->graphicsView->scene()) {
+
+        ui->graphicsView->scene()->setSceneRect(sceneRectHint);
+        qDebug() <<  ui->graphicsView->scene()->sceneRect();
         ui->graphicsView->fitInView(ui->graphicsView->scene()->sceneRect());
     }
 }
@@ -41,16 +49,9 @@ void GameWindow::showEvent(QShowEvent *event)
 {
     Q_UNUSED(event);
     qDebug() << ui->graphicsView->size();
-    GameScene *scene = new GameScene(this);
+    sceneRectHint = QRect(0,0, ui->graphicsView->size().width(), ui->graphicsView->size().height());
+    scene = new GameScene(this);
     ui->graphicsView->setScene(scene);
     ui->graphicsView->setAlignment(Qt::AlignTop|Qt::AlignLeft);
-
-    // test vector (will be removed!)
-    std::vector<Tile*> test;
-    for (int i = 0; i < 64; ++i) {
-        test.push_back(new Tile());
-    }
-
-    scene->initTileBoard(test, calculateTileSize(8,8), 8);
     ui->graphicsView->show();
 }
