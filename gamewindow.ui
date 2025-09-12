@@ -43,7 +43,7 @@
          </widget>
         </item>
         <item row="2" column="0">
-         <widget class="QPushButton" name="helicopterPushButton">
+         <widget class="RetroButton" name="helicopterPushButton">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="MinimumExpanding">
             <horstretch>0</horstretch>
@@ -56,7 +56,7 @@
          </widget>
         </item>
         <item row="1" column="0">
-         <widget class="QPushButton" name="fireTruckPushButton">
+         <widget class="RetroButton" name="fireTruckPushButton">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="MinimumExpanding">
             <horstretch>0</horstretch>
@@ -69,7 +69,7 @@
          </widget>
         </item>
         <item row="3" column="0">
-         <widget class="QPushButton" name="planePushButton_3">
+         <widget class="RetroButton" name="planePushButton_3">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="MinimumExpanding">
             <horstretch>0</horstretch>
@@ -82,7 +82,7 @@
          </widget>
         </item>
         <item row="4" column="0">
-         <widget class="QPushButton" name="canclePushButton">
+         <widget class="RetroButton" name="canclePushButton">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="MinimumExpanding">
             <horstretch>0</horstretch>
@@ -111,6 +111,13 @@
    </layout>
   </widget>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>RetroButton</class>
+   <extends>QPushButton</extends>
+   <header>retrobutton.h</header>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections/>
 </ui>
