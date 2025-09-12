@@ -57,6 +57,7 @@ void TileGraphicsItem::setCurrentTileState(TileState newCurrentTileState)
         return;
     }
     currentTileState = newCurrentTileState;
+    update();
 
     switch (newCurrentTileState) {
     case TileState::BURNING :
