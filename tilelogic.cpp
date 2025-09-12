@@ -76,15 +76,20 @@ void TileLogic::ChangeFireIntensity(int change)
     // Change fire intensity, clamped between 0 and max
     fireIntensity = qBound(0, fireIntensity+change, maxFireIntensity);
     // Update the tile's current state
-    if (fireIntensity == 0)
-        mainTile->ChangeState(IDLE);
-    else
-        mainTile->ChangeState(BURNING);
+    if (state == DEAD)
+    {
+        if (fireIntensity == 0)
+            mainTile->ChangeState(IDLE);
+        else
+            mainTile->ChangeState(BURNING);
+    }
 }
 
 void TileLogic::ChangeHealth(int change)
 {
-    health += change;
+    health = qMax(0, health+change);
+    if (health == 0)
+        mainTile->ChangeState(DEAD);
 }
 
 void TileLogic::ChangeFireState(TileState newState, TileState)
