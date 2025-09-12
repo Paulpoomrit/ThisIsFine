@@ -44,11 +44,14 @@ private:
     QPixmap *idleSprite;
     QPixmap *highlightSprite;
     QPixmap *clickedEffectSprite;
+    QPixmap *fireTruckSprite;
     QGraphicsPixmapItem *overlayItem;
 
     SoundCue *soundCue;
 
     TileGraphicalState currentTileGraphicalState;
+    SpawnMode currentSpawnMode;
+
     std::vector<TreeGraphicsItem*> treeItems;
     std::vector<Flame*> flameItems;
     const int numTree;
@@ -68,7 +71,10 @@ public:
     void setFlameItems(const std::vector<Flame *> &newFlameItems);
     void setVisibleFlameItems(const bool &isVisible);
 
-    void setOverlayMode(TileGraphicalState tileState = TileGraphicalState::TILE_DEFAULT, SpawnMode spawnMode = SpawnMode::NONE);
+    void setOverlayMode(TileGraphicalState tileState = TileGraphicalState::TILE_DEFAULT);
+    SpawnMode getCurrentSpawnMode() const;
+    void setCurrentSpawnMode(SpawnMode newCurrentSpawnMode);
+
 protected:
     void mousePressEvent(QGraphicsSceneMouseEvent *event);
     void hoverEnterEvent(QGraphicsSceneHoverEvent *event);

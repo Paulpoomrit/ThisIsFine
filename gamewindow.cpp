@@ -8,6 +8,9 @@ GameWindow::GameWindow(QWidget *parent)
     , ui(new Ui::GameWindow)
 {
     ui->setupUi(this);
+    connect(ui->fireTruckPushButton, &QPushButton::clicked, this, [this](){
+        handleGameModeChagned(SpawnMode::FIRE_TRUCK);
+    });
 }
 
 GameWindow::~GameWindow()
@@ -28,6 +31,12 @@ QSize GameWindow::calculateTileSize(int numRow, int numCol) const
     tileSize.setWidth(viewSize.width()/numCol);
     tileSize.setHeight(viewSize.height()/numRow);
     return tileSize;
+}
+
+void GameWindow::handleGameModeChagned(const SpawnMode &spawnMode)
+{
+    qDebug() << "Spawn Mode: " << &spawnMode;
+    this->scene->setCurrentSpawnMode(spawnMode);
 }
 
 void GameWindow::resizeEvent(QResizeEvent *event)

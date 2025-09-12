@@ -226,6 +226,7 @@
         <file>Content/Tiles/tile_0196.png</file>
         <file>Content/Tiles/tile_0197.png</file>
         <file>tile_hovered.png</file>
+        <file>Content/Tiles/tile_0133.png</file>
     </qresource>
     <qresource prefix="/trees">
         <file>Content/Pixel Art Spruce Tree Pack/Bubble Pine Tree/COLD/Sprites/Bubble Pine Tree - COLD - 0000.png</file>

@@ -109,7 +109,7 @@ void GameScene::setCurrentSpawnMode(SpawnMode newCurrentSpawnMode)
     }
     currentSpawnMode = newCurrentSpawnMode;
     for (TileGraphicsItem* tile : currentTileItemBoard) {
-
+        tile->setCurrentSpawnMode(newCurrentSpawnMode);
     }
 }
 
