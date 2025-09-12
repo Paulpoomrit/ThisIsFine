@@ -103,21 +103,21 @@ void TileGraphicsItem::setOverlayMode(TileGraphicalState tileState, SpawnMode sp
             overlayItem->setOpacity(0);
             overlayItem->setPos(this->pos());
             overlayItem->setZValue(100);
-            this->scene()->addItem(overlayItem);
+            overlayItem->scene() ? void(0) : this->scene()->addItem(overlayItem);
             break;
         case TileGraphicalState::TILE_HOVERED:
             overlayItem->setOpacity(1);
             overlayItem->setPixmap(*highlightSprite);
             overlayItem->setPos(this->pos());
             overlayItem->setZValue(100);
-            this->scene()->addItem(overlayItem);
+            overlayItem->scene() ? void(0) : this->scene()->addItem(overlayItem);
             break;
         case TileGraphicalState::TILE_PRESSED:
             overlayItem->setOpacity(1);
             overlayItem->setPixmap(*clickedEffectSprite);
             overlayItem->setPos(this->pos());
             overlayItem->setZValue(100);
-            this->scene()->addItem(overlayItem);
+            overlayItem->scene() ? void(0) : this->scene()->addItem(overlayItem);
             break;
         }
     } else if (spawnMode == SpawnMode::FIRE_TRUCK) {
