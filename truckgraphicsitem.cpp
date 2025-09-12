@@ -2,22 +2,12 @@
 
 #include <QRandomGenerator>
 
-TruckGraphicsItem::TruckGraphicsItem(QGraphicsItem *parent, const QPixmap &pixmap) :
+TruckGraphicsItem::TruckGraphicsItem(QGraphicsItem *parent, const QPixmap &pixmap, const std::vector<TileGraphicsItem *> parentTileBoard) :
     QObject(),
     QGraphicsPixmapItem(parent),
+    parentTileBoard(parentTileBoard),
     moveAnimation(new QPropertyAnimation(this))
 {
-
-
-    moveAnimation->setTargetObject(this);
-    moveAnimation->setPropertyName("truckPos");
-    moveAnimation->setStartValue(this->pos());
-    moveAnimation->setEndValue(QPoint(100,100));
-    moveAnimation->setDuration(800);
-    moveAnimation->setEasingCurve(QEasingCurve::InOutQuad);
-
-    moveAnimation->start();
-
 }
 
 QPoint TruckGraphicsItem::getTruckPos() const
@@ -31,4 +21,20 @@ void TruckGraphicsItem::setTruckPos(QPoint newTruckPos)
 
     setPos(newTruckPos);
     emit truckPosChanged(newTruckPos);
+}
+
+void TruckGraphicsItem::moveTo(int startIndex, int stopIndex, int travelTime)
+{
+    // Get pos for the starting tile
+    QPointF startPos = parentTileBoard[startIndex]->pos();
+    QPointF endPos = parentTileBoard[stopIndex]->pos();
+
+    moveAnimation->setTargetObject(this);
+    moveAnimation->setPropertyName("truckPos");
+    moveAnimation->setStartValue(startPos);
+    moveAnimation->setEndValue(endPos);
+    moveAnimation->setDuration(travelTime);
+    moveAnimation->setEasingCurve(QEasingCurve::InOutQuad);
+
+    moveAnimation->start();
 }
