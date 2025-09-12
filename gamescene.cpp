@@ -32,7 +32,13 @@ void GameScene::initTileBoard(const std::vector<Tile*> &startingTileBoard,
     // QSignalMapper *mapper = new QSignalMapper(this);
 
     for (Tile* tile : startingTileBoard) {
-        TileGraphicsItem *tileItem = new TileGraphicsItem(nullptr, tile->GetState(), tileSize, sfx, 5, tile);
+        TileGraphicsItem *tileItem = new TileGraphicsItem(nullptr,
+                                                          tile->GetState(),
+                                                          tileSize,
+                                                          sfx,
+                                                          5,
+                                                          tile,
+                                                          currentTileItemBoard);
 
         currentTileItemBoard.push_back(tileItem);
         // mapper->setMapping(tileItem, currentTileItemBoard.size()-1);

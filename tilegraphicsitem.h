@@ -20,7 +20,8 @@ public:
                               const QSize &tileSize = QSize(50,50),
                               SoundCue* parentSoundCue = nullptr,
                               const int& numTree = 5,
-                              Tile* mainTile = nullptr);
+                              Tile* mainTile = nullptr,
+                              const std::vector<TileGraphicsItem*> &parentTileBoard = {});
     TileState getCurrentTileState() const;
     void setCurrentTileState(TileState newCurrentTileState);
 
@@ -34,6 +35,7 @@ public slots:
     // void handleFireChanged(); // for later smoke effect
 
 private:
+    const std::vector<TileGraphicsItem*> &parentTileBoard;
     Tile* mainTile;
 
     QString spriteLocation;

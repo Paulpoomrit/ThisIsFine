@@ -13,8 +13,10 @@ TileGraphicsItem::TileGraphicsItem(QGraphicsObject *parent,
                                    const QSize &tileSize,
                                    SoundCue *parentSoundCue,
                                    const int& numTree,
-                                   Tile* mainTile) :
+                                   Tile* mainTile,
+                                   const std::vector<TileGraphicsItem *> &parentTileBoard) :
     QGraphicsObject(parent),
+    parentTileBoard(parentTileBoard),
     mainTile(mainTile),
     currentTileState(tileState),
     tileSize(tileSize),
@@ -26,9 +28,9 @@ TileGraphicsItem::TileGraphicsItem(QGraphicsObject *parent,
     overlayItem(new QGraphicsPixmapItem(*idleSprite)),
     soundCue(parentSoundCue),
     currentTileGraphicalState(TileGraphicalState::TILE_DEFAULT),
+    currentSpawnMode(SpawnMode::NONE),
     treeItems(),
-    numTree(numTree),
-    currentSpawnMode(SpawnMode::NONE)
+    numTree(numTree)
 {
     setFlag(QGraphicsItem::ItemClipsChildrenToShape, false);
     std::vector<QString> tileSprites = {":/tiles/Content/Tiles/tile_0000.png",
@@ -165,7 +167,7 @@ void TileGraphicsItem::setOverlayMode(TileGraphicalState tileState)
             overlayItem->setZValue(100);
             overlayItem->scene() ? void(0) : this->scene()->addItem(overlayItem);
 
-            TruckGraphicsItem* fireTruck = new TruckGraphicsItem(nullptr, *fireTruckSprite);
+            TruckGraphicsItem* fireTruck = new TruckGraphicsItem(nullptr, *fireTruckSprite, parentTileBoard);
             fireTruck->setPixmap(*fireTruckSprite);
             this->scene()->addItem(fireTruck);
             fireTruck->setPos(this->pos());
