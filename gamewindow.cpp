@@ -2,12 +2,16 @@
 #include "gamescene.h"
 #include "ui_gamewindow.h"
 #include "tilegraphicsitem.h"
+#include <QtGui/qevent.h>
 
 GameWindow::GameWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::GameWindow)
 {
     ui->setupUi(this);
+
+    ui->graphicsView->setDragMode(QGraphicsView::NoDrag);
+
     connect(ui->fireTruckPushButton, &QPushButton::clicked, this, [this](){
         handleGameModeChagned(SpawnMode::FIRE_TRUCK);
     });

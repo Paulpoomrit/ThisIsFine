@@ -4,6 +4,7 @@
 #include "tilegraphicsitem.h"
 #include "treegraphicsitem.h"
 #include <QtCore/qsignalmapper.h>
+#include <QGraphicsSceneWheelEvent>
 #include <QRandomGenerator>
 #include <qpushbutton.h>
 #include <random>
@@ -129,4 +130,9 @@ void GameScene::handleTilePressed(const int &tileIndex, SpawnMode mode)
     qDebug() << tileIndex;
     setCurrentSpawnMode(mode);
     emit tilePressed(tileIndex);
+}
+
+void GameScene::wheelEvent(QGraphicsSceneWheelEvent *event)
+{
+    event->accept();
 }

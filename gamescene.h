@@ -36,6 +36,10 @@ private slots:
     void handleTilePressed(const int &tileIndex, SpawnMode);
 signals:
     void tilePressed(const int &tileIndex);
+
+    // QGraphicsScene interface
+protected:
+    void wheelEvent(QGraphicsSceneWheelEvent *event);
 };
 
 #endif // GAMESCENE_H
