@@ -24,6 +24,7 @@ void GameScene::initTileBoard(const std::vector<Tile*> &startingTileBoard,
                               const int &column,
                               const int & numAvgTreePerTile)
 {
+    baseTileBoard = startingTileBoard;
     currentTileItemBoard.clear();
     QPoint currentPos(0,0);
     int xOffSet = tileSize.width();
@@ -121,6 +122,16 @@ void GameScene::setCurrentSpawnMode(SpawnMode newCurrentSpawnMode)
     for (TileGraphicsItem* tile : currentTileItemBoard) {
         tile->setCurrentSpawnMode(newCurrentSpawnMode);
     }
+}
+
+std::vector<Tile *> GameScene::getBaseTileBoard() const
+{
+    return baseTileBoard;
+}
+
+void GameScene::setBaseTileBoard(const std::vector<Tile *> &newBaseTileBoard)
+{
+    baseTileBoard = newBaseTileBoard;
 }
 
 void GameScene::handleTileStateChanged(const int &tileIndex, TileState newState)

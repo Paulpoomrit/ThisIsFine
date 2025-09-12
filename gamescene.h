@@ -21,8 +21,12 @@ public:
     SpawnMode getCurrentSpawnMode() const;
     void setCurrentSpawnMode(SpawnMode newCurrentSpawnMode);
 
+    std::vector<Tile *> getBaseTileBoard() const;
+    void setBaseTileBoard(const std::vector<Tile *> &newBaseTileBoard);
+
 private:
     std::vector<TileGraphicsItem*> currentTileItemBoard;
+    std::vector<Tile*> baseTileBoard;
 
     int numAvgTreePerTile;
     int stdTreeDeviation = 5;

@@ -77,6 +77,9 @@ public:
     SpawnMode getCurrentSpawnMode() const;
     void setCurrentSpawnMode(SpawnMode newCurrentSpawnMode);
 
+    QSize getTileSize() const;
+    void setTileSize(const QSize &newTileSize);
+
 protected:
     void mousePressEvent(QGraphicsSceneMouseEvent *event);
     void hoverEnterEvent(QGraphicsSceneHoverEvent *event);

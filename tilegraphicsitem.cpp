@@ -93,6 +93,16 @@ void TileGraphicsItem::handleStateChanged(TileState newState, TileState oldState
     setCurrentTileState(newState);
 }
 
+QSize TileGraphicsItem::getTileSize() const
+{
+    return tileSize;
+}
+
+void TileGraphicsItem::setTileSize(const QSize &newTileSize)
+{
+    tileSize = newTileSize;
+}
+
 SpawnMode TileGraphicsItem::getCurrentSpawnMode() const
 {
     return currentSpawnMode;
@@ -172,6 +182,7 @@ void TileGraphicsItem::setOverlayMode(TileGraphicalState tileState)
             this->scene()->addItem(fireTruck);
             fireTruck->setPos(this->pos());
             fireTruck->setZValue(90);
+            fireTruck->readyToConnectToScene();
 
             this->setCurrentSpawnMode(SpawnMode::NONE);
 

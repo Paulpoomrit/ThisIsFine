@@ -19,20 +19,22 @@ public:
     void setTruckPos(QPoint newTruckPos);
 
     void moveTo(int startIndex, int stopIndex, int travelTime);
+    void readyToConnectToScene();
 
 public slots:
 
 signals:
-    void truckSpawned(std::vector<Tile*>& tileboard,
+    void truckSpawned(const std::vector<Tile*>& tileboard,
                       int startIndex,
                       int width,
                       int height,
                       int speed);
     void truckPosChanged(QPoint);
 private:
-    const std::vector<TileGraphicsItem*> &parentTileBoard;
+    std::vector<TileGraphicsItem*> parentTileBoard;
     QPoint truckPos;
     QPropertyAnimation *moveAnimation;
+    int speed;
 };
 
 #endif // TRUCKGRAPHICSITEM_H
