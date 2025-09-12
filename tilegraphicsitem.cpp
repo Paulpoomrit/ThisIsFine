@@ -75,7 +75,7 @@ TileGraphicsItem::TileGraphicsItem(QGraphicsObject *parent,
              QGraphicsItem::ItemSendsGeometryChanges);
     setAcceptHoverEvents(true);
 
-    // connect(mainTile, &Tile::StateChanged, this, &TileGraphicsItem::handleStateChanged);
+    connect(mainTile, &Tile::StateChanged, this, &TileGraphicsItem::handleStateChanged);
 }
 
 TileState TileGraphicsItem::getCurrentTileState() const

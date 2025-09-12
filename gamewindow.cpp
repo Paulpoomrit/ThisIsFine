@@ -7,6 +7,7 @@ GameWindow::GameWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::GameWindow)
 {
+    qDebug() << QPalette();
     ui->setupUi(this);
 
     ui->graphicsView->setDragMode(QGraphicsView::NoDrag);
