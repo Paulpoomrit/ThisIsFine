@@ -14,6 +14,15 @@ GameWindow::GameWindow(QWidget *parent)
     connect(ui->fireTruckPushButton, &QPushButton::clicked, this, [this](){
         handleGameModeChagned(SpawnMode::FIRE_TRUCK);
     });
+    connect(ui->helicopterPushButton, &QPushButton::clicked, this, [this](){
+        handleGameModeChagned(SpawnMode::HELICOPTER);
+    });
+    connect(ui->planePushButton, &QPushButton::clicked, this, [this](){
+        handleGameModeChagned(SpawnMode::PLANE);
+    });
+    connect(ui->canclePushButton, &QPushButton::clicked, this, [this](){
+        handleGameModeChagned(SpawnMode::NONE);
+    });
 }
 
 GameWindow::~GameWindow()

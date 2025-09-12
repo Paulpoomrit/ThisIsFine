@@ -47,6 +47,8 @@ private:
     QPixmap *highlightSprite;
     QPixmap *clickedEffectSprite;
     QPixmap *fireTruckSprite;
+    QPixmap *planeSprite;
+    QPixmap *helicopterSprite;
     QGraphicsPixmapItem *overlayItem;
 
     SoundCue *soundCue;
