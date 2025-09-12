@@ -4,22 +4,32 @@
 #include "tile.h"
 #include <QGraphicsPixmapItem>
 #include <QObject>
+#include <QPropertyAnimation>
 
 class TruckGraphicsItem : public QObject, public QGraphicsPixmapItem
 {
     Q_OBJECT
+    Q_PROPERTY(QPoint truckPos READ getTruckPos WRITE setTruckPos NOTIFY truckPosChanged FINAL)
 public:
     explicit TruckGraphicsItem(QGraphicsItem *parent = nullptr,
                                const QPixmap &pixmap = QPixmap(":/tiles/Content/Tiles/tile_0097.png"));
-public slots:
+    QPoint getTruckPos() const;
+    void setTruckPos(QPoint newTruckPos);
+
     // void moveTo(int startIndex, int stopIndex, int travelTime);
+
+public slots:
+
 signals:
     void truckSpawned(std::vector<Tile*>& tileboard,
                       int startIndex,
                       int width,
                       int height,
                       int speed);
+    void truckPosChanged(QPoint);
 private:
+    QPoint truckPos;
+    QPropertyAnimation *moveAnimation;
 };
 
 #endif // TRUCKGRAPHICSITEM_H
