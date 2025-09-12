@@ -1,5 +1,6 @@
 #include "tilegraphicsitem.h"
 #include "SpawnMode.h"
+#include "truckgraphicsitem.h"
 
 #include <QPainter>
 #include <QPixmap>
@@ -48,7 +49,6 @@ TileGraphicsItem::TileGraphicsItem(QGraphicsObject *parent,
                                          ":/tiles/Content/Tiles/tile_0169.png"};
     int randomIndex2 = QRandomGenerator::global()->bounded(static_cast<int>(truckSprites.size()));
     QPixmap truckPixmap(truckSprites.at(randomIndex2));
-    qDebug() << "Pixmap is null?" << truckPixmap.isNull() << truckSprites.at(randomIndex2);
     *fireTruckSprite  = truckPixmap.scaled(tileSize.width(), tileSize.height());
 
     setFlags(QGraphicsItem::ItemIsSelectable |
@@ -164,6 +164,15 @@ void TileGraphicsItem::setOverlayMode(TileGraphicalState tileState)
             overlayItem->setPos(this->pos());
             overlayItem->setZValue(100);
             overlayItem->scene() ? void(0) : this->scene()->addItem(overlayItem);
+
+            TruckGraphicsItem* fireTruck = new TruckGraphicsItem();
+            fireTruck->setPixmap(fireTruck->pixmap().scaled(tileSize.width(), tileSize.height()));
+            this->scene()->addItem(fireTruck);
+            fireTruck->setPos(this->pos());
+            fireTruck->setZValue(90);
+
+            this->setCurrentSpawnMode(SpawnMode::NONE);
+
             break;
         }
     }
@@ -261,7 +270,7 @@ void TileGraphicsItem::mousePressEvent(QGraphicsSceneMouseEvent *event)
 
     mainTile->ChangeFire(-1);
 
-    emit pressed();
+    emit pressed(this->getCurrentSpawnMode());
 }
 
 void TileGraphicsItem::hoverEnterEvent(QGraphicsSceneHoverEvent *event)

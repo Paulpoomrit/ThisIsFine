@@ -33,7 +33,7 @@ private:
 public slots:
     void handleTileStateChanged(const int &tileIndex, TileState newState);
 private slots:
-    void handleTilePressed(const int &tileIndex);
+    void handleTilePressed(const int &tileIndex, SpawnMode);
 signals:
     void tilePressed(const int &tileIndex);
 };

@@ -25,7 +25,7 @@ public:
     void setCurrentTileState(TileState newCurrentTileState);
 
 signals:
-    void pressed();
+    void pressed(SpawnMode);
     void hoveredEntered();
     void hoveredLeft();
 
