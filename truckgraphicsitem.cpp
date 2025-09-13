@@ -1,6 +1,7 @@
 #include "truckgraphicsitem.h"
 
 #include "GameScene.h"
+#include "firetruck.h"
 
 #include <QRandomGenerator>
 
@@ -19,6 +20,7 @@ TruckGraphicsItem::TruckGraphicsItem(QGraphicsItem *parent,
     carEffect->play();
 
     // connect with the truck logic
+    // connect();
 }
 
 QPoint TruckGraphicsItem::getTruckPos() const
@@ -56,21 +58,47 @@ void TruckGraphicsItem::moveTo(int startIndex, int stopIndex, int travelTime)
             delete this;
         });
     });
-
     moveAnimation->start();
+    disconnect(tilePressedConnection);
 }
 
 void TruckGraphicsItem::readyToConnectToScene()
-{
+{   
     // connect with the scene to receive the tileIndex
     GameScene* gameScene = qobject_cast<GameScene*>(this->scene());
     qDebug() << this->parent();
 
+
+    int numCols = gameScene->getNumCol();
+    int numRows = gameScene->getNumRow();
+
+
     if (gameScene) {
-        connect(gameScene, &GameScene::tilePressed, this, [=](const int &tileIndex) {
-            std::vector<Tile*> baseTileBoard = gameScene->getBaseTileBoard();
+        tilePressedConnection = connect(gameScene, &GameScene::tilePressed, this, [=](const int &tileIndex) {
+
+            // REMOVE LATER: delete this if it is not in a corner
+            if (!(tileIndex % numCols == 0) &&
+                !(tileIndex % numCols == numCols-1) &&
+                !(tileIndex / numCols == 0) &&
+                !(tileIndex / numCols == numRows-1)) {
+                qDebug() << "FUCKKKKKKK";
+                delete this;
+                return;
+            }
+
+            std::vector<Tile*> *baseTileBoard = gameScene->getBaseTileBoard();
             QSize tileSize = parentTileBoard[0]->getTileSize();
-            emit truckSpawned(baseTileBoard, tileIndex, tileSize.width(), tileSize.height(), speed);
+
+            fireTruckLogic = new FireTruck(baseTileBoard, tileIndex, numCols, numRows, gameScene->getNumRow());
+
+            connect(fireTruckLogic, &FireTruck::StartedTraveling, this, [=](int totalTravelTime, int spawnIndex, int endIndex){
+                qDebug() << "frontend: connect";
+                this->moveTo(spawnIndex, endIndex, totalTravelTime);
+            });
+
+            fireTruckLogic->StartTraveling(500);
+
+            // emit truckSpawned(baseTileBoard, tileIndex, tileSize.width(), tileSize.height(), speed);
 
             qDebug() << "spawn at tile no:" << tileIndex;
             // moveTo(tileIndex,60,1600); // test -> will have to be called from the logic side

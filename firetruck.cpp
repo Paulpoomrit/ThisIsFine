@@ -2,13 +2,14 @@
 
 #include <QObject>
 #include <QTimer>
+#include <QtCore/qdebug.h>
 #include <vector>
 #include <list>
 
 #include "tile.h"
 
 FireTruck::FireTruck(
-    std::vector<Tile*>& board,
+    std::vector<Tile*>* board,
     const int spawnIndex,
     const int boardWidth,
     const int boardHeight,
@@ -41,13 +42,12 @@ FireTruck::FireTruck(
         // Truck travels west
         else
         {
-            endIndex = spawnIndex - boardWidth-1;
+            endIndex = spawnIndex - (boardWidth-1);
             for (int i=boardWidth-1; i >= 0; i--)
                 for (int j=minRange; j <= maxRange; j++)
                     targetTiles.push_back(j*boardWidth + i);
         }
 
-        extinguishRowCount = maxRange - minRange;
         totalTravelDistance = boardWidth;
     }
     // Truck travels vertically
@@ -69,15 +69,14 @@ FireTruck::FireTruck(
         else
         {
             endIndex = spawnIndex + (boardHeight-1)*boardWidth;
-            //
             for (int i=0; i < boardHeight; i++)
                 for (int j=minRange; j <= maxRange; j++)
                     targetTiles.push_back(j + i*boardWidth);
         }
 
-        extinguishRowCount = maxRange - minRange;
         totalTravelDistance = boardHeight;
     }
+    extinguishRowCount = maxRange - minRange +1;
 }
 
 void FireTruck::StartTraveling(const int msPerTile)
@@ -91,10 +90,12 @@ void FireTruck::StartTraveling(const int msPerTile)
 
 void FireTruck::ExtinguishRow()
 {
+    qDebug() << "extinguishRow" << board->size();
     // Extinguish a row of fire
     for (int i=0; i < extinguishRowCount; i++)
     {
-        board[targetTiles.front()]->ChangeFire(-extinguishStrength);
+        //board[64]->ChangeFire(-extinguishStrength);
+        (*board)[targetTiles.front()]->ChangeFire(-extinguishStrength);
         targetTiles.pop_front();
     }
 

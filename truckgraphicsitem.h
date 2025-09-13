@@ -1,6 +1,7 @@
 #ifndef TRUCKGRAPHICSITEM_H
 #define TRUCKGRAPHICSITEM_H
 
+#include "firetruck.h"
 #include "tile.h"
 #include "tilegraphicsitem.h"
 #include <QGraphicsPixmapItem>
@@ -32,9 +33,12 @@ signals:
     void truckPosChanged(QPoint);
 private:
     std::vector<TileGraphicsItem*> parentTileBoard;
+    FireTruck* fireTruckLogic;
     QPoint truckPos;
     QPropertyAnimation *moveAnimation;
     int speed;
+
+    QMetaObject::Connection tilePressedConnection;
 };
 
 #endif // TRUCKGRAPHICSITEM_H

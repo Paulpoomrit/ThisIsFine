@@ -3,6 +3,7 @@
 #include "mainwindow.h"
 
 #include <QApplication>
+#include <QRandomGenerator>
 #include <QStackedWidget>
 
 #include "tile.h"
@@ -69,12 +70,16 @@ int main(int argc, char *argv[])
                         if (loc != i && loc <= 0 && loc > boardWidth*boardHeight)
                             tileLogicBoard[i]->AddTarget(tileBoard[loc]);
                     }
-            game->getScene()->initTileBoard(tileBoard, game->calculateTileSize(boardHeight,boardWidth), boardWidth);
+            game->getScene()->initTileBoard(&tileBoard, game->calculateTileSize(boardHeight,boardWidth), boardWidth);
+            game->getScene()->setNumCol(boardWidth);
+            game->getScene()->setNumRow(boardHeight);
 
             // testing
             int index = 0;
             for (Tile* tile : tileBoard) {
-                tile->ChangeFire(1);
+                if (QRandomGenerator::global()->generateDouble() < .1) {
+                    tile->ChangeFire(1);
+                }
                 tileLogicBoard[index]->StartTimer(500);
                 index++;
             }

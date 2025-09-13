@@ -77,7 +77,7 @@ void TileLogic::ChangeFireIntensity(int change)
     // Change fire intensity, clamped between 0 and max
     fireIntensity = qBound(0, fireIntensity+change, maxFireIntensity);
     // Update the tile's current state
-    if (state == DEAD)
+    if (state != DEAD)
     {
         if (fireIntensity == 0)
             mainTile->ChangeState(IDLE);

@@ -12,6 +12,8 @@
 GameScene::GameScene(QObject *parent) :
     QGraphicsScene(parent),
     currentTileItemBoard(),
+    baseTileBoard(new std::vector<Tile*>),
+    paulSucksTileBoard(new std::vector<Tile*>),
     currentSpawnMode(SpawnMode::NONE),
     sfx(new SoundCue)
 {
@@ -19,12 +21,13 @@ GameScene::GameScene(QObject *parent) :
     setBackgroundBrush(backgroundBrush);
 }
 
-void GameScene::initTileBoard(const std::vector<Tile*> &startingTileBoard,
+void GameScene::initTileBoard(std::vector<Tile*> *startingTileBoard,
                               const QSize &tileSize,
                               const int &column,
                               const int & numAvgTreePerTile)
 {
-    baseTileBoard = startingTileBoard;
+    setBaseTileBoard(startingTileBoard);
+
     currentTileItemBoard.clear();
     QPoint currentPos(0,0);
     int xOffSet = tileSize.width();
@@ -32,7 +35,8 @@ void GameScene::initTileBoard(const std::vector<Tile*> &startingTileBoard,
     int columnCounter = 0;
     // QSignalMapper *mapper = new QSignalMapper(this);
 
-    for (Tile* tile : startingTileBoard) {
+    for (Tile* tile : *startingTileBoard) {
+        paulSucksTileBoard->push_back(tile);
         TileGraphicsItem *tileItem = new TileGraphicsItem(nullptr,
                                                           tile->GetState(),
                                                           tileSize,
@@ -105,7 +109,6 @@ void GameScene::initTileBoard(const std::vector<Tile*> &startingTileBoard,
         // //test
         // tile->setCurrentTileState(TileState::DEAD);
     }
-
 }
 
 SpawnMode GameScene::getCurrentSpawnMode() const
@@ -124,14 +127,35 @@ void GameScene::setCurrentSpawnMode(SpawnMode newCurrentSpawnMode)
     }
 }
 
-std::vector<Tile *> GameScene::getBaseTileBoard() const
+std::vector<Tile *>* GameScene::getBaseTileBoard() const
 {
-    return baseTileBoard;
+    qDebug() << "getBaseTileBoard" << paulSucksTileBoard->size();
+    return paulSucksTileBoard;
 }
 
-void GameScene::setBaseTileBoard(const std::vector<Tile *> &newBaseTileBoard)
+void GameScene::setBaseTileBoard(std::vector<Tile *> *newBaseTileBoard)
 {
     baseTileBoard = newBaseTileBoard;
+}
+
+int GameScene::getNumRow() const
+{
+    return numRow;
+}
+
+void GameScene::setNumRow(int newNumRow)
+{
+    numRow = newNumRow;
+}
+
+int GameScene::getNumCol() const
+{
+    return numCol;
+}
+
+void GameScene::setNumCol(int newNumCol)
+{
+    numCol = newNumCol;
 }
 
 void GameScene::handleTileStateChanged(const int &tileIndex, TileState newState)

@@ -14,19 +14,27 @@ class GameScene : public QGraphicsScene
     Q_OBJECT
 public:
     GameScene(QObject *parent);
-    void initTileBoard(const std::vector<Tile*> &startingTileBoard = std::vector<Tile*>(),
+    void initTileBoard(std::vector<Tile*>* startingTileBoard = new std::vector<Tile*>(),
                        const QSize &tileSize = QSize(100,100),
                        const int &column = 5,
                        const int & numAvgTreePerTile = 5);
     SpawnMode getCurrentSpawnMode() const;
     void setCurrentSpawnMode(SpawnMode newCurrentSpawnMode);
 
-    std::vector<Tile *> getBaseTileBoard() const;
-    void setBaseTileBoard(const std::vector<Tile *> &newBaseTileBoard);
+    std::vector<Tile *>* getBaseTileBoard() const;
+    void setBaseTileBoard(std::vector<Tile *> *newBaseTileBoard);
+
+    int getNumRow() const;
+    void setNumRow(int newNumRow);
+
+    int getNumCol() const;
+    void setNumCol(int newNumCol);
 
 private:
     std::vector<TileGraphicsItem*> currentTileItemBoard;
-    std::vector<Tile*> baseTileBoard;
+    std::vector<Tile*>* baseTileBoard;
+
+    std::vector<Tile*>* paulSucksTileBoard;
 
     int numAvgTreePerTile;
     int stdTreeDeviation = 5;
@@ -34,6 +42,10 @@ private:
     SpawnMode currentSpawnMode;
 
     SoundCue* sfx;
+
+    int numRow;
+    int numCol;
+
 public slots:
     void handleTileStateChanged(const int &tileIndex, TileState newState);
 private slots:

@@ -19,6 +19,7 @@ Flame::Flame(QGraphicsItem *parent) :
     const auto &randomFlameType = getRandomFlameType();
     const auto &paths = allSprites[randomFlameType];
     loadFlameSprites(paths);
+    setOffset(0, -flameSprites[0].height() / 2);
     setPixmap(flameSprites[0]);
     animate(10);
 }
