@@ -15,12 +15,10 @@ TruckGraphicsItem::TruckGraphicsItem(QGraphicsItem *parent,
     speed(100)
 {
     QSoundEffect *carEffect = new QSoundEffect(this);
-    carEffect->setSource(QUrl("qrc:/SFX/Content/SFX/MAD ROBOT Sound Lab - Vintage Motorcycle - Idling Engine Up Close.wav"));
-    carEffect->setLoopCount(QSoundEffect::Infinite);
-    carEffect->play();
+    carEffect->setSource(QUrl::fromLocalFile(":/SFX/Content/SFX/MAD ROBOT Sound Lab - Vintage Motorcycle - Idling Engine Up Close.wav"));
 
-    // connect with the truck logic
-    // connect();
+    carEffect->setVolume(0.1);
+    carEffect->play();
 }
 
 QPoint TruckGraphicsItem::getTruckPos() const
@@ -77,14 +75,14 @@ void TruckGraphicsItem::readyToConnectToScene()
         tilePressedConnection = connect(gameScene, &GameScene::tilePressed, this, [=](const int &tileIndex) {
 
             // REMOVE LATER: delete this if it is not in a corner
-            if (!(tileIndex % numCols == 0) &&
-                !(tileIndex % numCols == numCols-1) &&
-                !(tileIndex / numCols == 0) &&
-                !(tileIndex / numCols == numRows-1)) {
-                qDebug() << "FUCKKKKKKK";
-                delete this;
-                return;
-            }
+            // if (!(tileIndex % numCols == 0) &&
+            //     !(tileIndex % numCols == numCols-1) &&
+            //     !(tileIndex / numCols == 0) &&
+            //     !(tileIndex / numCols == numRows-1)) {
+
+            //     delete this;
+            //     return;
+            // }
 
             std::vector<Tile*> *baseTileBoard = gameScene->getBaseTileBoard();
             QSize tileSize = parentTileBoard[0]->getTileSize();

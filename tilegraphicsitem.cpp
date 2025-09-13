@@ -15,7 +15,7 @@ TileGraphicsItem::TileGraphicsItem(QGraphicsObject *parent,
                                    SoundCue *parentSoundCue,
                                    const int& numTree,
                                    Tile* mainTile,
-                                   const std::vector<TileGraphicsItem *> &parentTileBoard) :
+                                   const std::vector<TileGraphicsItem *> &parentTileBoard, int numCols, int numRows, int tileIndex) :
     QGraphicsObject(parent),
     parentTileBoard(parentTileBoard),
     mainTile(mainTile),
@@ -33,7 +33,10 @@ TileGraphicsItem::TileGraphicsItem(QGraphicsObject *parent,
     currentTileGraphicalState(TileGraphicalState::TILE_DEFAULT),
     currentSpawnMode(SpawnMode::NONE),
     treeItems(),
-    numTree(numTree)
+    numTree(numTree),
+    numCols(numCols),
+    numRows(numRows),
+    tileIndex(tileIndex)
 {
     setFlag(QGraphicsItem::ItemClipsChildrenToShape, false);
     std::vector<QString> tileSprites = {":/tiles/Content/Tiles/tile_0000.png",
@@ -270,7 +273,6 @@ void TileGraphicsItem::setOverlayMode(TileGraphicalState tileState)
             fireTruck->readyToConnectToScene();
 
             this->setCurrentSpawnMode(SpawnMode::NONE);
-
             break;
         }
     }
@@ -364,10 +366,19 @@ void TileGraphicsItem::mousePressEvent(QGraphicsSceneMouseEvent *event)
         soundCue->playSFX(SFX::PRESSED, 1);
     }
     setCurrentTileGraphicalState(TileGraphicalState::TILE_PRESSED);
+
+    qDebug() << "pressed: " << numRows;
+
+    if (!(tileIndex % numCols == 0) &&
+        !(tileIndex % numCols == numCols-1) &&
+        !(tileIndex / numCols == 0) &&
+        !(tileIndex / numCols == numRows-1)) {
+        return;
+    }
+
     setOverlayMode(TileGraphicalState::TILE_PRESSED);
 
     mainTile->ChangeFire(-1);
-
     emit pressed(this->getCurrentSpawnMode());
 }
 
@@ -377,6 +388,17 @@ void TileGraphicsItem::hoverEnterEvent(QGraphicsSceneHoverEvent *event)
     if (soundCue) {
         soundCue->playSFX(SFX::DIRT, 0.1);
     }
+
+    if (!(tileIndex % numCols == 0) &&
+        !(tileIndex % numCols == numCols-1) &&
+        !(tileIndex / numCols == 0) &&
+        !(tileIndex / numCols == numRows-1)) {
+        setCurrentSpawnMode(SpawnMode::NONE);
+        setCurrentTileGraphicalState(TileGraphicalState::TILE_HOVERED);
+        setOverlayMode(TileGraphicalState::TILE_HOVERED);
+        return;
+    }
+
     setCurrentTileGraphicalState(TileGraphicalState::TILE_HOVERED);
     setOverlayMode(TileGraphicalState::TILE_HOVERED);
     update();

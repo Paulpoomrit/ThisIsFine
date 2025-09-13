@@ -21,7 +21,8 @@ public:
                               SoundCue* parentSoundCue = nullptr,
                               const int& numTree = 5,
                               Tile* mainTile = nullptr,
-                              const std::vector<TileGraphicsItem*> &parentTileBoard = {});
+                              const std::vector<TileGraphicsItem*> &parentTileBoard = {},
+                              int numCols = -1, int numRows = -1, int tileIndex = -1);
     TileState getCurrentTileState() const;
     void setCurrentTileState(TileState newCurrentTileState);
 
@@ -59,6 +60,11 @@ private:
     std::vector<TreeGraphicsItem*> treeItems;
     std::vector<Flame*> flameItems;
     const int numTree;
+
+    int numCols;
+    int numRows;
+    int tileIndex;
+
 public:
     QRectF boundingRect() const;
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);

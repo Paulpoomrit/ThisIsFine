@@ -6,6 +6,7 @@
 #include <QtCore/qsignalmapper.h>
 #include <QGraphicsSceneWheelEvent>
 #include <QRandomGenerator>
+#include <QtGui/qpainter.h>
 #include <qpushbutton.h>
 #include <random>
 
@@ -17,13 +18,13 @@ GameScene::GameScene(QObject *parent) :
     currentSpawnMode(SpawnMode::NONE),
     sfx(new SoundCue)
 {
-    QBrush backgroundBrush("#84c669");
-    setBackgroundBrush(backgroundBrush);
+    setBackgroundBrush(Qt::transparent);
 }
 
 void GameScene::initTileBoard(std::vector<Tile*> *startingTileBoard,
                               const QSize &tileSize,
                               const int &column,
+                              const int &row,
                               const int & numAvgTreePerTile)
 {
     setBaseTileBoard(startingTileBoard);
@@ -43,7 +44,10 @@ void GameScene::initTileBoard(std::vector<Tile*> *startingTileBoard,
                                                           sfx,
                                                           5,
                                                           tile,
-                                                          currentTileItemBoard);
+                                                          currentTileItemBoard,
+                                                          column,
+                                                          row,
+                                                          currentTileItemBoard.size());
 
         currentTileItemBoard.push_back(tileItem);
         // mapper->setMapping(tileItem, currentTileItemBoard.size()-1);

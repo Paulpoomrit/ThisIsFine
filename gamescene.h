@@ -16,7 +16,7 @@ public:
     GameScene(QObject *parent);
     void initTileBoard(std::vector<Tile*>* startingTileBoard = new std::vector<Tile*>(),
                        const QSize &tileSize = QSize(100,100),
-                       const int &column = 5,
+                       const int &column = 5, const int &row = 5,
                        const int & numAvgTreePerTile = 5);
     SpawnMode getCurrentSpawnMode() const;
     void setCurrentSpawnMode(SpawnMode newCurrentSpawnMode);

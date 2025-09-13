@@ -37,7 +37,6 @@ private:
     QPoint truckPos;
     QPropertyAnimation *moveAnimation;
     int speed;
-
     QMetaObject::Connection tilePressedConnection;
 };
 
