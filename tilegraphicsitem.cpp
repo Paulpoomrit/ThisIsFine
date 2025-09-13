@@ -369,7 +369,8 @@ void TileGraphicsItem::mousePressEvent(QGraphicsSceneMouseEvent *event)
 
     qDebug() << "pressed: " << numRows;
 
-    if (!(tileIndex % numCols == 0) &&
+    if ((getCurrentSpawnMode() == SpawnMode::FIRE_TRUCK || getCurrentSpawnMode() == SpawnMode::HELICOPTER || getCurrentSpawnMode() == SpawnMode::PLANE) &&
+        !(tileIndex % numCols == 0) &&
         !(tileIndex % numCols == numCols-1) &&
         !(tileIndex / numCols == 0) &&
         !(tileIndex / numCols == numRows-1)) {
@@ -389,7 +390,8 @@ void TileGraphicsItem::hoverEnterEvent(QGraphicsSceneHoverEvent *event)
         soundCue->playSFX(SFX::DIRT, 0.1);
     }
 
-    if (!(tileIndex % numCols == 0) &&
+    if ((getCurrentSpawnMode() == SpawnMode::FIRE_TRUCK || getCurrentSpawnMode() == SpawnMode::HELICOPTER || getCurrentSpawnMode() == SpawnMode::PLANE) &&
+        !(tileIndex % numCols == 0) &&
         !(tileIndex % numCols == numCols-1) &&
         !(tileIndex / numCols == 0) &&
         !(tileIndex / numCols == numRows-1)) {

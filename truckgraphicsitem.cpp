@@ -74,16 +74,6 @@ void TruckGraphicsItem::readyToConnectToScene()
     if (gameScene) {
         tilePressedConnection = connect(gameScene, &GameScene::tilePressed, this, [=](const int &tileIndex) {
 
-            // REMOVE LATER: delete this if it is not in a corner
-            // if (!(tileIndex % numCols == 0) &&
-            //     !(tileIndex % numCols == numCols-1) &&
-            //     !(tileIndex / numCols == 0) &&
-            //     !(tileIndex / numCols == numRows-1)) {
-
-            //     delete this;
-            //     return;
-            // }
-
             std::vector<Tile*> *baseTileBoard = gameScene->getBaseTileBoard();
             QSize tileSize = parentTileBoard[0]->getTileSize();
 

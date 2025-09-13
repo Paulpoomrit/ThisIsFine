@@ -32,17 +32,24 @@ int main(int argc, char *argv[])
 
     app.setPalette(darkPalette);
 
+
+    // Widget& Init Game
     QStackedWidget* stackedWidget = new QStackedWidget();
 
     MainMenu* menu = new MainMenu();
-    GameWindow* game = new GameWindow();
     stackedWidget->addWidget(menu);
-    stackedWidget->addWidget(game);
 
     stackedWidget->setCurrentWidget(menu);
     stackedWidget->show();
 
-    QObject::connect(menu, &MainMenu::gameStarted, [stackedWidget, game](GameMode gameMode) {
+    QTimer *timer = new QTimer();
+    QObject::connect(timer, &QTimer::timeout, [=](){
+        stackedWidget->setCurrentWidget(menu);
+    });
+
+    QObject::connect(menu, &MainMenu::gameStarted, [stackedWidget, timer](GameMode gameMode) {
+        GameWindow* game = new GameWindow();
+        stackedWidget->addWidget(game);
         switch(gameMode) {
         case INFINITE_MODE: {
             qDebug() << "connection works";
@@ -83,6 +90,7 @@ int main(int argc, char *argv[])
                 tileLogicBoard[index]->StartTimer(500);
                 index++;
             }
+            timer->start(60000);
         }
         case STORY_MODE:
             break;
