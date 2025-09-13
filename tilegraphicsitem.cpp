@@ -1,5 +1,6 @@
 #include "tilegraphicsitem.h"
 #include "SpawnMode.h"
+#include "firetruck.h"
 #include "truckgraphicsitem.h"
 
 #include <QPainter>
@@ -173,7 +174,7 @@ void TileGraphicsItem::setOverlayMode(TileGraphicalState tileState)
             overlayItem->scene() ? void(0) : this->scene()->addItem(overlayItem);
             break;
         }
-    } else if (this->getCurrentSpawnMode()  == SpawnMode::FIRE_TRUCK) {
+    } else if (this->getCurrentSpawnMode() == SpawnMode::FIRE_TRUCK) {
         switch(tileState) {
         case TileGraphicalState::TILE_DEFAULT:
             overlayItem->setOpacity(0);

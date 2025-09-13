@@ -12,7 +12,7 @@ class FireTruck : public QObject
 {
     Q_OBJECT
 public:
-    FireTruck(std::vector<Tile*>&, const int, const int, const int, const int = 1, const int = 1);
+    FireTruck(std::vector<Tile*>*, const int, const int, const int, const int = 1, const int = 1);
     void StartTraveling(const int);
 
 private slots:
@@ -23,7 +23,7 @@ signals:
     void FinishedTraveling();
 
 private:
-    std::vector<Tile*>& board;
+    std::vector<Tile*>* board;
     std::list<int> targetTiles; // List of offsets for tiles that will be affected
     QTimer* tileTimer;
     int spawnIndex;
