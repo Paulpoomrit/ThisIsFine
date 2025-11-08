@@ -1,8 +1,8 @@
 #include "gamescene.h"
-#include "SpawnMode.h"
-#include "flame.h"
-#include "tilegraphicsitem.h"
-#include "treegraphicsitem.h"
+#include "graphicsitems/spawnmode.h"
+#include "graphicsitems/flame.h"
+#include "graphicsitems/tilegraphicsitem.h"
+#include "graphicsitems/treegraphicsitem.h"
 #include <QtCore/qsignalmapper.h>
 #include <QGraphicsSceneWheelEvent>
 #include <QRandomGenerator>

@@ -1,6 +1,6 @@
 #include "tilegraphicsitem.h"
-#include "SpawnMode.h"
-#include "firetruck.h"
+#include "spawnmode.h"
+#include "../logicitems/firetruck.h"
 #include "truckgraphicsitem.h"
 
 #include <QPainter>

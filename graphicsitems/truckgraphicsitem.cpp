@@ -1,7 +1,7 @@
 #include "truckgraphicsitem.h"
 
-#include "GameScene.h"
-#include "firetruck.h"
+#include "../GameScene.h"
+#include "../logicitems/firetruck.h"
 
 #include <QRandomGenerator>
 

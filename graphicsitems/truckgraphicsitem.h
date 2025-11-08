@@ -1,8 +1,8 @@
 #ifndef TRUCKGRAPHICSITEM_H
 #define TRUCKGRAPHICSITEM_H
 
-#include "firetruck.h"
-#include "tile.h"
+#include "../logicitems/firetruck.h"
+#include "../logicitems/tile.h"
 #include "tilegraphicsitem.h"
 #include <QGraphicsPixmapItem>
 #include <QObject>

@@ -1,13 +1,12 @@
 #include "GameWindow.h"
 #include "mainmenu.h"
-#include "mainwindow.h"
 
 #include <QApplication>
 #include <QRandomGenerator>
 #include <QStackedWidget>
 
-#include "tile.h"
-#include "tileLogic.h"
+#include "logicitems/tile.h"
+#include "logicitems/tilelogic.h"
 
 int main(int argc, char *argv[])
 {

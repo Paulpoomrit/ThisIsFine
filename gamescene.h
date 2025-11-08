@@ -1,12 +1,12 @@
 #ifndef GAMESCENE_H
 #define GAMESCENE_H
 
-#include "SpawnMode.h"
-#include "soundcue.h"
-#include "tilegraphicsitem.h"
+#include "graphicsitems/spawnmode.h"
+#include "sound/soundcue.h"
+#include "graphicsitems/tilegraphicsitem.h"
 
 #include <QGraphicsScene>
-#include "tile.h"
+#include "logicitems/tile.h"
 
 
 class GameScene : public QGraphicsScene

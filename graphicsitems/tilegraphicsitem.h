@@ -3,11 +3,11 @@
 
 #include <QGraphicsPixmapItem>
 #include <QSoundEffect>
-#include "SpawnMode.h"
+#include "spawnmode.h"
 #include "flame.h"
-#include "soundcue.h"
-#include "tile.h"
-#include "tilestates.h"
+#include "../sound/soundcue.h"
+#include "../logicitems/tile.h"
+#include "../logicitems/tilestates.h"
 #include "treegraphicsitem.h"
 
 class TileGraphicsItem : public QGraphicsObject
