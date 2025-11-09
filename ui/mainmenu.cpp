@@ -9,11 +9,9 @@ MainMenu::MainMenu(QWidget *parent)
 {
     ui->setupUi(this);
     connect(ui->storyModeButton, &RetroButton::clicked, this, [this](){
-        qDebug() << "Start game mode: STORY";
         emit gameStarted(GameMode::STORY_MODE);
     });
     connect(ui->infiniteModeButton, &RetroButton::clicked, this, [this](){
-        qDebug() << "Start game mode: INFINITE";
         emit gameStarted(GameMode::INFINITE_MODE);
     });
     connect(ui->exitButton, &RetroButton::clicked, this, []() {
@@ -29,6 +27,24 @@ MainMenu::MainMenu(QWidget *parent)
 MainMenu::~MainMenu()
 {
     delete ui;
+}
+
+GameMode MainMenu::DoMainMenu(QStackedWidget *parent)
+{
+    MainMenu* mainMenu = new MainMenu();
+    parent->addWidget(mainMenu);
+    parent->show();
+
+    QEventLoop loop;
+    GameMode selectedMode;
+
+    QObject::connect(mainMenu, &MainMenu::gameStarted, mainMenu, [&loop, &selectedMode](GameMode gameMode) {
+        selectedMode = gameMode;
+        loop.quit();
+    });
+
+    loop.exec();
+    return selectedMode;
 }
 
 QSize MainMenu::sizeHint() const

@@ -3,6 +3,7 @@
 
 #include <QGraphicsDropShadowEffect>
 #include <QMainWindow>
+#include <QtWidgets/qstackedwidget.h>
 #include "gamemode.h"
 
 namespace Ui {
@@ -16,6 +17,7 @@ class MainMenu : public QMainWindow
 public:
     explicit MainMenu(QWidget *parent = nullptr);
     ~MainMenu();
+    static GameMode DoMainMenu(QStackedWidget *parent);
 
 signals:
     void gameStarted(GameMode gameModeSelected);
