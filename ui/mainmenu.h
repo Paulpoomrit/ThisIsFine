@@ -17,7 +17,7 @@ class MainMenu : public QMainWindow
 public:
     explicit MainMenu(QWidget *parent = nullptr);
     ~MainMenu();
-    static GameMode DoMainMenu(QStackedWidget *parent);
+    static GameMode doMainMenu(QStackedWidget *parent);
 
 signals:
     void gameStarted(GameMode gameModeSelected);

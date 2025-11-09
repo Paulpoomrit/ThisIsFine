@@ -19,6 +19,7 @@ SOURCES += \
     logicitems/tile.cpp \
     logicitems/tilelogic.cpp \
     main.cpp \
+    managers/thememanager.cpp \
     sound/soundcue.cpp \
     ui/gamewindow.cpp \
     ui/mainmenu.cpp \
@@ -36,6 +37,7 @@ HEADERS += \
     logicitems/tile.h \
     logicitems/tilelogic.h \
     logicitems/tilestates.h \
+    managers/thememanager.h \
     sound/soundcue.h \
     ui/gamewindow.h \
     ui/mainmenu.h \

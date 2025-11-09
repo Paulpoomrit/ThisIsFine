@@ -29,7 +29,7 @@ MainMenu::~MainMenu()
     delete ui;
 }
 
-GameMode MainMenu::DoMainMenu(QStackedWidget *parent)
+GameMode MainMenu::doMainMenu(QStackedWidget *parent)
 {
     MainMenu* mainMenu = new MainMenu();
     parent->addWidget(mainMenu);
