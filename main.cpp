@@ -1,5 +1,5 @@
-#include "GameWindow.h"
-#include "mainmenu.h"
+#include "ui/gamewindow.h"
+#include "ui/mainmenu.h"
 
 #include <QApplication>
 #include <QRandomGenerator>
@@ -37,15 +37,14 @@ int main(int argc, char *argv[])
     MainMenu* menu = new MainMenu();
     stackedWidget->addWidget(menu);
 
-    stackedWidget->setCurrentWidget(menu);
     stackedWidget->show();
 
     QTimer *timer = new QTimer();
-    QObject::connect(timer, &QTimer::timeout, [=](){
+    QObject::connect(timer, &QTimer::timeout, stackedWidget, [=](){
         stackedWidget->setCurrentWidget(menu);
     });
 
-    QObject::connect(menu, &MainMenu::gameStarted, [stackedWidget, timer](GameMode gameMode) {
+    QObject::connect(menu, &MainMenu::gameStarted, menu, [stackedWidget, timer](GameMode gameMode) {
         GameWindow* game = new GameWindow();
         stackedWidget->addWidget(game);
         switch(gameMode) {
