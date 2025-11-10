@@ -37,6 +37,7 @@ HEADERS += \
     logicitems/tile.h \
     logicitems/tilelogic.h \
     logicitems/tilestates.h \
+    managers/configinfo.h \
     managers/thememanager.h \
     sound/soundcue.h \
     ui/gamewindow.h \

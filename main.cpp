@@ -23,10 +23,6 @@ int main(int argc, char *argv[])
     qDebug() << "Start game mode" << selectedGameMode;
 
 
-    // MainMenu* menu = new MainMenu();
-    // stackedWidget->addWidget(menu);
-
-
 
     // QTimer *timer = new QTimer();
     // QObject::connect(timer, &QTimer::timeout, stackedWidget, [=](){

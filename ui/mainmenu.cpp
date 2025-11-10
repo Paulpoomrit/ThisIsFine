@@ -31,7 +31,7 @@ MainMenu::~MainMenu()
 
 GameMode MainMenu::doMainMenu(QStackedWidget *parent)
 {
-    MainMenu* mainMenu = new MainMenu();
+    MainMenu* mainMenu = new MainMenu(parent);
     parent->addWidget(mainMenu);
     parent->show();
 
@@ -44,6 +44,7 @@ GameMode MainMenu::doMainMenu(QStackedWidget *parent)
     });
 
     loop.exec();
+    parent->removeWidget(mainMenu);
     return selectedMode;
 }
 
