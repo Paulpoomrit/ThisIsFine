@@ -1,3 +1,4 @@
+#include "managers/endgamestates.h"
 #include "ui/gamewindow.h"
 #include "ui/mainmenu.h"
 
@@ -9,6 +10,7 @@
 #include "logicitems/tilelogic.h"
 
 #include <managers/thememanager.h>
+#include <managers/levelmanager.h>
 
 int main(int argc, char *argv[])
 {
@@ -22,7 +24,14 @@ int main(int argc, char *argv[])
     GameMode selectedGameMode = MainMenu::doMainMenu(stackedWidget);
     qDebug() << "Start game mode" << selectedGameMode;
 
+    std::variant<Win,Lose> EndGameState = LevelManager::doLevel(ConfigInfo(), stackedWidget);
+    qDebug() << "EndGame w Mode" << EndGameState.index();
 
+
+    // MainMenu* menu = new MainMenu();
+    // QStackedWidget* stackedWidget = new QStackedWidget();
+    // stackedWidget->addWidget(menu);
+    // stackedWidget->show();
 
     // QTimer *timer = new QTimer();
     // QObject::connect(timer, &QTimer::timeout, stackedWidget, [=](){
@@ -40,7 +49,7 @@ int main(int argc, char *argv[])
     //         qDebug() << "connection works";
 
     //         stackedWidget->setCurrentWidget(game);
-    //         stackedWidget->show();
+    //         // stackedWidget->show();
 
     //         // still test vector (will also be removed! By being relocated to, and I quote, "somewhere over the rainbow" (also known as another file))
     //         std::vector<Tile*> tileBoard;

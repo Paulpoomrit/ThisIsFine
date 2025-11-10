@@ -33,7 +33,7 @@ GameMode MainMenu::doMainMenu(QStackedWidget *parent)
 {
     MainMenu* mainMenu = new MainMenu(parent);
     parent->addWidget(mainMenu);
-    parent->show();
+    // parent->show();
 
     QEventLoop loop;
     GameMode selectedMode;
