@@ -3,6 +3,10 @@
 #include "ui_gamewindow.h"
 #include <QtGui/qevent.h>
 
+namespace GameWindowConfig {
+constexpr QSize TILE_ERROR_BOUND = QSize(10,10);
+}
+
 GameWindow::GameWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::GameWindow)
@@ -38,9 +42,10 @@ GameScene *GameWindow::getScene()
 
 QSize GameWindow::calculateTileSize(int numRow, int numCol) const
 {
+
     QSize tileSize;
-    QSize viewSize = ui->graphicsView->size();
-    qDebug() << viewSize;
+    QSizeF viewSize = ui->graphicsView->sceneRect().size() + GameWindowConfig::TILE_ERROR_BOUND;
+
     tileSize.setWidth(viewSize.width()/numCol);
     tileSize.setHeight(viewSize.height()/numRow);
     return tileSize;
@@ -70,7 +75,6 @@ void GameWindow::resizeEvent(QResizeEvent *event)
 void GameWindow::showEvent(QShowEvent *event)
 {
     Q_UNUSED(event);
-    qDebug() << ui->graphicsView->size();
     sceneRectHint = QRect(0,0, ui->graphicsView->size().width(), ui->graphicsView->size().height());
     scene = new GameScene(this);
     ui->graphicsView->setScene(scene);

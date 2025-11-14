@@ -34,8 +34,6 @@ private:
     std::vector<TileGraphicsItem*> currentTileItemBoard;
     std::vector<Tile*>* baseTileBoard;
 
-    std::vector<Tile*>* paulSucksTileBoard;
-
     int numAvgTreePerTile;
     int stdTreeDeviation = 5;
 

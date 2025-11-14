@@ -29,12 +29,10 @@ MainMenu::~MainMenu()
     delete ui;
 }
 
-GameMode MainMenu::doMainMenu(QStackedWidget *parent)
+GameMode MainMenu::doMainMenu()
 {
-    MainMenu* mainMenu = new MainMenu(parent);
-    parent->addWidget(mainMenu);
-    // parent->show();
-
+    MainMenu* mainMenu = new MainMenu();
+    mainMenu->show();
     QEventLoop loop;
     GameMode selectedMode;
 
@@ -44,7 +42,7 @@ GameMode MainMenu::doMainMenu(QStackedWidget *parent)
     });
 
     loop.exec();
-    parent->removeWidget(mainMenu);
+    delete mainMenu;
     return selectedMode;
 }
 

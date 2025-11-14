@@ -14,7 +14,6 @@ GameScene::GameScene(QObject *parent) :
     QGraphicsScene(parent),
     currentTileItemBoard(),
     baseTileBoard(new std::vector<Tile*>),
-    paulSucksTileBoard(new std::vector<Tile*>),
     currentSpawnMode(SpawnMode::NONE),
     sfx(new SoundCue)
 {
@@ -34,10 +33,8 @@ void GameScene::initTileBoard(std::vector<Tile*> *startingTileBoard,
     int xOffSet = tileSize.width();
     int yOffSet = tileSize.height();
     int columnCounter = 0;
-    // QSignalMapper *mapper = new QSignalMapper(this);
 
     for (Tile* tile : *startingTileBoard) {
-        paulSucksTileBoard->push_back(tile);
         TileGraphicsItem *tileItem = new TileGraphicsItem(nullptr,
                                                           tile->GetState(),
                                                           tileSize,
@@ -68,7 +65,6 @@ void GameScene::initTileBoard(std::vector<Tile*> *startingTileBoard,
             currentPos.rx() += xOffSet;
         }
     }
-    // connect (mapper, SIGNAL(mappedInt(int)), this, SLOT(handleTilePressed(int)));
 
     // -> Populate tree/flame only after all tiles are drawn
     // the Tree and Flame vectors are being spawned here
@@ -83,9 +79,7 @@ void GameScene::initTileBoard(std::vector<Tile*> *startingTileBoard,
         std::default_random_engine generator;
         std::normal_distribution<double> distribution(numAvgTreePerTile, stdTreeDeviation);
 
-        int numTree = 4;
-
-        for (int i = 0; i < numTree; i++) {
+        for (int i = 0; i < numAvgTreePerTile; i++) {
             TreeGraphicsItem* treeItem = new TreeGraphicsItem();
 
             treeItem->setScale(1);
@@ -133,8 +127,8 @@ void GameScene::setCurrentSpawnMode(SpawnMode newCurrentSpawnMode)
 
 std::vector<Tile *>* GameScene::getBaseTileBoard() const
 {
-    qDebug() << "getBaseTileBoard" << paulSucksTileBoard->size();
-    return paulSucksTileBoard;
+    qDebug() << "getBaseTileBoard" << baseTileBoard->size();
+    return baseTileBoard;
 }
 
 void GameScene::setBaseTileBoard(std::vector<Tile *> *newBaseTileBoard)

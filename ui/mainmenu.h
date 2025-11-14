@@ -17,7 +17,7 @@ class MainMenu : public QMainWindow
 public:
     explicit MainMenu(QWidget *parent = nullptr);
     ~MainMenu();
-    static GameMode doMainMenu(QStackedWidget *parent);
+    static GameMode doMainMenu();
 
 signals:
     void gameStarted(GameMode gameModeSelected);
@@ -28,9 +28,6 @@ private:
     // QWidget interface
 public:
     QSize sizeHint() const;
-
-    // QWidget interface
-public:
     int heightForWidth(int) const;
 
     // QWidget interface
