@@ -40,6 +40,8 @@ GameScene *GameWindow::getScene()
     return scene;
 }
 
+
+// doesn't work when there exists more than 1 monitor!
 QSize GameWindow::calculateTileSize(int numRow, int numCol) const
 {
 

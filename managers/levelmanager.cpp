@@ -40,6 +40,8 @@ std::variant<Win, Lose> LevelManager::doLevel(ConfigInfo GameConfig)
                     tileLogicBoard[i]->AddTarget(tileBoard[loc]);
             }
 
+
+    qDebug() << "Tile Size: " << game->calculateTileSize(LevelManagerConfig::BOARD_HEIGHT, LevelManagerConfig::BOARD_WIDTH);
     game->getScene()->initTileBoard(&tileBoard, game->calculateTileSize(LevelManagerConfig::BOARD_HEIGHT, LevelManagerConfig::BOARD_WIDTH), LevelManagerConfig::BOARD_WIDTH, LevelManagerConfig::BOARD_HEIGHT);
     game->getScene()->setNumCol(LevelManagerConfig::BOARD_WIDTH);
     game->getScene()->setNumRow(LevelManagerConfig::BOARD_HEIGHT);
