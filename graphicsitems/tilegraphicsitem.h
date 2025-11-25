@@ -88,6 +88,8 @@ public:
     QSize getTileSize() const;
     void setTileSize(const QSize &newTileSize);
 
+    bool isCornerTile() const;
+
 protected:
     void mousePressEvent(QGraphicsSceneMouseEvent *event);
     void hoverEnterEvent(QGraphicsSceneHoverEvent *event);
