@@ -19,6 +19,8 @@ std::variant<Win, Lose> LevelManager::doLevel(ConfigInfo GameConfig)
     game->show();
     game->update();
 
+    // TO-DO: setup level according to the current GameConfig
+    Q_UNUSED(GameConfig)
     LevelManager* level = new LevelManager(game, game->getScene());
 
     std::vector<Tile*> tileBoard;
@@ -66,6 +68,7 @@ std::variant<Win, Lose> LevelManager::doLevel(ConfigInfo GameConfig)
     loop.exec();
     delete game;
 
+    // TO-DO determine win-lose condition
     return Win();
 }
 

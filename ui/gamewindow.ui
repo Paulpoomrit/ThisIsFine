@@ -196,9 +196,7 @@ Cancel</string>
         </property>
         <property name="text">
          <string>✈️
-Plane
-(can only travel in
-straight lines)</string>
+Plane</string>
         </property>
        </widget>
       </item>
@@ -225,9 +223,7 @@ straight lines)</string>
         </property>
         <property name="text">
          <string>🚁
-Helicopter
-(can only travel in
-straight lines)</string>
+Helicopter</string>
         </property>
        </widget>
       </item>
@@ -254,9 +250,7 @@ straight lines)</string>
         </property>
         <property name="text">
          <string>🚒
-Fire Truck
-(can only travel in
-straight lines)</string>
+Fire Truck</string>
         </property>
        </widget>
       </item>
