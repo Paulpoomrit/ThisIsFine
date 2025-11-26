@@ -33,20 +33,15 @@ public:
 private:
     std::vector<TileGraphicsItem*> currentTileItemBoard;
     std::vector<Tile*>* baseTileBoard;
-
     int numAvgTreePerTile;
     int stdTreeDeviation = 5;
-
     SpawnMode currentSpawnMode;
-
     SoundCue* sfx;
-
     int numRow;
     int numCol;
 
 public slots:
     void handleTileStateChanged(const int &tileIndex, TileState newState);
-private slots:
     void handleTilePressed(const int &tileIndex, SpawnMode);
     void handleSpawnVehicle(SpawnMode spawnMode, const QPixmap& overlayItem, const QPointF& pos);
 signals:

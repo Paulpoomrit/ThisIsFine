@@ -22,14 +22,11 @@ public:
 private:
     FlameSpriteMap loadFlameSpritePaths(const QString& jsonPath);
     std::vector<QPixmap> flameSprites;
-
     QString flameTypeToString(FlameType type);
     FlameType stringToFlameType(const QString &str);
     FlameType getRandomFlameType() const;
     void loadFlameSprites(const std::vector<QString> &pathArray);
-
     QTimer *animTimer;
-
     void updateToNextSprite();
     int currentSpriteIndex;
 };
