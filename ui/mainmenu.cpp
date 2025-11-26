@@ -35,17 +35,26 @@ GameMode MainMenu::doMainMenu()
 {
     MainMenu* mainMenu = new MainMenu();
     mainMenu->show();
-    QEventLoop loop;
-    GameMode selectedMode;
+    QEventLoop* loop = new QEventLoop;
+    GameMode* selectedMode = new GameMode();
 
-    QObject::connect(mainMenu, &MainMenu::gameStarted, mainMenu, [&loop, &selectedMode](GameMode gameMode) {
-        selectedMode = gameMode;
-        loop.quit();
+    QObject::connect(mainMenu, &MainMenu::gameStarted, mainMenu, [loop, selectedMode](GameMode gameMode) {
+        *selectedMode = gameMode;
+        loop->exit(0);
     });
 
-    loop.exec();
-    delete mainMenu;
-    return selectedMode;
+    QObject::connect(mainMenu, &MainMenu::destroyed, mainMenu, [loop]() {
+        loop->exit(1);
+    });
+
+    if (loop->exec() == 0) {
+        delete mainMenu;
+        delete loop;
+        return *selectedMode;
+    } else {
+        // exit the game if the window is being closed prematurely
+        std::exit(0);
+    }
 }
 
 QSize MainMenu::sizeHint() const
