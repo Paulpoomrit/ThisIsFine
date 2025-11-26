@@ -20,7 +20,5 @@ int main(int argc, char *argv[])
     std::variant<Win,Lose> EndGameState = LevelManager::doLevel(gameConfig);
     qDebug() << "EndGame w Mode" << EndGameState.index();
 
-
-
     return app.exec();
 }

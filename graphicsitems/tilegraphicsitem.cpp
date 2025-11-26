@@ -15,7 +15,8 @@ TileGraphicsItem::TileGraphicsItem(QGraphicsObject *parent,
                                    SoundCue *parentSoundCue,
                                    const int& numTree,
                                    Tile* mainTile,
-                                   const std::vector<TileGraphicsItem *> &parentTileBoard, int numCols, int numRows, int tileIndex) :
+                                   const std::vector<TileGraphicsItem *> &parentTileBoard,
+                                   int numCols, int numRows, int tileIndex) :
     QGraphicsObject(parent),
     parentTileBoard(parentTileBoard),
     mainTile(mainTile),
@@ -131,9 +132,6 @@ bool TileGraphicsItem::isCornerTile() const
         !(tileIndex % numCols == numCols-1) &&
         !(tileIndex / numCols == 0) &&
         !(tileIndex / numCols == numRows-1)) {
-        // setCurrentSpawnMode(SpawnMode::NONE);
-        // setCurrentTileGraphicalState(TileGraphicalState::TILE_HOVERED);
-        // setOverlayMode(TileGraphicalState::TILE_HOVERED);
         return false;
     }
     return true;
@@ -198,23 +196,18 @@ void TileGraphicsItem::setOverlayMode(TileGraphicalState tileState)
         overlayItem->scene() ? void(0) : this->scene()->addItem(overlayItem);
         break;
     case TileGraphicalState::TILE_PRESSED:
+        QPixmap vehicleSprite = overlayItem->pixmap();
         overlayItem->setOpacity(1);
         overlayItem->setPixmap(*clickedEffectSprite);
         overlayItem->setPos(this->pos());
         overlayItem->setZValue(100);
         overlayItem->scene() ? void(0) : this->scene()->addItem(overlayItem);
 
-        // TruckGraphicsItem* fireTruck = new TruckGraphicsItem(nullptr, overlayItem->pixmap(), parentTileBoard);
-        // fireTruck->setPixmap(*fireTruckSprite);
-        // this->scene()->addItem(fireTruck);
-        // fireTruck->setPos(this->pos());
-        // fireTruck->setZValue(90);
-        // fireTruck->readyToConnectToScene();
-
-        qDebug() << isCornerTile();
+        if (currentSpawnMode != SpawnMode::NONE) {
+            emit shouldSpawnVehicle(this->getCurrentSpawnMode(), vehicleSprite, this->pos());
+        }
 
         this->setCurrentSpawnMode(SpawnMode::NONE);
-
         break;
     }
 }

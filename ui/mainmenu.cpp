@@ -15,7 +15,8 @@ MainMenu::MainMenu(QWidget *parent)
     connect(ui->infiniteModeButton, &RetroButton::clicked, this, [this](){
         emit gameStarted(GameMode::INFINITE_MODE);
     });
-    connect(ui->exitButton, &RetroButton::clicked, this, []() {
+    connect(ui->exitButton, &RetroButton::clicked, this, [this]() {
+        this->close();
         qApp->exit();
     });
 
@@ -43,7 +44,6 @@ GameMode MainMenu::doMainMenu()
     });
 
     QObject::connect(mainMenu, &QObject::destroyed, mainMenu, [&loop] {
-        qDebug() << "quit";
         loop.quit();
     });
 

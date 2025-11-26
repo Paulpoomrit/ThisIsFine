@@ -48,6 +48,7 @@ public slots:
     void handleTileStateChanged(const int &tileIndex, TileState newState);
 private slots:
     void handleTilePressed(const int &tileIndex, SpawnMode);
+    void handleSpawnVehicle(SpawnMode spawnMode, const QPixmap& overlayItem, const QPointF& pos);
 signals:
     void tilePressed(const int &tileIndex);
 
