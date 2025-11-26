@@ -310,11 +310,7 @@ void TileGraphicsItem::mousePressEvent(QGraphicsSceneMouseEvent *event)
 
     qDebug() << "pressed: " << numRows;
 
-    if ((getCurrentSpawnMode() == SpawnMode::FIRE_TRUCK || getCurrentSpawnMode() == SpawnMode::HELICOPTER || getCurrentSpawnMode() == SpawnMode::PLANE) &&
-        !(tileIndex % numCols == 0) &&
-        !(tileIndex % numCols == numCols-1) &&
-        !(tileIndex / numCols == 0) &&
-        !(tileIndex / numCols == numRows-1)) {
+    if (this->getCurrentSpawnMode() != SpawnMode::NONE && !this->isCornerTile()) {
         return;
     }
 
@@ -331,11 +327,7 @@ void TileGraphicsItem::hoverEnterEvent(QGraphicsSceneHoverEvent *event)
         soundCue->playSFX(SFX::DIRT, 0.1);
     }
 
-    if ((getCurrentSpawnMode() == SpawnMode::FIRE_TRUCK || getCurrentSpawnMode() == SpawnMode::HELICOPTER || getCurrentSpawnMode() == SpawnMode::PLANE) &&
-        !(tileIndex % numCols == 0) &&
-        !(tileIndex % numCols == numCols-1) &&
-        !(tileIndex / numCols == 0) &&
-        !(tileIndex / numCols == numRows-1)) {
+    if (this->getCurrentSpawnMode() != SpawnMode::NONE && !this->isCornerTile()) {
         setCurrentSpawnMode(SpawnMode::NONE);
         setCurrentTileGraphicalState(TileGraphicalState::TILE_HOVERED);
         setOverlayMode(TileGraphicalState::TILE_HOVERED);

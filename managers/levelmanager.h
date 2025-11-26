@@ -12,6 +12,7 @@ class LevelManager
 {
 public:
     LevelManager(GameWindow* gameWindow, GameScene* gameScene);
+
     static std::variant<Win, Lose> doLevel(ConfigInfo GameConfig);
 
     GameWindow *getGameWindow() const;

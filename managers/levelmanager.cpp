@@ -61,7 +61,8 @@ std::variant<Win, Lose> LevelManager::doLevel(ConfigInfo GameConfig)
     // start timer
     QEventLoop* loop = new QEventLoop();
     QTimer *timer = new QTimer();
-    QObject::connect(timer, &QTimer::timeout, game, [loop](){
+    QObject::connect(timer, &QTimer::timeout, game, [loop, game](){
+        delete game;
         loop->quit();
     });
     QObject::connect(game, &QObject::destroyed, game, [loop]() {
@@ -73,7 +74,6 @@ std::variant<Win, Lose> LevelManager::doLevel(ConfigInfo GameConfig)
     delete loop;
     delete timer;
     delete level;
-    delete game;
 
     // TO-DO determine win-lose condition
     return Win();
