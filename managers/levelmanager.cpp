@@ -64,9 +64,7 @@ std::variant<Win, Lose> LevelManager::doLevel(ConfigInfo GameConfig)
     QObject::connect(timer, &QTimer::timeout, game, [loop, game](){
         loop->quit();
     });
-    QObject::connect(game, &QObject::destroyed, game, [loop]() {
-        loop->quit();
-    });
+
     timer->start(60000);
     loop->exec();
 

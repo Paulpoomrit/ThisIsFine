@@ -43,10 +43,6 @@ GameMode MainMenu::doMainMenu()
         loop.quit();
     });
 
-    QObject::connect(mainMenu, &QObject::destroyed, mainMenu, [&loop] {
-        loop.quit();
-    });
-
     loop.exec();
     delete mainMenu;
     return selectedMode;
