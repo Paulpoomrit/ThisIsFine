@@ -28,7 +28,7 @@ MainMenu::MainMenu(QWidget *parent)
 
 MainMenu::~MainMenu()
 {
-    delete ui;
+    delete ui;    
 }
 
 GameMode MainMenu::doMainMenu()

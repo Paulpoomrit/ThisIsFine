@@ -14,7 +14,7 @@ Flame::Flame(QGraphicsItem *parent) :
     animTimer(new QTimer),
     currentSpriteIndex(0)
 {
-    FlameSpriteMap allSprites = loadFlameSpritePaths(":/data/flameSprites.json");
+    FlameSpriteMap allSprites = loadFlameSpritePaths(":/data/json/flameSprites.json");
 
     const auto &randomFlameType = getRandomFlameType();
     const auto &paths = allSprites[randomFlameType];

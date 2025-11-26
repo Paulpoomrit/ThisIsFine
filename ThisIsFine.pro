@@ -60,5 +60,5 @@ RESOURCES += \
     resources.qrc
 
 DISTFILES += \
-    flameSprites.json \
-    treeSprites.json
+    json/flameSprites.json \
+    json/treeSprites.json
