@@ -11,7 +11,7 @@ GameWindow::GameWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::GameWindow)
 {
-    qDebug() << QPalette();
+    this->setAttribute(Qt::WA_DeleteOnClose, true);
     ui->setupUi(this);
 
     ui->graphicsView->setDragMode(QGraphicsView::NoDrag);
@@ -46,8 +46,14 @@ QSize GameWindow::calculateTileSize(int numRow, int numCol) const
 {
 
     QSize tileSize;
-    QSizeF viewSize = ui->graphicsView->sceneRect().size() + GameWindowConfig::TILE_ERROR_BOUND;
+    QSizeF viewSize = ui->graphicsView->sceneRect().size();
 
+    // sceneRect().size() can return (0,0) if there is a 2nd screen
+    if (viewSize == QSize(0,0)) {
+        viewSize = ui->graphicsView->size();
+    }
+
+    viewSize += GameWindowConfig::TILE_ERROR_BOUND;
     tileSize.setWidth(viewSize.width()/numCol);
     tileSize.setHeight(viewSize.height()/numRow);
     return tileSize;

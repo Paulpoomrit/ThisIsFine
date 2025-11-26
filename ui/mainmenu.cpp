@@ -7,6 +7,7 @@ MainMenu::MainMenu(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainMenu)
 {
+    this->setAttribute(Qt::WA_DeleteOnClose, true);
     ui->setupUi(this);
     connect(ui->storyModeButton, &RetroButton::clicked, this, [this](){
         emit gameStarted(GameMode::STORY_MODE);
@@ -15,7 +16,7 @@ MainMenu::MainMenu(QWidget *parent)
         emit gameStarted(GameMode::INFINITE_MODE);
     });
     connect(ui->exitButton, &RetroButton::clicked, this, []() {
-        QApplication::quit();
+        qApp->exit();
     });
 
     // constraint aspect ratio
@@ -38,6 +39,11 @@ GameMode MainMenu::doMainMenu()
 
     QObject::connect(mainMenu, &MainMenu::gameStarted, mainMenu, [&loop, &selectedMode](GameMode gameMode) {
         selectedMode = gameMode;
+        loop.quit();
+    });
+
+    QObject::connect(mainMenu, &QObject::destroyed, mainMenu, [&loop] {
+        qDebug() << "quit";
         loop.quit();
     });
 

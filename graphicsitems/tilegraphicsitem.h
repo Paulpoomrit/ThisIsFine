@@ -1,14 +1,14 @@
 #ifndef TILEGRAPHICSITEM_H
 #define TILEGRAPHICSITEM_H
 
-#include <QGraphicsPixmapItem>
-#include <QSoundEffect>
-#include "spawnmode.h"
-#include "flame.h"
-#include "../sound/soundcue.h"
 #include "../logicitems/tile.h"
 #include "../logicitems/tilestates.h"
+#include "../sound/soundcue.h"
+#include "flame.h"
+#include "spawnmode.h"
 #include "treegraphicsitem.h"
+#include <QGraphicsPixmapItem>
+#include <QSoundEffect>
 
 class TileGraphicsItem : public QGraphicsObject
 
@@ -33,7 +33,7 @@ signals:
 
 public slots:
     void handleStateChanged(TileState newState, TileState oldState);
-    // void handleFireChanged(); // for later smoke effect
+    // void handleFireChanged(); // TO-DO: for later smoke effect
 
 private:
     const std::vector<TileGraphicsItem*> &parentTileBoard;

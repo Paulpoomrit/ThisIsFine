@@ -1,8 +1,10 @@
 #ifndef CONFIGINFO_H
 #define CONFIGINFO_H
 
-struct ConfigInfo {
+#include "gamemode.h"
 
+struct ConfigInfo {
+    GameMode gameMode;
 };
 
 #endif // CONFIGINFO_H
