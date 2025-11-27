@@ -53,7 +53,7 @@ std::vector<TileGraphicsItem*>* GameScene::initTileBoard(
         connect(tileItem, &TileGraphicsItem::pressed, this,[=](SpawnMode mode) {
             handleTilePressed(tileIndex, mode);
         });
-        connect(tileItem, &TileGraphicsItem::shouldSpawnVehicle, this, &GameScene::handleSpawnVehicle);
+        // connect(tileItem, &TileGraphicsItem::shouldSpawnVehicle, this, &GameScene::handleSpawnVehicle);
 
         addItem(tileItem);
         tileItem->setPos(currentPos);
@@ -181,15 +181,15 @@ void GameScene::handleTilePressed(const int &tileIndex, SpawnMode mode)
     emit tilePressed(tileIndex);
 }
 
-void GameScene::handleSpawnVehicle(SpawnMode spawnMode, const QPixmap& overlayItem, const QPointF& pos)
-{
-    TruckGraphicsItem* fireTruck = new TruckGraphicsItem(nullptr, overlayItem, this->currentTileItemBoard);
-    fireTruck->setPixmap(overlayItem);
-    this->addItem(fireTruck);
-    fireTruck->setPos(pos);
-    fireTruck->setZValue(90);
-    fireTruck->readyToConnectToScene();
-}
+// void GameScene::handleSpawnVehicle(SpawnMode spawnMode, const QPixmap& overlayItem, const QPointF& pos)
+// {
+//     TruckGraphicsItem* fireTruck = new TruckGraphicsItem(nullptr, overlayItem, this->currentTileItemBoard);
+//     fireTruck->setPixmap(overlayItem);
+//     this->addItem(fireTruck);
+//     fireTruck->setPos(pos);
+//     fireTruck->setZValue(90);
+//     fireTruck->readyToConnectToScene();
+// }
 
 void GameScene::wheelEvent(QGraphicsSceneWheelEvent *event)
 {

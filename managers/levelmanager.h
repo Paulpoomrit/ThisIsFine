@@ -24,6 +24,7 @@ public:
     void setGameScene(GameScene *newGameScene);
 
     void spawnTilesAndConnect();
+    void spawnVehicleAndConnect(SpawnMode spawnMode, const QPixmap& overlayItem, const QPointF& pos, const int& tileIndex);
 
 private:
     GameWindow* gameWindow;

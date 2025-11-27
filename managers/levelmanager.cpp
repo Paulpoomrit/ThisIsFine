@@ -1,4 +1,5 @@
 #include "levelmanager.h"
+#include "graphicsitems/truckgraphicsitem.h"
 #include "logicitems/tilelogic.h"
 #include "ui/gamewindow.h"
 
@@ -105,7 +106,6 @@ void LevelManager::spawnTilesAndConnect()
         tileLogicBoard[index]->StartTimer(500);
         index++;
     }
-    Q_UNUSED(tileGraphicsBoard);
 
     // Connect logic& graphics components
     for (size_t i = 0; i < tileBoard.size(); i++) {
@@ -113,6 +113,23 @@ void LevelManager::spawnTilesAndConnect()
         TileGraphicsItem* graphicsTile = tileGraphicsBoard->at(i);
 
         connect(mainTile, &Tile::StateChanged, graphicsTile, &TileGraphicsItem::handleStateChanged);
+        connect(graphicsTile, &TileGraphicsItem::shouldSpawnVehicle, this, &LevelManager::spawnVehicleAndConnect);
     }
+}
 
+void LevelManager::spawnVehicleAndConnect(SpawnMode spawnMode, const QPixmap &overlayItem, const QPointF &pos, const int &tileIndex)
+{
+    TruckGraphicsItem* fireTruck = new TruckGraphicsItem(nullptr, overlayItem, gameScene->getCurrentTileItemBoard());
+    fireTruck->setPixmap(overlayItem);
+    gameScene->addItem(fireTruck);
+    fireTruck->setPos(pos);
+    fireTruck->setZValue(90);
+    // fireTruck->readyToConnectToScene();
+
+    FireTruck* fireTruckLogic = new FireTruck(&tileBoard, tileIndex, gameScene->getNumCol(), gameScene->getNumRow(), gameScene->getNumRow());
+    connect(fireTruckLogic, &FireTruck::StartedTraveling, this, [fireTruck](int totalTravelTime, int spawnIndex, int endIndex) {
+        fireTruck->moveTo(spawnIndex, endIndex, totalTravelTime);
+    });
+
+    fireTruckLogic->StartTraveling(500);
 }

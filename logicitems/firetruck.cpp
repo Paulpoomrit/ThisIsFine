@@ -90,7 +90,6 @@ void FireTruck::StartTraveling(const int msPerTile)
 
 void FireTruck::ExtinguishRow()
 {
-    qDebug() << "extinguishRow" << board->size();
     // Extinguish a row of fire
     for (int i=0; i < extinguishRowCount; i++)
     {

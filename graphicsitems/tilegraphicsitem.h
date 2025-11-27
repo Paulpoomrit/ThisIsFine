@@ -30,7 +30,7 @@ signals:
     void pressed(SpawnMode);
     void hoveredEntered();
     void hoveredLeft();
-    void shouldSpawnVehicle(SpawnMode spawnMode, const QPixmap& overlayItem, const QPointF& pos);
+    void shouldSpawnVehicle(SpawnMode spawnMode, const QPixmap& overlayItem, const QPointF& pos, const int& tileIndex);
 
 public slots:
     void handleStateChanged(TileState newState, TileState oldState);

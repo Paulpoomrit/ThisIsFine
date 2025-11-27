@@ -208,7 +208,7 @@ void TileGraphicsItem::setOverlayMode(TileGraphicalState tileState)
         overlayItem->scene() ? void(0) : this->scene()->addItem(overlayItem);
 
         if (currentSpawnMode != SpawnMode::NONE) {
-            emit shouldSpawnVehicle(this->getCurrentSpawnMode(), vehicleSprite, this->pos());
+            emit shouldSpawnVehicle(this->getCurrentSpawnMode(), vehicleSprite, this->pos(), this->tileIndex);
         }
 
         this->setCurrentSpawnMode(SpawnMode::NONE);
