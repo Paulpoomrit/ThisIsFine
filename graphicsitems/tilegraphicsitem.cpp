@@ -305,8 +305,6 @@ void TileGraphicsItem::mousePressEvent(QGraphicsSceneMouseEvent *event)
     }
     setCurrentTileGraphicalState(TileGraphicalState::TILE_PRESSED);
 
-    qDebug() << "pressed: " << numRows;
-
     if (this->getCurrentSpawnMode() != SpawnMode::NONE && !this->isCornerTile()) {
         return;
     }
@@ -339,7 +337,6 @@ void TileGraphicsItem::hoverEnterEvent(QGraphicsSceneHoverEvent *event)
 void TileGraphicsItem::hoverLeaveEvent(QGraphicsSceneHoverEvent *event)
 {
     Q_UNUSED(event);
-    // *tileSprite = *idleSprite;
     setCurrentTileGraphicalState(TileGraphicalState::TILE_DEFAULT);
     setOverlayMode(TileGraphicalState::TILE_DEFAULT);
     update();

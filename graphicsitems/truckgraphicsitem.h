@@ -20,7 +20,6 @@ public:
     void setTruckPos(QPoint newTruckPos);
 
     void moveTo(int startIndex, int stopIndex, int travelTime);
-    void readyToConnectToScene();
 
 public slots:
 

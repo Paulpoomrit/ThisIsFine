@@ -1,8 +1,4 @@
 #include "truckgraphicsitem.h"
-
-#include "../GameScene.h"
-#include "../logicitems/firetruck.h"
-
 #include <QRandomGenerator>
 
 TruckGraphicsItem::TruckGraphicsItem(QGraphicsItem *parent,
@@ -58,41 +54,4 @@ void TruckGraphicsItem::moveTo(int startIndex, int stopIndex, int travelTime)
     });
     moveAnimation->start();
     disconnect(tilePressedConnection);
-}
-
-void TruckGraphicsItem::readyToConnectToScene()
-{
-    // connect with the scene to receive the tileIndex
-    GameScene* gameScene = qobject_cast<GameScene*>(this->scene());
-    qDebug() << this->parent();
-
-
-    int numCols = gameScene->getNumCol();
-    int numRows = gameScene->getNumRow();
-
-
-    if (gameScene) {
-        tilePressedConnection = connect(gameScene, &GameScene::tilePressed, this, [=](const int &tileIndex) {
-
-            std::vector<Tile*> *baseTileBoard = gameScene->getBaseTileBoard();
-            qDebug() << "in ready to connect: " << baseTileBoard->size();
-            QSize tileSize = parentTileBoard[0]->getTileSize();
-
-            fireTruckLogic = new FireTruck(baseTileBoard, tileIndex, numCols, numRows, gameScene->getNumRow());
-
-            connect(fireTruckLogic, &FireTruck::StartedTraveling, this, [=](int totalTravelTime, int spawnIndex, int endIndex){
-                qDebug() << "frontend: connect";
-                this->moveTo(spawnIndex, endIndex, totalTravelTime);
-            });
-
-            fireTruckLogic->StartTraveling(500);
-
-            // emit truckSpawned(baseTileBoard, tileIndex, tileSize.width(), tileSize.height(), speed);
-
-            qDebug() << "spawn at tile no:" << tileIndex;
-            // moveTo(tileIndex,60,1600); // test -> will have to be called from the logic side
-        });
-    } else {
-        qDebug() << "game scene not valid:";
-    }
 }

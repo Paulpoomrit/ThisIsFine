@@ -74,7 +74,7 @@ void LevelManager::setGameScene(GameScene *newGameScene)
 
 void LevelManager::spawnTilesAndConnect()
 {
-    // Setup logic components
+    // Set up logic components
     for (int i=0; i < LevelManagerConfig::BOARD_WIDTH * LevelManagerConfig::BOARD_HEIGHT; ++i) {
         tileBoard.push_back(new Tile());
         tileLogicBoard.push_back(new TileLogic(tileBoard.back()));
@@ -92,7 +92,7 @@ void LevelManager::spawnTilesAndConnect()
                     tileLogicBoard[i]->AddTarget(tileBoard[loc]);
             }
 
-    // Setup graphics components (and the scene itself)
+    // Set up graphics components (and the scene itself)
     tileGraphicsBoard = this->gameScene->initTileBoard(&tileBoard, this->gameWindow->calculateTileSize(LevelManagerConfig::BOARD_HEIGHT, LevelManagerConfig::BOARD_WIDTH), LevelManagerConfig::BOARD_WIDTH, LevelManagerConfig::BOARD_HEIGHT);
     this->gameScene->setNumCol(LevelManagerConfig::BOARD_WIDTH);
     this->gameScene->setNumRow(LevelManagerConfig::BOARD_HEIGHT);
@@ -119,13 +119,14 @@ void LevelManager::spawnTilesAndConnect()
 
 void LevelManager::spawnVehicleAndConnect(SpawnMode spawnMode, const QPixmap &overlayItem, const QPointF &pos, const int &tileIndex)
 {
+    // Set up truck graphics
     TruckGraphicsItem* fireTruck = new TruckGraphicsItem(nullptr, overlayItem, gameScene->getCurrentTileItemBoard());
     fireTruck->setPixmap(overlayItem);
     gameScene->addItem(fireTruck);
     fireTruck->setPos(pos);
     fireTruck->setZValue(90);
-    // fireTruck->readyToConnectToScene();
 
+    // Set up truck logic
     FireTruck* fireTruckLogic = new FireTruck(&tileBoard, tileIndex, gameScene->getNumCol(), gameScene->getNumRow(), gameScene->getNumRow());
     connect(fireTruckLogic, &FireTruck::StartedTraveling, this, [fireTruck](int totalTravelTime, int spawnIndex, int endIndex) {
         fireTruck->moveTo(spawnIndex, endIndex, totalTravelTime);
