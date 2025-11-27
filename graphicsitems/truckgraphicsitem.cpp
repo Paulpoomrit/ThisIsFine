@@ -75,6 +75,7 @@ void TruckGraphicsItem::readyToConnectToScene()
         tilePressedConnection = connect(gameScene, &GameScene::tilePressed, this, [=](const int &tileIndex) {
 
             std::vector<Tile*> *baseTileBoard = gameScene->getBaseTileBoard();
+            qDebug() << "in ready to connect: " << baseTileBoard->size();
             QSize tileSize = parentTileBoard[0]->getTileSize();
 
             fireTruckLogic = new FireTruck(baseTileBoard, tileIndex, numCols, numRows, gameScene->getNumRow());

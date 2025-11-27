@@ -2,6 +2,7 @@
 #define LEVELMANAGER_H
 
 #include "configinfo.h"
+#include "logicitems/tilelogic.h"
 #include "managers/endgamestates.h"
 #include "ui/gamewindow.h"
 #include <QStackedWidget>
@@ -27,6 +28,10 @@ public:
 private:
     GameWindow* gameWindow;
     GameScene* gameScene;
+
+    std::vector<Tile*> tileBoard;
+    std::vector<TileLogic*> tileLogicBoard;
+    std::vector<TileGraphicsItem*>* tileGraphicsBoard;
 
 };
 

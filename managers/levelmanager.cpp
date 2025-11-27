@@ -73,10 +73,6 @@ void LevelManager::setGameScene(GameScene *newGameScene)
 
 void LevelManager::spawnTilesAndConnect()
 {
-    std::vector<Tile*> tileBoard;
-    std::vector<TileLogic*> tileLogicBoard;
-    std::vector<TileGraphicsItem*>* tileGraphicsBoard;
-
     // Setup logic components
     for (int i=0; i < LevelManagerConfig::BOARD_WIDTH * LevelManagerConfig::BOARD_HEIGHT; ++i) {
         tileBoard.push_back(new Tile());
