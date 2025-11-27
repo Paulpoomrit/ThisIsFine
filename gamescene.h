@@ -14,7 +14,7 @@ class GameScene : public QGraphicsScene
     Q_OBJECT
 public:
     GameScene(QObject *parent);
-    void initTileBoard(std::vector<Tile*>* startingTileBoard = new std::vector<Tile*>(),
+    std::vector<TileGraphicsItem*>* initTileBoard(std::vector<Tile*>* startingTileBoard = new std::vector<Tile*>(),
                        const QSize &tileSize = QSize(100,100),
                        const int &column = 5, const int &row = 5,
                        const int & numAvgTreePerTile = 5);
@@ -29,6 +29,9 @@ public:
 
     int getNumCol() const;
     void setNumCol(int newNumCol);
+
+    std::vector<TileGraphicsItem *> getCurrentTileItemBoard() const;
+    void setCurrentTileItemBoard(const std::vector<TileGraphicsItem *> &newCurrentTileItemBoard);
 
 private:
     std::vector<TileGraphicsItem*> currentTileItemBoard;

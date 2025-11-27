@@ -21,7 +21,8 @@ GameScene::GameScene(QObject *parent) :
     setBackgroundBrush(Qt::transparent);
 }
 
-void GameScene::initTileBoard(std::vector<Tile*> *startingTileBoard,
+std::vector<TileGraphicsItem*>* GameScene::initTileBoard(
+                              std::vector<Tile*> *startingTileBoard,
                               const QSize &tileSize,
                               const int &column,
                               const int &row,
@@ -105,6 +106,7 @@ void GameScene::initTileBoard(std::vector<Tile*> *startingTileBoard,
         tile->setTreeItems(treeArray);
         tile->setFlameItems(flameArray);
     }
+    return &currentTileItemBoard;
 }
 
 SpawnMode GameScene::getCurrentSpawnMode() const
@@ -152,6 +154,16 @@ int GameScene::getNumCol() const
 void GameScene::setNumCol(int newNumCol)
 {
     numCol = newNumCol;
+}
+
+std::vector<TileGraphicsItem *> GameScene::getCurrentTileItemBoard() const
+{
+    return currentTileItemBoard;
+}
+
+void GameScene::setCurrentTileItemBoard(const std::vector<TileGraphicsItem *> &newCurrentTileItemBoard)
+{
+    currentTileItemBoard = newCurrentTileItemBoard;
 }
 
 void GameScene::handleTileStateChanged(const int &tileIndex, TileState newState)

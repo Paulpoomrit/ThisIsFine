@@ -21,42 +21,9 @@ std::variant<Win, Lose> LevelManager::doLevel(ConfigInfo GameConfig)
 
     // TO-DO: setup level according to the current GameConfig
     Q_UNUSED(GameConfig)
+
     LevelManager* level = new LevelManager(game, game->getScene());
-
-    std::vector<Tile*> tileBoard;
-    std::vector<TileLogic*> tileLogicBoard;
-
-    for (int i=0; i < LevelManagerConfig::BOARD_WIDTH * LevelManagerConfig::BOARD_HEIGHT; ++i) {
-        tileBoard.push_back(new Tile());
-        tileLogicBoard.push_back(new TileLogic(tileBoard.back()));
-    }
-    // Connect tile logic to its neighbouring tiles
-    for (int i=0; i < LevelManagerConfig::BOARD_WIDTH * LevelManagerConfig::BOARD_HEIGHT; i++)
-        // Iterate through all indices in a 3x3 area centered around i
-        for (int j=-1; j <= 1; j++)
-            for (int k=-1; k <= 1; k++)
-            {
-                int loc = i-(j*LevelManagerConfig::BOARD_WIDTH)+k;
-                // Add the tile at that location as a target if it is in bounds and not the center
-                if (loc != i && loc <= 0 && loc > LevelManagerConfig::BOARD_WIDTH * LevelManagerConfig::BOARD_HEIGHT)
-                    tileLogicBoard[i]->AddTarget(tileBoard[loc]);
-            }
-
-
-    qDebug() << "Tile Size: " << game->calculateTileSize(LevelManagerConfig::BOARD_HEIGHT, LevelManagerConfig::BOARD_WIDTH);
-    game->getScene()->initTileBoard(&tileBoard, game->calculateTileSize(LevelManagerConfig::BOARD_HEIGHT, LevelManagerConfig::BOARD_WIDTH), LevelManagerConfig::BOARD_WIDTH, LevelManagerConfig::BOARD_HEIGHT);
-    game->getScene()->setNumCol(LevelManagerConfig::BOARD_WIDTH);
-    game->getScene()->setNumRow(LevelManagerConfig::BOARD_HEIGHT);
-
-    // randomize fire
-    int index = 0;
-    for (Tile* tile : tileBoard) {
-        if (QRandomGenerator::global()->generateDouble() < .1) {
-            tile->ChangeFire(1);
-        }
-        tileLogicBoard[index]->StartTimer(500);
-        index++;
-    }
+    level->spawnTilesAndConnect();
 
     // start timer
     QEventLoop* loop = new QEventLoop();
@@ -102,4 +69,54 @@ GameScene *LevelManager::getGameScene() const
 void LevelManager::setGameScene(GameScene *newGameScene)
 {
     gameScene = newGameScene;
+}
+
+void LevelManager::spawnTilesAndConnect()
+{
+    std::vector<Tile*> tileBoard;
+    std::vector<TileLogic*> tileLogicBoard;
+    std::vector<TileGraphicsItem*>* tileGraphicsBoard;
+
+    // Setup logic components
+    for (int i=0; i < LevelManagerConfig::BOARD_WIDTH * LevelManagerConfig::BOARD_HEIGHT; ++i) {
+        tileBoard.push_back(new Tile());
+        tileLogicBoard.push_back(new TileLogic(tileBoard.back()));
+    }
+
+    // Connect tile logic to its neighbouring tiles
+    for (int i=0; i < LevelManagerConfig::BOARD_WIDTH * LevelManagerConfig::BOARD_HEIGHT; i++)
+        // Iterate through all indices in a 3x3 area centered around i
+        for (int j=-1; j <= 1; j++)
+            for (int k=-1; k <= 1; k++)
+            {
+                int loc = i-(j*LevelManagerConfig::BOARD_WIDTH)+k;
+                // Add the tile at that location as a target if it is in bounds and not the center
+                if (loc != i && loc <= 0 && loc > LevelManagerConfig::BOARD_WIDTH * LevelManagerConfig::BOARD_HEIGHT)
+                    tileLogicBoard[i]->AddTarget(tileBoard[loc]);
+            }
+
+    // Setup graphics components (and the scene itself)
+    tileGraphicsBoard = this->gameScene->initTileBoard(&tileBoard, this->gameWindow->calculateTileSize(LevelManagerConfig::BOARD_HEIGHT, LevelManagerConfig::BOARD_WIDTH), LevelManagerConfig::BOARD_WIDTH, LevelManagerConfig::BOARD_HEIGHT);
+    this->gameScene->setNumCol(LevelManagerConfig::BOARD_WIDTH);
+    this->gameScene->setNumRow(LevelManagerConfig::BOARD_HEIGHT);
+
+    // Randomize fire
+    int index = 0;
+    for (Tile* tile : tileBoard) {
+        if (QRandomGenerator::global()->generateDouble() < .1) {
+            tile->ChangeFire(1);
+        }
+        tileLogicBoard[index]->StartTimer(500);
+        index++;
+    }
+    Q_UNUSED(tileGraphicsBoard);
+
+    // Connect logic& graphics components
+    for (size_t i = 0; i < tileBoard.size(); i++) {
+        Tile* mainTile = tileBoard[i];
+        TileGraphicsItem* graphicsTile = tileGraphicsBoard->at(i);
+
+        connect(mainTile, &Tile::StateChanged, graphicsTile, &TileGraphicsItem::handleStateChanged);
+    }
+
 }

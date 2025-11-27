@@ -61,7 +61,7 @@ void TruckGraphicsItem::moveTo(int startIndex, int stopIndex, int travelTime)
 }
 
 void TruckGraphicsItem::readyToConnectToScene()
-{   
+{
     // connect with the scene to receive the tileIndex
     GameScene* gameScene = qobject_cast<GameScene*>(this->scene());
     qDebug() << this->parent();

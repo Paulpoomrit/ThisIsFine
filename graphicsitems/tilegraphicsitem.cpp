@@ -80,7 +80,11 @@ TileGraphicsItem::TileGraphicsItem(QGraphicsObject *parent,
              QGraphicsItem::ItemSendsGeometryChanges);
     setAcceptHoverEvents(true);
 
-    connect(mainTile, &Tile::StateChanged, this, &TileGraphicsItem::handleStateChanged);
+    // This is part is being moved to the LevelManager
+    // Note that connecting here has the advantage of being faster
+    // while connecting in the manager slowly introduce the fire to the scene incrementally (visually nicer?)
+    // + part of the refactor is to centralize logic-graphics connection in the LevelManager
+    // connect(mainTile, &Tile::StateChanged, this, &TileGraphicsItem::handleStateChanged);
 }
 
 TileState TileGraphicsItem::getCurrentTileState() const

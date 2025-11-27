@@ -8,8 +8,9 @@
 #include <variant>
 
 
-class LevelManager
+class LevelManager : public QObject
 {
+    Q_OBJECT
 public:
     LevelManager(GameWindow* gameWindow, GameScene* gameScene);
 
@@ -20,6 +21,8 @@ public:
 
     GameScene *getGameScene() const;
     void setGameScene(GameScene *newGameScene);
+
+    void spawnTilesAndConnect();
 
 private:
     GameWindow* gameWindow;
