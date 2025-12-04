@@ -3,11 +3,15 @@
 #include "ui_gamewindow.h"
 #include <QtGui/qevent.h>
 
+namespace GameWindowConfig {
+constexpr QSize TILE_ERROR_BOUND = QSize(10,10);
+}
+
 GameWindow::GameWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::GameWindow)
 {
-    qDebug() << QPalette();
+    this->setAttribute(Qt::WA_DeleteOnClose, true);
     ui->setupUi(this);
 
     ui->graphicsView->setDragMode(QGraphicsView::NoDrag);
@@ -36,11 +40,20 @@ GameScene *GameWindow::getScene()
     return scene;
 }
 
+
+// doesn't work when there exists more than 1 monitor!
 QSize GameWindow::calculateTileSize(int numRow, int numCol) const
 {
+
     QSize tileSize;
-    QSize viewSize = ui->graphicsView->size();
-    qDebug() << viewSize;
+    QSizeF viewSize = ui->graphicsView->sceneRect().size();
+
+    // sceneRect().size() can return (0,0) if there is a 2nd screen
+    if (viewSize == QSize(0,0)) {
+        viewSize = ui->graphicsView->size();
+    }
+
+    viewSize += GameWindowConfig::TILE_ERROR_BOUND;
     tileSize.setWidth(viewSize.width()/numCol);
     tileSize.setHeight(viewSize.height()/numRow);
     return tileSize;
@@ -70,7 +83,6 @@ void GameWindow::resizeEvent(QResizeEvent *event)
 void GameWindow::showEvent(QShowEvent *event)
 {
     Q_UNUSED(event);
-    qDebug() << ui->graphicsView->size();
     sceneRectHint = QRect(0,0, ui->graphicsView->size().width(), ui->graphicsView->size().height());
     scene = new GameScene(this);
     ui->graphicsView->setScene(scene);

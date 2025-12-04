@@ -1,14 +1,14 @@
 #ifndef TILEGRAPHICSITEM_H
 #define TILEGRAPHICSITEM_H
 
+#include "../logicitems/tile.h"
+#include "../logicitems/tilestates.h"
+#include "../sound/soundcue.h"
+#include "flame.h"
+#include "spawnmode.h"
+#include "treegraphicsitem.h"
 #include <QGraphicsPixmapItem>
 #include <QSoundEffect>
-#include "SpawnMode.h"
-#include "flame.h"
-#include "soundcue.h"
-#include "tile.h"
-#include "tilestates.h"
-#include "treegraphicsitem.h"
 
 class TileGraphicsItem : public QGraphicsObject
 
@@ -21,7 +21,8 @@ public:
                               SoundCue* parentSoundCue = nullptr,
                               const int& numTree = 5,
                               Tile* mainTile = nullptr,
-                              const std::vector<TileGraphicsItem*> &parentTileBoard = {});
+                              const std::vector<TileGraphicsItem*> &parentTileBoard = {},
+                              int numCols = -1, int numRows = -1, int tileIndex = -1);
     TileState getCurrentTileState() const;
     void setCurrentTileState(TileState newCurrentTileState);
 
@@ -29,10 +30,11 @@ signals:
     void pressed(SpawnMode);
     void hoveredEntered();
     void hoveredLeft();
+    void shouldSpawnVehicle(SpawnMode spawnMode, const QPixmap& overlayItem, const QPointF& pos, const int& tileIndex);
 
 public slots:
     void handleStateChanged(TileState newState, TileState oldState);
-    // void handleFireChanged(); // for later smoke effect
+    // void handleFireChanged(); // TO-DO: for later smoke effect
 
 private:
     const std::vector<TileGraphicsItem*> &parentTileBoard;
@@ -59,6 +61,11 @@ private:
     std::vector<TreeGraphicsItem*> treeItems;
     std::vector<Flame*> flameItems;
     const int numTree;
+
+    int numCols;
+    int numRows;
+    int tileIndex;
+
 public:
     QRectF boundingRect() const;
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
@@ -81,6 +88,8 @@ public:
 
     QSize getTileSize() const;
     void setTileSize(const QSize &newTileSize);
+
+    bool isCornerTile() const;
 
 protected:
     void mousePressEvent(QGraphicsSceneMouseEvent *event);

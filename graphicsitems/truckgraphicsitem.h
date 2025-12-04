@@ -1,8 +1,8 @@
 #ifndef TRUCKGRAPHICSITEM_H
 #define TRUCKGRAPHICSITEM_H
 
-#include "firetruck.h"
-#include "tile.h"
+#include "../logicitems/firetruck.h"
+#include "../logicitems/tile.h"
 #include "tilegraphicsitem.h"
 #include <QGraphicsPixmapItem>
 #include <QObject>
@@ -20,7 +20,6 @@ public:
     void setTruckPos(QPoint newTruckPos);
 
     void moveTo(int startIndex, int stopIndex, int travelTime);
-    void readyToConnectToScene();
 
 public slots:
 
@@ -37,7 +36,6 @@ private:
     QPoint truckPos;
     QPropertyAnimation *moveAnimation;
     int speed;
-
     QMetaObject::Connection tilePressedConnection;
 };
 

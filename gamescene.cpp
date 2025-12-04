@@ -1,11 +1,12 @@
 #include "gamescene.h"
-#include "SpawnMode.h"
-#include "flame.h"
-#include "tilegraphicsitem.h"
-#include "treegraphicsitem.h"
+#include "graphicsitems/spawnmode.h"
+#include "graphicsitems/flame.h"
+#include "graphicsitems/tilegraphicsitem.h"
+#include "graphicsitems/treegraphicsitem.h"
 #include <QtCore/qsignalmapper.h>
 #include <QGraphicsSceneWheelEvent>
 #include <QRandomGenerator>
+#include <QtGui/qpainter.h>
 #include <qpushbutton.h>
 #include <random>
 
@@ -13,17 +14,17 @@ GameScene::GameScene(QObject *parent) :
     QGraphicsScene(parent),
     currentTileItemBoard(),
     baseTileBoard(new std::vector<Tile*>),
-    paulSucksTileBoard(new std::vector<Tile*>),
     currentSpawnMode(SpawnMode::NONE),
     sfx(new SoundCue)
 {
-    QBrush backgroundBrush("#84c669");
-    setBackgroundBrush(backgroundBrush);
+    setBackgroundBrush(Qt::transparent);
 }
 
-void GameScene::initTileBoard(std::vector<Tile*> *startingTileBoard,
+std::vector<TileGraphicsItem*>* GameScene::initTileBoard(
+                              std::vector<Tile*> *startingTileBoard,
                               const QSize &tileSize,
                               const int &column,
+                              const int &row,
                               const int & numAvgTreePerTile)
 {
     setBaseTileBoard(startingTileBoard);
@@ -33,20 +34,20 @@ void GameScene::initTileBoard(std::vector<Tile*> *startingTileBoard,
     int xOffSet = tileSize.width();
     int yOffSet = tileSize.height();
     int columnCounter = 0;
-    // QSignalMapper *mapper = new QSignalMapper(this);
 
     for (Tile* tile : *startingTileBoard) {
-        paulSucksTileBoard->push_back(tile);
         TileGraphicsItem *tileItem = new TileGraphicsItem(nullptr,
                                                           tile->GetState(),
                                                           tileSize,
                                                           sfx,
                                                           5,
                                                           tile,
-                                                          currentTileItemBoard);
+                                                          currentTileItemBoard,
+                                                          column,
+                                                          row,
+                                                          currentTileItemBoard.size());
 
         currentTileItemBoard.push_back(tileItem);
-        // mapper->setMapping(tileItem, currentTileItemBoard.size()-1);
         int tileIndex = currentTileItemBoard.size()-1;
         connect(tileItem, &TileGraphicsItem::pressed, this,[=](SpawnMode mode) {
             handleTilePressed(tileIndex, mode);
@@ -64,7 +65,6 @@ void GameScene::initTileBoard(std::vector<Tile*> *startingTileBoard,
             currentPos.rx() += xOffSet;
         }
     }
-    // connect (mapper, SIGNAL(mappedInt(int)), this, SLOT(handleTilePressed(int)));
 
     // -> Populate tree/flame only after all tiles are drawn
     // the Tree and Flame vectors are being spawned here
@@ -79,9 +79,7 @@ void GameScene::initTileBoard(std::vector<Tile*> *startingTileBoard,
         std::default_random_engine generator;
         std::normal_distribution<double> distribution(numAvgTreePerTile, stdTreeDeviation);
 
-        int numTree = 4;
-
-        for (int i = 0; i < numTree; i++) {
+        for (int i = 0; i < numAvgTreePerTile; i++) {
             TreeGraphicsItem* treeItem = new TreeGraphicsItem();
 
             treeItem->setScale(1);
@@ -105,10 +103,8 @@ void GameScene::initTileBoard(std::vector<Tile*> *startingTileBoard,
         }
         tile->setTreeItems(treeArray);
         tile->setFlameItems(flameArray);
-
-        // //test
-        // tile->setCurrentTileState(TileState::DEAD);
     }
+    return &currentTileItemBoard;
 }
 
 SpawnMode GameScene::getCurrentSpawnMode() const
@@ -129,8 +125,8 @@ void GameScene::setCurrentSpawnMode(SpawnMode newCurrentSpawnMode)
 
 std::vector<Tile *>* GameScene::getBaseTileBoard() const
 {
-    qDebug() << "getBaseTileBoard" << paulSucksTileBoard->size();
-    return paulSucksTileBoard;
+    qDebug() << "getBaseTileBoard" << baseTileBoard->size();
+    return baseTileBoard;
 }
 
 void GameScene::setBaseTileBoard(std::vector<Tile *> *newBaseTileBoard)
@@ -156,6 +152,16 @@ int GameScene::getNumCol() const
 void GameScene::setNumCol(int newNumCol)
 {
     numCol = newNumCol;
+}
+
+std::vector<TileGraphicsItem *> GameScene::getCurrentTileItemBoard() const
+{
+    return currentTileItemBoard;
+}
+
+void GameScene::setCurrentTileItemBoard(const std::vector<TileGraphicsItem *> &newCurrentTileItemBoard)
+{
+    currentTileItemBoard = newCurrentTileItemBoard;
 }
 
 void GameScene::handleTileStateChanged(const int &tileIndex, TileState newState)

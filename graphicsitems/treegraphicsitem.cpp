@@ -14,7 +14,7 @@ TreeGraphicsItem::TreeGraphicsItem(QGraphicsItem *parent) :
     animTimer(new QTimer),
     currentSpriteIndex(0)
 {
-    SpriteMap allSprites = loadTreeSpritePaths(":/data/treeSprites.json");
+    SpriteMap allSprites = loadTreeSpritePaths(":/data/json/treeSprites.json");
 
     const auto &[randomType, randomColour] = getRandomTreeCombo();
     const auto &paths = allSprites[randomType][randomColour];

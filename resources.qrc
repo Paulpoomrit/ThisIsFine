@@ -1,7 +1,8 @@
 <RCC>
     <qresource prefix="/mainMenu">
         <file>Content/ThisIsUiBG.png</file>
-        <file>ThisIsUi_BG_Game.png</file>
+        <file>Content/ThisIsUi (1).png</file>
+        <file>Content/ThisIsUi (2).png</file>
     </qresource>
     <qresource prefix="/SFX">
         <file>Content/SFX/airpods case closed 1.wav</file>
@@ -54,6 +55,8 @@
         <file>Content/SFX/footstep dirt 27.wav</file>
         <file>Content/SFX/footstep dirt 28.wav</file>
         <file>Content/SFX/MAD ROBOT Sound Lab - Vintage Motorcycle - Idling Engine Up Close.wav</file>
+        <file>Content/SFX/ventilation - medium.wav</file>
+        <file>Content/SFX/engine.wav</file>
     </qresource>
     <qresource prefix="/tiles">
         <file>Content/Tiles/tile_0000.png</file>
@@ -227,7 +230,6 @@
         <file>Content/Tiles/tile_0195.png</file>
         <file>Content/Tiles/tile_0196.png</file>
         <file>Content/Tiles/tile_0197.png</file>
-        <file>tile_hovered.png</file>
         <file>Content/Tiles/tile_0133.png</file>
         <file>Content/Tiles/tile_0172.png</file>
         <file>Content/Tiles/tile_0173.png</file>
@@ -1939,8 +1941,8 @@
         <file>Content/Pixel Art Spruce Tree Pack/Triangle Spruce Tree/YELLOW/Triangle Spruce Tree - YELLOW - Spritesheet.png</file>
     </qresource>
     <qresource prefix="/data">
-        <file>treeSprites.json</file>
-        <file>flameSprites.json</file>
+        <file>json/treeSprites.json</file>
+        <file>json/flameSprites.json</file>
     </qresource>
     <qresource prefix="/flameSprites">
         <file>Content/flames/flame_01_01.png</file>
@@ -1994,5 +1996,6 @@
         <file>Content/BGMusic/Kashido - Minuet in G Major.wav</file>
         <file>Content/BGMusic/Kashido - Prelude Op 28 No 4.wav</file>
         <file>Content/BGMusic/Kashido - Swan Lake Theme.wav</file>
+        <file>Content/SFX/Epic Stock Media - Explainer Video - Vintage Film Projector 1960 Bell And Howell Clicking Whirring.wav</file>
     </qresource>
 </RCC>

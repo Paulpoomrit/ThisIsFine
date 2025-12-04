@@ -7,17 +7,17 @@ MainMenu::MainMenu(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainMenu)
 {
+    this->setAttribute(Qt::WA_DeleteOnClose, true);
     ui->setupUi(this);
     connect(ui->storyModeButton, &RetroButton::clicked, this, [this](){
-        qDebug() << "Start game mode: STORY";
         emit gameStarted(GameMode::STORY_MODE);
     });
     connect(ui->infiniteModeButton, &RetroButton::clicked, this, [this](){
-        qDebug() << "Start game mode: INFINITE";
         emit gameStarted(GameMode::INFINITE_MODE);
     });
-    connect(ui->exitButton, &RetroButton::clicked, this, []() {
-        QApplication::quit();
+    connect(ui->exitButton, &RetroButton::clicked, this, [this]() {
+        this->close();
+        qApp->exit();
     });
 
     // constraint aspect ratio
@@ -28,7 +28,33 @@ MainMenu::MainMenu(QWidget *parent)
 
 MainMenu::~MainMenu()
 {
-    delete ui;
+    delete ui;    
+}
+
+GameMode MainMenu::doMainMenu()
+{
+    MainMenu* mainMenu = new MainMenu();
+    mainMenu->show();
+    QEventLoop* loop = new QEventLoop;
+    GameMode* selectedMode = new GameMode();
+
+    QObject::connect(mainMenu, &MainMenu::gameStarted, mainMenu, [loop, selectedMode](GameMode gameMode) {
+        *selectedMode = gameMode;
+        loop->exit(0);
+    });
+
+    QObject::connect(mainMenu, &MainMenu::destroyed, mainMenu, [loop]() {
+        loop->exit(1);
+    });
+
+    if (loop->exec() == 0) {
+        delete mainMenu;
+        delete loop;
+        return *selectedMode;
+    } else {
+        // exit the game if the window is being closed prematurely
+        std::exit(0);
+    }
 }
 
 QSize MainMenu::sizeHint() const
